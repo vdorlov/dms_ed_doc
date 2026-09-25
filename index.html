@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДМС Портал — Обучающие модули для врачей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #e8f6f8;
+        --surface: #ffffff;
+        --ink: #1a2e35;
+        --muted: #546e7a;
+        --accent: #00a8b5;
+        --accent-dark: #008c99;
+        --accent-light: #b2ebf2;
+        --accent-weak: rgba(0, 168, 181, 0.08);
+        --success: #43a047;
+        --warning: #fb8c00;
+        --danger: #e53935;
+        --line: rgba(26, 46, 53, 0.1);
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+        --radius: 20px;
+        --radius-sm: 12px;
+        --step-0: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+        --step-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+        --step-2: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+        --step-3: clamp(1.8rem, 1.4rem + 2vw, 2.8rem);
+        --step-4: clamp(2.2rem, 1.6rem + 3vw, 3.8rem);
+        --nav-bg: rgba(255, 255, 255, 0.92);
+        --hero-bg: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+        --search-bg: rgba(255,255,255,0.7);
+        --sidebar-bg: var(--surface);
+    }
+    [data-theme="dark"] {
+        --bg: #0f1a1d;
+        --surface: #1a2e35;
+        --ink: #e0f7fa;
+        --muted: #80cbc4;
+        --accent: #26c6da;
+        --accent-dark: #4dd0e1;
+        --accent-light: rgba(38, 198, 218, 0.25);
+        --accent-weak: rgba(38, 198, 218, 0.1);
+        --success: #66bb6a;
+        --warning: #ffa726;
+        --danger: #ef5350;
+        --line: rgba(224, 247, 250, 0.1);
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+        --nav-bg: rgba(15, 26, 29, 0.92);
+        --hero-bg: linear-gradient(135deg, #0d282c 0%, #164a4f 50%, #0d3d42 100%);
+        --search-bg: rgba(26, 46, 53, 0.7);
+        --sidebar-bg: #142428;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        font-size: var(--step-0);
+        line-height: 1.7;
+        overflow-x: hidden;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+    .progress-bar {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        z-index: 10001;
+        width: 0%;
+        transition: width 0.1s linear;
+    }
+    .top-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 10000;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+        padding: 0.6rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+    }
+    .top-nav.scrolled { box-shadow: var(--shadow); }
+    .nav-left, .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-brand {
+        display: flex; align-items: center; gap: 0.7rem;
+        text-decoration: none; color: var(--ink);
+        font-family: 'Montserrat', sans-serif; font-weight: 700;
+        font-size: 1.1rem; cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .nav-brand:hover { opacity: 0.8; }
+    .nav-brand svg { width: 36px; height: 36px; flex-shrink: 0; }
+    .nav-search-wrap { position: relative; }
+    .nav-search {
+        display: flex; align-items: center; gap: 0.4rem;
+        background: var(--search-bg);
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        padding: 0.4rem 1rem;
+        width: 280px;
+        transition: all 0.3s ease;
+    }
+    .nav-search:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-weak);
+        width: 340px;
+    }
+    .nav-search input {
+        background: transparent; border: none; outline: none;
+        color: var(--ink); font-family: 'Open Sans', sans-serif;
+        font-size: 0.9rem; width: 100%;
+    }
+    .nav-search input::placeholder { color: var(--muted); }
+    .search-results {
+        position: absolute;
+        top: calc(100% + 0.5rem); left: 0; right: 0;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-lg);
+        max-height: 400px; overflow-y: auto;
+        display: none; z-index: 10002;
+    }
+    .search-results.active { display: block; }
+    .search-result-item {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--line);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--accent-weak); }
+    .search-result-item .sr-module {
+        font-size: 0.75rem; color: var(--accent);
+        font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+    .search-result-item .sr-title {
+        font-size: 0.9rem; color: var(--ink);
+        font-weight: 600; margin-top: 0.2rem;
+    }
+    .search-result-item .sr-context {
+        font-size: 0.8rem; color: var(--muted);
+        margin-top: 0.2rem; line-height: 1.4;
+    }
+    .search-no-results {
+        padding: 1.5rem; text-align: center;
+        color: var(--muted); font-size: 0.9rem;
+    }
+    .search-highlight {
+        background: var(--accent-light);
+        color: var(--accent-dark);
+        padding: 0 2px; border-radius: 3px;
+        font-weight: 600;
+    }
+    .nav-home-btn, .theme-toggle, .filter-btn {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.45rem 1rem;
+        background: var(--accent-weak);
+        color: var(--accent-dark);
+        border: 1px solid var(--accent-light);
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600; font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        text-decoration: none;
+    }
+    .nav-home-btn:hover, .theme-toggle:hover, .filter-btn:hover {
+        background: var(--accent); color: #fff;
+        transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+        min-height: 60vh;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center;
+        padding: 7rem 1.5rem 4rem;
+        position: relative; overflow: hidden;
+        background: var(--hero-bg);
+        transition: background 0.3s ease;
+    }
+    .hero::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300acc1' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.6;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-badge {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.35rem 1rem;
+        border-radius: 100px;
+        font-size: 0.8rem; font-weight: 600;
+        color: var(--accent-dark);
+        margin-bottom: 1.2rem;
+        backdrop-filter: blur(4px);
+        animation: fadeInDown 0.8s ease both;
+    }
+    [data-theme="dark"] .hero-badge {
+        background: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--accent-light);
+    }
+    .hero h1 {
+        font-size: var(--step-4);
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 1rem;
+        animation: fadeInUp 0.8s 0.15s ease both;
+    }
+    .hero h1 span {
+        color: var(--accent-dark);
+        position: relative; display: inline-block;
+    }
+    .hero h1 span::after {
+        content: '';
+        position: absolute; bottom: 2px; left: 0; right: 0;
+        height: 8px; background: var(--accent-light);
+        opacity: 0.5; border-radius: 4px; z-index: -1;
+        animation: expandWidth 1s 0.8s ease both;
+    }
+    @keyframes expandWidth {
+        from { transform: scaleX(0); transform-origin: left; }
+        to { transform: scaleX(1); transform-origin: left; }
+    }
+    .hero p {
+        font-size: var(--step-1);
+        color: var(--muted);
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+        animation: fadeInUp 0.8s 0.3s ease both;
+    }
+
+    /* ============================================
+       МЕДИЦИНСКИЕ ПЛАВАЮЩИЕ ИКОНКИ (12) + ПАРАЛЛАКС
+       Трёхслойная структура:
+       .medical-icon  → параллакс (inline style от JS)
+         .float-layer → medFloat (CSS-анимация)
+           .hover-layer → hover-анимация
+             svg
+       ============================================ */
+    .medical-icon {
+        position: absolute;
+        opacity: 0.28;
+        pointer-events: auto;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+        will-change: transform;
+    }
+    .medical-icon:hover { opacity: 0.85; z-index: 5; }
+    .medical-icon .float-layer {
+        width: 100%; height: 100%;
+        animation: medFloat 7s ease-in-out infinite;
+    }
+    .medical-icon .hover-layer {
+        width: 100%; height: 100%;
+    }
+    .medical-icon .hover-layer svg {
+        width: 100%; height: 100%;
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform-origin: center;
+    }
+
+    .med-1  { width: 80px; height: 80px; top: 10%; left: 6%; }
+    .med-2  { width: 68px; height: 68px; top: 18%; right: 9%; }
+    .med-3  { width: 76px; height: 76px; bottom: 20%; left: 10%; }
+    .med-4  { width: 64px; height: 64px; top: 58%; right: 6%; }
+    .med-5  { width: 72px; height: 72px; bottom: 28%; right: 16%; }
+    .med-6  { width: 70px; height: 70px; top: 38%; left: 4%; }
+    .med-7  { width: 66px; height: 66px; top: 6%; left: 46%; }
+    .med-8  { width: 70px; height: 70px; bottom: 12%; left: 38%; }
+    .med-9  { width: 68px; height: 68px; top: 30%; right: 30%; }
+    .med-10 { width: 62px; height: 62px; bottom: 8%; right: 35%; }
+    .med-11 { width: 74px; height: 74px; top: 70%; left: 25%; }
+    .med-12 { width: 66px; height: 66px; top: 4%; right: 40%; }
+
+    .med-1  .float-layer { animation-delay: 0s; animation-duration: 7s; }
+    .med-2  .float-layer { animation-delay: 1.2s; animation-duration: 8s; }
+    .med-3  .float-layer { animation-delay: 2.5s; animation-duration: 6s; }
+    .med-4  .float-layer { animation-delay: 0.8s; animation-duration: 9s; }
+    .med-5  .float-layer { animation-delay: 3s; animation-duration: 7.5s; }
+    .med-6  .float-layer { animation-delay: 1.8s; animation-duration: 6.5s; }
+    .med-7  .float-layer { animation-delay: 4s; animation-duration: 8.5s; }
+    .med-8  .float-layer { animation-delay: 2s; animation-duration: 7s; }
+    .med-9  .float-layer { animation-delay: 0.5s; animation-duration: 8s; }
+    .med-10 .float-layer { animation-delay: 2.8s; animation-duration: 6.8s; }
+    .med-11 .float-layer { animation-delay: 1.5s; animation-duration: 9s; }
+    .med-12 .float-layer { animation-delay: 3.5s; animation-duration: 7.2s; }
+
+    @keyframes medFloat {
+        0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+        33% { transform: translateY(-18px) rotate(3deg) scale(1.05); }
+        66% { transform: translateY(-8px) rotate(-2deg) scale(0.97); }
+    }
+
+    .med-1:hover .hover-layer { animation: crossPulse 0.8s ease-in-out infinite; }
+    @keyframes crossPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.18); }
+    }
+    .med-2:hover .hover-layer { animation: snakeSlither 1.6s ease-in-out infinite; }
+    @keyframes snakeSlither {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-4px) rotate(-3deg); }
+        75% { transform: translateY(4px) rotate(3deg); }
+    }
+    .med-3:hover .hover-layer { animation: stethSwing 1.2s ease-in-out infinite; transform-origin: top center; }
+    @keyframes stethSwing {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-12deg); }
+        75% { transform: rotate(12deg); }
+    }
+    .med-4:hover .hover-layer { animation: pillSpin 1.4s linear infinite; }
+    @keyframes pillSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .med-5:hover .hover-layer { animation: dnaSpin 2.5s ease-in-out infinite; }
+    @keyframes dnaSpin {
+        0%, 100% { transform: rotateY(0deg) scale(1); }
+        50% { transform: rotateY(180deg) scale(1.08); }
+    }
+    .med-6:hover .hover-layer { animation: heartBeat 0.9s ease-in-out infinite; }
+    @keyframes heartBeat {
+        0%, 100% { transform: scale(1); }
+        15% { transform: scale(1.25); }
+        30% { transform: scale(1); }
+        45% { transform: scale(1.18); }
+        60% { transform: scale(1); }
+    }
+    .med-7:hover .hover-layer { animation: microFocus 1.5s ease-in-out infinite; }
+    @keyframes microFocus {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-6px) scale(1.1); }
+    }
+    .med-8:hover .hover-layer { animation: syringeInject 1.3s ease-in-out infinite; transform-origin: bottom right; }
+    @keyframes syringeInject {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        20% { transform: translate(3px, -3px) rotate(-5deg); }
+        45% { transform: translate(-5px, 5px) rotate(3deg); }
+        60% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .med-9:hover .hover-layer { animation: ivDrip 1.5s ease-in-out infinite; }
+    @keyframes ivDrip {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(4px); }
+        60% { transform: translateY(6px); }
+        70% { transform: translateY(0); }
+    }
+    .med-10:hover .hover-layer { animation: blisterPop 1.4s ease-in-out infinite; }
+    @keyframes blisterPop {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        30% { transform: scale(1.1) rotate(-3deg); }
+        60% { transform: scale(0.95) rotate(3deg); }
+    }
+    .med-11:hover .hover-layer { animation: ecgPulse 1.2s ease-in-out infinite; }
+    @keyframes ecgPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.12); }
+    }
+    .med-12:hover .hover-layer { animation: scaleSwing 1.5s ease-in-out infinite; transform-origin: top center; }
+    @keyframes scaleSwing {
+        0%, 100% { transform: rotate(0deg); }
+        30% { transform: rotate(-10deg); }
+        70% { transform: rotate(10deg); }
+    }
+
+    .pulse-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        opacity: 0;
+        animation: pulseRing 3s ease-out infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .pulse-ring:nth-of-type(1) { width: 120px; height: 120px; top: 15%; left: 15%; animation-delay: 0s; }
+    .pulse-ring:nth-of-type(2) { width: 180px; height: 180px; top: 45%; right: 10%; animation-delay: 1.5s; }
+    .pulse-ring:nth-of-type(3) { width: 100px; height: 100px; bottom: 20%; left: 40%; animation-delay: 0.5s; }
+    @keyframes pulseRing {
+        0% { transform: scale(0.5); opacity: 0.35; }
+        100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* FILTER */
+    .filter-bar {
+        display: flex; gap: 0.5rem; justify-content: center;
+        flex-wrap: wrap; margin-bottom: 2rem;
+        animation: fadeInUp 0.8s 0.5s ease both;
+    }
+    .filter-chip {
+        padding: 0.4rem 1rem;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.8rem; font-weight: 600;
+        color: var(--muted); cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .filter-chip:hover, .filter-chip.active {
+        background: var(--accent); color: #fff;
+        border-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    /* MODULES */
+    .modules-section {
+        padding: 3rem 1.5rem 5rem;
+        max-width: 1200px; margin: 0 auto;
+    }
+    .section-header {
+        text-align: center; margin-bottom: 2.5rem;
+    }
+    .section-header h2 {
+        font-size: var(--step-3); margin-bottom: 0.5rem;
+    }
+    .section-header p {
+        color: var(--muted);
+        max-width: 500px; margin: 0 auto;
+    }
+    .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    .module-card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 1.8rem 1.5rem;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative; overflow: hidden;
+        border: 1px solid var(--line);
+        display: flex; flex-direction: column;
+        gap: 0.8rem;
+        opacity: 0;
+        animation: cardAppear 0.6s ease forwards;
+    }
+    @keyframes cardAppear {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .module-card.hidden { display: none; }
+    .module-card::before {
+        content: '';
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 5px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        transform: scaleX(0); transform-origin: left;
+        transition: transform 0.35s ease;
+    }
+    .module-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: var(--shadow-lg);
+    }
+    .module-card:hover::before { transform: scaleX(1); }
+    .module-icon {
+        width: 56px; height: 56px;
+        border-radius: var(--radius-sm);
+        background: linear-gradient(135deg, var(--accent-light), var(--accent-weak));
+        display: flex; align-items: center; justify-content: center;
+        color: var(--accent-dark);
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+    .module-card:hover .module-icon { transform: scale(1.1) rotate(-5deg); }
+    .module-card:hover .module-icon svg {
+        animation: modIconPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes modIconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+    }
+    .module-number {
+        position: absolute; top: 1rem; right: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3.5rem; font-weight: 800;
+        color: var(--accent); opacity: 0.06;
+        line-height: 1;
+        transition: opacity 0.3s ease;
+    }
+    .module-card:hover .module-number { opacity: 0.12; }
+    .module-card h3 {
+        font-size: 1.05rem; color: var(--ink);
+        margin-top: 0.2rem;
+    }
+    .module-card p {
+        font-size: 0.9rem; color: var(--muted);
+        line-height: 1.5; flex-grow: 1;
+    }
+    .module-tags {
+        display: flex; flex-wrap: wrap;
+        gap: 0.3rem; margin-top: 0.3rem;
+    }
+    .module-tag {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+        background: var(--accent-weak);
+        color: var(--accent-dark);
+        border-radius: 100px;
+        font-weight: 600;
+    }
+
+    /* Skeleton для карточек во время загрузки */
+    .module-card.skeleton {
+        pointer-events: none;
+    }
+    .module-card.skeleton .module-icon,
+    .module-card.skeleton h3,
+    .module-card.skeleton p,
+    .module-card.skeleton .module-tags {
+        background: linear-gradient(90deg, var(--line) 0%, var(--accent-weak) 50%, var(--line) 100%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        color: transparent;
+        border-radius: 6px;
+    }
+    .module-card.skeleton h3 { height: 1.2rem; width: 80%; }
+    .module-card.skeleton p { height: 2.4rem; }
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    /* MODULE PAGE */
+    .module-page {
+        display: none;
+        padding: 5rem 0 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        animation: fadeIn 0.5s ease;
+    }
+    .module-page.active { display: block; }
+    .module-layout {
+        display: flex; gap: 2rem;
+        padding: 0 1.5rem;
+    }
+    .module-main { flex: 1; min-width: 0; }
+    .module-sidebar {
+        width: 260px; flex-shrink: 0;
+        position: sticky;
+        top: 80px;
+        align-self: flex-start;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+    }
+    .sidebar-box {
+        background: var(--sidebar-bg);
+        border-radius: var(--radius-sm);
+        padding: 1.2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+    }
+    .sidebar-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem; font-weight: 700;
+        color: var(--ink);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.4rem;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.3rem; }
+    .sidebar-nav a {
+        display: block;
+        padding: 0.5rem 0.7rem;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        border-radius: 8px;
+        transition: all 0.2s;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+    }
+    .sidebar-nav a:hover, .sidebar-nav a.active {
+        background: var(--accent-weak);
+        color: var(--accent-dark);
+        border-left-color: var(--accent);
+    }
+    @media (max-width: 900px) {
+        .module-sidebar { display: none; }
+    }
+
+    .module-header {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: white;
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius);
+        margin: 0 1.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+    .module-header::before {
+        content: '';
+        position: absolute;
+        top: -50%; right: -20%;
+        width: 300px; height: 300px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 50%;
+    }
+    .module-header h1 {
+        font-size: var(--step-3);
+        margin-bottom: 0.5rem;
+        position: relative;
+    }
+    .module-header p {
+        opacity: 0.9;
+        font-size: var(--step-0);
+        position: relative;
+    }
+    .breadcrumb {
+        display: flex; align-items: center; gap: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        opacity: 0.85;
+        position: relative;
+    }
+    .breadcrumb a {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .breadcrumb a:hover { opacity: 0.7; text-decoration: underline; }
+
+    .print-module-btn {
+        position: absolute;
+        top: 1.5rem; right: 1.5rem;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: white;
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600; font-size: 0.82rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        backdrop-filter: blur(6px);
+        z-index: 3;
+    }
+    .print-module-btn:hover {
+        background: white;
+        color: var(--accent-dark);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    .print-module-btn svg {
+        width: 14px; height: 14px;
+        transition: transform 0.3s ease;
+    }
+    .print-module-btn:hover svg { animation: printShake 0.6s ease-in-out infinite; }
+    @keyframes printShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-2px); }
+        75% { transform: translateX(2px); }
+    }
+    @media (max-width: 640px) {
+        .print-module-btn {
+            top: auto; bottom: 1rem; right: 1rem;
+            padding: 0.45rem 0.8rem; font-size: 0.75rem;
+        }
+    }
+
+    /* Loading indicator для модуля */
+    .module-loading {
+        text-align: center;
+        padding: 3rem;
+        color: var(--muted);
+    }
+    .module-loading-spinner {
+        display: inline-block;
+        width: 40px; height: 40px;
+        border: 3px solid var(--accent-light);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    .module-error {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 2rem;
+        margin: 1.5rem;
+        text-align: center;
+        border: 1px solid var(--danger);
+        color: var(--danger);
+    }
+
+    /* ============================================
+       MARKDOWN CONTENT (стили для контента из .md)
+       ============================================ */
+    .md-content {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+    }
+
+    /* Заголовки внутри контента */
+    .md-content h1 {
+        font-size: var(--step-3);
+        margin: 0 0 1.5rem;
+        color: var(--ink);
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid var(--accent-light);
+    }
+    .md-content h2 {
+        font-size: var(--step-2);
+        margin: 2.5rem 0 1.2rem;
+        color: var(--ink);
+        padding-bottom: 0.5rem;
+        border-bottom: 1px dashed var(--line);
+        scroll-margin-top: 80px;
+    }
+    .md-content h2:first-of-type { margin-top: 0.5rem; }
+    .md-content h3 {
+        font-size: var(--step-1);
+        margin: 2rem 0 0.8rem;
+        color: var(--ink);
+        scroll-margin-top: 80px;
+    }
+    .md-content h4 {
+        font-size: 1.05rem;
+        margin: 1.5rem 0 0.6rem;
+        color: var(--accent-dark);
+        font-weight: 600;
+    }
+    .md-content h5 {
+        font-size: 0.95rem;
+        margin: 1.2rem 0 0.5rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .md-content p {
+        margin-bottom: 1rem;
+        color: var(--ink);
+    }
+    .md-content strong { font-weight: 700; color: var(--ink); }
+    .md-content em { font-style: italic; }
+    .md-content a {
+        color: var(--accent-dark);
+        text-decoration: underline;
+    }
+    .md-content ul, .md-content ol {
+        margin: 0.5rem 0 1rem 1.5rem;
+    }
+    .md-content li { margin-bottom: 0.5rem; }
+    .md-content hr {
+        border: none;
+        border-top: 1px solid var(--line);
+        margin: 2rem 0;
+    }
+    .md-content code {
+        background: var(--accent-weak);
+        color: var(--accent-dark);
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 0.9em;
+    }
+    .md-content pre {
+        background: var(--accent-weak);
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        overflow-x: auto;
+        margin: 1rem 0;
+    }
+    .md-content pre code {
+        background: none; padding: 0;
+    }
+
+    /* Blockquote — базовый стиль */
+    .md-content blockquote {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        border-radius: var(--radius-sm);
+        padding: 1.5rem 1.5rem 1.5rem 2.2rem;
+        margin: 1.2rem 0;
+        border-left: 4px solid #1976d2;
+        position: relative;
+        font-style: italic;
+    }
+    [data-theme="dark"] .md-content blockquote {
+        background: linear-gradient(135deg, #0d2847, #153a5c);
+        border-left-color: #42a5f5;
+    }
+    .md-content blockquote::before {
+        content: '"';
+        position: absolute;
+        top: 0.2rem; left: 0.7rem;
+        font-size: 3rem;
+        color: #1976d2;
+        opacity: 0.25;
+        font-family: Georgia, serif;
+        line-height: 1;
+    }
+    [data-theme="dark"] .md-content blockquote::before { color: #42a5f5; }
+    .md-content blockquote p:last-child { margin-bottom: 0; }
+    .md-content blockquote p { font-style: italic; }
+
+    /* Blockquote содержит список — снимаем псевдо-кавычку */
+    .md-content blockquote.zone-list { font-style: normal; }
+    .md-content blockquote.zone-list::before { display: none; }
+
+    /* Speech-box — когда blockquote начинается с "Спич врачу" или "Скрипт" */
+    .md-content .speech-box {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        border-radius: var(--radius-sm);
+        padding: 1.5rem 1.5rem 1.5rem 2.2rem;
+        margin: 1.2rem 0;
+        border-left: 4px solid #1976d2;
+        position: relative;
+    }
+    [data-theme="dark"] .md-content .speech-box {
+        background: linear-gradient(135deg, #0d2847, #153a5c);
+        border-left-color: #42a5f5;
+    }
+    .md-content .speech-box::before {
+        content: '"';
+        position: absolute;
+        top: 0.2rem; left: 0.7rem;
+        font-size: 3rem;
+        color: #1976d2;
+        opacity: 0.25;
+        font-family: Georgia, serif;
+        line-height: 1;
+    }
+    [data-theme="dark"] .md-content .speech-box::before { color: #42a5f5; }
+    .md-content .speech-box p {
+        font-style: italic;
+        margin-bottom: 0.8rem;
+    }
+    .md-content .speech-box p:last-child { margin-bottom: 0; }
+    .md-content .speech-box strong {
+        font-style: normal;
+        color: #1565c0;
+        font-family: 'Montserrat', sans-serif;
+    }
+    [data-theme="dark"] .md-content .speech-box strong { color: #90caf9; }
+
+    /* Highlight-box — когда blockquote содержит "Важно!" или "Золотое правило" */
+    .md-content .highlight-box {
+        background: var(--accent-weak);
+        border: 1px solid var(--accent-light);
+        border-left: 4px solid var(--accent);
+        border-radius: var(--radius-sm);
+        padding: 1.2rem 1.4rem;
+        margin: 1rem 0;
+        font-style: normal;
+    }
+    .md-content .highlight-box::before { display: none; }
+    .md-content .highlight-box strong { color: var(--accent-dark); }
+
+    /* Zone-red / yellow / green — когда абзац начинается с ключевой фразы */
+    .md-content .zone-red,
+    .md-content .zone-yellow,
+    .md-content .zone-green {
+        border-radius: var(--radius-sm);
+        padding: 1.2rem 1.5rem;
+        margin: 1rem 0;
+    }
+    .md-content .zone-red {
+        background: linear-gradient(135deg, #ffebee, #ffcdd2);
+        border-left: 4px solid var(--danger);
+    }
+    [data-theme="dark"] .md-content .zone-red {
+        background: linear-gradient(135deg, #3a1a1a, #4a2020);
+    }
+    .md-content .zone-yellow {
+        background: linear-gradient(135deg, #fff8e1, #ffecb3);
+        border-left: 4px solid var(--warning);
+    }
+    [data-theme="dark"] .md-content .zone-yellow {
+        background: linear-gradient(135deg, #3a3010, #4a3a15);
+    }
+    .md-content .zone-green {
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        border-left: 4px solid var(--success);
+    }
+    [data-theme="dark"] .md-content .zone-green {
+        background: linear-gradient(135deg, #1a3a1a, #204a20);
+    }
+    .md-content .zone-red strong:first-child { color: #c62828; }
+    .md-content .zone-yellow strong:first-child { color: #ef6c00; }
+    .md-content .zone-green strong:first-child { color: #2e7d32; }
+
+    /* Tables */
+    .md-content .table-wrap {
+        overflow-x: auto;
+        margin: 1rem 0;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--line);
+    }
+    .md-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+    }
+    .md-content th, .md-content td {
+        padding: 0.85rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+    }
+    .md-content th {
+        background: var(--accent-weak);
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        color: var(--accent-dark);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+    }
+    .md-content tr:hover td { background: rgba(0, 168, 181, 0.03); }
+    .md-content tr:last-child td { border-bottom: none; }
+
+    /* SCROLL TOP */
+    .scroll-top {
+        position: fixed;
+        bottom: 2rem; right: 2rem;
+        width: 66px; height: 66px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: white;
+        border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: var(--shadow-lg);
+        opacity: 0; transform: translateY(20px);
+        transition: all 0.35s ease;
+        z-index: 999;
+    }
+    .scroll-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-top:hover { transform: translateY(-3px) scale(1.05); }
+    .scroll-top svg {
+        width: 24px; height: 24px;
+        animation: bounceUp 2s infinite;
+    }
+    @keyframes bounceUp {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+
+    /* SHORTCUT / CHEAT SHEET */
+    .cheat-sheet-btn {
+        position: fixed;
+        bottom: 2rem; left: 2rem;
+        z-index: 1000;
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        padding: 0.85rem 1.3rem;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
+        color: white;
+        border: none;
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700; font-size: 0.9rem;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        animation: cheatPulse 3s ease-in-out infinite;
+    }
+    .cheat-sheet-btn:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 12px 32px rgba(245, 124, 0, 0.55), 0 6px 16px rgba(0, 0, 0, 0.2);
+        animation-play-state: paused;
+    }
+    .cheat-sheet-btn svg {
+        width: 20px; height: 20px;
+        flex-shrink: 0;
+        transition: transform 0.4s ease;
+    }
+    .cheat-sheet-btn:hover svg { transform: rotate(-12deg) scale(1.1); }
+    @keyframes cheatPulse {
+        0%, 100% {
+            box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(245, 124, 0, 0.6);
+        }
+        50% {
+            box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 14px rgba(245, 124, 0, 0);
+        }
+    }
+    @media (max-width: 768px) {
+        .cheat-sheet-btn {
+            bottom: 5rem; left: 1rem;
+            padding: 0.7rem 1rem; font-size: 0.8rem;
+        }
+        .cheat-sheet-btn .cheat-text { display: none; }
+    }
+
+    .cheat-page {
+        display: none;
+        padding: 5rem 0 3rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        animation: fadeIn 0.5s ease;
+    }
+    .cheat-page.active { display: block; }
+    .cheat-header {
+        background: linear-gradient(135deg, #ff8f00, #e65100);
+        color: white;
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius);
+        margin: 0 1.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+    .cheat-header::before {
+        content: '';
+        position: absolute;
+        top: -50%; right: -20%;
+        width: 300px; height: 300px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+    }
+    .cheat-header h1 {
+        font-size: var(--step-3);
+        margin-bottom: 0.5rem;
+        position: relative;
+    }
+    .cheat-header p {
+        opacity: 0.95;
+        font-size: var(--step-0);
+        position: relative;
+    }
+    .cheat-content { padding: 0 1.5rem; }
+    .cheat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .cheat-card {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cheat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+    .cheat-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 4px;
+        background: linear-gradient(90deg, #ff8f00, #ffb74d);
+    }
+    .cheat-card h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.05rem;
+        color: var(--ink);
+        margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px dashed var(--line);
+    }
+    .cheat-card h3 .num {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
+        color: white;
+        font-size: 0.8rem; font-weight: 700;
+        flex-shrink: 0;
+    }
+    .cheat-card ul {
+        list-style: none; margin: 0; padding: 0;
+    }
+    .cheat-card ul li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.9rem;
+        display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .cheat-card ul li:last-child { border-bottom: none; }
+    .cheat-card ul li::before {
+        content: '→';
+        color: #ff8f00;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    .cheat-card .badge-line {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        background: var(--accent-weak);
+        color: var(--accent-dark);
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        font-family: 'Montserrat', sans-serif;
+        margin-right: 0.3rem;
+    }
+    .cheat-full-width {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .cheat-full-width::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 4px;
+        background: linear-gradient(90deg, #ff8f00, #ffb74d);
+    }
+    .cheat-full-width h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.05rem;
+        color: var(--ink);
+        margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cheat-full-width h3 .num {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
+        color: white;
+        font-size: 0.8rem; font-weight: 700;
+    }
+    .cheat-print-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
+        color: white;
+        border: none;
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600; font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+        margin-bottom: 1.5rem;
+    }
+    .cheat-print-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(245, 124, 0, 0.45);
+    }
+
+    footer {
+        text-align: center;
+        padding: 2.5rem 1rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--line);
+        margin-top: 2rem;
+    }
+    .footer-name {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--ink);
+        margin-bottom: 0.3rem;
+    }
+    .footer-email {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .footer-email:hover { text-decoration: underline; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .modules-grid { grid-template-columns: 1fr; }
+        .scroll-top { right: 1rem; bottom: 1rem; width: 44px; height: 44px; }
+        .md-content { padding: 1.2rem; }
+        .nav-search { width: 180px; }
+        .nav-search:focus-within { width: 200px; }
+        .hero { min-height: 40vh; }
+        .medical-icon { opacity: 0.18; }
+        .med-7, .med-8, .med-9, .med-10, .med-11, .med-12 { display: none; }
+    }
+
+    @media print {
+        .top-nav, .scroll-top, .nav-home-btn, .theme-toggle, .filter-btn,
+        .nav-search-wrap, .module-sidebar, .filter-bar, .medical-icon,
+        .pulse-ring, .cheat-sheet-btn, .print-module-btn, .cheat-print-btn {
+            display: none !important;
+        }
+        .hero { min-height: auto; padding: 2rem 1rem; }
+        .module-page, .cheat-page {
+            display: block !important;
+            padding: 1rem 0 !important;
+        }
+        .modules-section, #homePage { display: none; }
+        .md-content, .content-block, .cheat-card, .cheat-full-width {
+            box-shadow: none;
+            border: 1px solid #ccc;
+            page-break-inside: avoid;
+        }
+        .module-header, .cheat-header {
+            background: #008c99 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .cheat-header { background: #e65100 !important; }
+        body { background: white; color: black; }
+    }
+    @page { margin: 12mm; }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="top-nav" id="topNav">
+    <div class="nav-left">
+        <a class="nav-brand" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span>ДМС Портал</span>
+        </a>
+        <div class="nav-search-wrap">
+            <div class="nav-search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0;">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Поиск по модулям..." oninput="handleSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();}">
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+    <div class="nav-right">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+        </button>
+        <button class="nav-home-btn" onclick="goHome()" id="navHomeBtn" style="display:none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            На главную
+        </button>
+    </div>
+</nav>
+
+<button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+    </svg>
+</button>
+
+<button class="cheat-sheet-btn" onclick="openCheatSheet()" title="Шпаргалка врача — самая используемая страница">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4z"/>
+        <path d="M4 8h10"/>
+        <path d="M4 12h10"/>
+        <path d="M4 16h6"/>
+        <path d="M19 6l3 3-4 4"/>
+    </svg>
+    <span class="cheat-text">Шпаргалка врача</span>
+</button>
+
+<div id="homePage">
+    <section class="hero" id="heroSection">
+        <!-- 1. Крест -->
+        <div class="medical-icon med-1" data-parallax="0.15" title="Медицинский крест">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 2. Змея Асклепия -->
+        <div class="medical-icon med-2" data-parallax="0.22" title="Змея Асклепия">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20"/>
+                    <path d="M8 6c0-2 4-2 4 0s-4 2-4 4 4 2 4 4-4 2-4 4 4 2 4 0"/>
+                    <path d="M6 22h12"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 3. Стетоскоп -->
+        <div class="medical-icon med-3" data-parallax="0.18" title="Стетоскоп">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 3v6a5 5 0 0 0 10 0V3"/>
+                    <path d="M4 3h2M12 3h2"/>
+                    <path d="M9 14v3a4 4 0 0 0 8 0v-2"/>
+                    <circle cx="18" cy="13" r="2.5"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 4. Таблетка -->
+        <div class="medical-icon med-4" data-parallax="0.28" title="Таблетка">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="8" width="20" height="8" rx="4"/>
+                    <path d="M12 8v8"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 5. ДНК -->
+        <div class="medical-icon med-5" data-parallax="0.20" title="ДНК">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 3c0 6 14 6 14 12s-14 6-14 6"/>
+                    <path d="M19 3c0 6-14 6-14 12s14 6 14 6"/>
+                    <path d="M6 7h12"/>
+                    <path d="M6 17h12"/>
+                    <path d="M8 12h8"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 6. Сердце -->
+        <div class="medical-icon med-6" data-parallax="0.25" title="Сердце">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    <path d="M4 12h3l2-3 3 6 2-3h6"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 7. Микроскоп -->
+        <div class="medical-icon med-7" data-parallax="0.16" title="Микроскоп">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 18h12"/>
+                    <path d="M8 18v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/>
+                    <path d="M10 12V6a2 2 0 0 1 4 0v6"/>
+                    <circle cx="12" cy="4" r="1.5"/>
+                    <path d="M4 22h16"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 8. Шприц -->
+        <div class="medical-icon med-8" data-parallax="0.30" title="Шприц">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2l4 4"/>
+                    <path d="M17 3l4 4"/>
+                    <path d="M14 6l4 4"/>
+                    <path d="M3 21l9-9"/>
+                    <path d="M12 12l4-4"/>
+                    <path d="M9 9l6 6"/>
+                    <path d="M15 15l-4 4-6-6 4-4z"/>
+                    <path d="M6 18l-3 3"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 9. Капельница -->
+        <div class="medical-icon med-9" data-parallax="0.22" title="Капельница">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v4"/>
+                    <path d="M9 6h6l1 3v7a4 4 0 0 1-8 0V9z"/>
+                    <path d="M10 12h4"/>
+                    <path d="M12 19v3"/>
+                    <path d="M11 22h2"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 10. Блистер -->
+        <div class="medical-icon med-10" data-parallax="0.26" title="Блистер таблеток">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <circle cx="6" cy="12" r="1.3"/>
+                    <circle cx="10" cy="12" r="1.3"/>
+                    <circle cx="14" cy="12" r="1.3"/>
+                    <circle cx="18" cy="12" r="1.3"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 11. ЭКГ -->
+        <div class="medical-icon med-11" data-parallax="0.19" title="ЭКГ">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12h4l2-5 3 10 3-6 2 3h4"/>
+                    <path d="M20 8v8"/>
+                </svg>
+            </div></div>
+        </div>
+        <!-- 12. Весы -->
+        <div class="medical-icon med-12" data-parallax="0.24" title="Аптекарские весы">
+            <div class="float-layer"><div class="hover-layer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 4v16"/>
+                    <path d="M4 8h16"/>
+                    <path d="M4 8l-2 5h4z"/>
+                    <path d="M20 8l-2 5h4z"/>
+                    <path d="M8 20h8"/>
+                </svg>
+            </div></div>
+        </div>
+
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                Обучающий портал для врачей
+            </div>
+            <h1>Работа с <span>ДМС</span><br>без снятий</h1>
+            <p>Практические алгоритмы, чек-листы и готовые формулировки для защиты от удержаний страховых компаний</p>
+        </div>
+    </section>
+
+    <section class="modules-section">
+        <div class="section-header">
+            <h2>Выберите модуль</h2>
+            <p>Каждый модуль содержит алгоритмы, чек-листы и готовые формулировки для конкретной ситуации</p>
+        </div>
+        <div class="filter-bar">
+            <button class="filter-chip active" onclick="filterModules('all', this)">Все</button>
+            <button class="filter-chip" onclick="filterModules('legal', this)">Правовые основы</button>
+            <button class="filter-chip" onclick="filterModules('docs', this)">Документация</button>
+            <button class="filter-chip" onclick="filterModules('clinical', this)">Клинические случаи</button>
+            <button class="filter-chip" onclick="filterModules('procedures', this)">Процедуры и исследования</button>
+        </div>
+        <div class="modules-grid" id="modulesGrid">
+            <!-- Скелетоны, заполнятся при загрузке манифеста -->
+        </div>
+    </section>
+</div>
+
+<!-- Контейнер для страниц модулей — заполняется динамически -->
+<div id="moduleContainer"></div>
+
+<!-- ================= ШПАРГАЛКА ВРАЧА ================= -->
+<div class="cheat-page" id="cheatPage">
+    <div class="cheat-header">
+        <div class="breadcrumb">
+            <a onclick="goHome()">Главная</a>
+            <span>/</span>
+            <span>Шпаргалка врача</span>
+        </div>
+        <h1>Шпаргалка врача по ДМС</h1>
+        <p>Одна страница — самое главное. Распечатайте и повесьте в кабинете</p>
+    </div>
+    <div class="cheat-content">
+        <button class="cheat-print-btn" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9V2h12v7"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+            </svg>
+            Распечатать шпаргалку
+        </button>
+
+        <div class="cheat-grid">
+            <div class="cheat-card">
+                <h3><span class="num">1</span> 3 вопроса для оценки случая</h3>
+                <ul>
+                    <li>Это острое состояние, обострение или травма?</li>
+                    <li>Диагноз есть в списке исключений?</li>
+                    <li>Услуга есть в программе и не превышает лимит?</li>
+                </ul>
+                <div style="margin-top:0.8rem;padding:0.8rem;background:var(--accent-weak);border-radius:8px;font-size:0.85rem;">
+                    <strong>Если хотя бы один ответ «нет» →</strong><br>
+                    Не страховой случай. Первичный приём — оплатится, лечение — нет.
+                </div>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">2</span> Как формулировать обоснование</h3>
+                <ul>
+                    <li><span class="badge-line">Вместо</span> «для профилактики» → <strong>«в рамках диф. диагностики»</strong></li>
+                    <li><span class="badge-line">Вместо</span> «проверить» → <strong>«для уточнения генеза»</strong></li>
+                    <li><span class="badge-line">Вместо</span> «оценить динамику» → <strong>«в связи с недостаточной эффективностью терапии»</strong></li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">3</span> Что писать в карте</h3>
+                <ul>
+                    <li><strong>Жалобы</strong> — детально, с локализацией</li>
+                    <li><strong>Анамнез</strong> — когда заболел, что принимал</li>
+                    <li><strong>Статус</strong> — объективные данные осмотра</li>
+                    <li><strong>Диагноз</strong> — уточнённый, с кодом МКБ-10</li>
+                    <li><strong>Обоснование</strong> — после каждого назначения</li>
+                    <li><strong>Динамика</strong> — при повторном приёме</li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">4</span> Топ-10 «красных флагов»</h3>
+                <ul>
+                    <li>Нет объективного статуса</li>
+                    <li>Неуточнённый диагноз (J06.9, E03.9)</li>
+                    <li>Услуга без ГП</li>
+                    <li>Превышение лимита ФТЛ</li>
+                    <li>Перерыв между сеансами &gt;3 дней</li>
+                    <li>«Профилактика», «проверить», «на всякий случай»</li>
+                    <li>Услуга не связана с диагнозом</li>
+                    <li>Повторный приём без динамики</li>
+                    <li>Нет снимков при пульпите/периодонтите</li>
+                    <li>Плановое наблюдение по ДМС</li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">5</span> Что требует ГП</h3>
+                <ul>
+                    <li>КТ, МРТ</li>
+                    <li>УЗДГ, ДС БЦА</li>
+                    <li>Сложные анестезии</li>
+                    <li>Air Flow, снятие камня</li>
+                    <li>Удаление ретинированных зубов</li>
+                    <li>Лечение пародонтита &gt; 5 сеансов</li>
+                    <li>Зубопротезирование</li>
+                    <li>Внутривенные капельницы</li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">6</span> Лимиты, которые важно помнить</h3>
+                <ul>
+                    <li><strong>ФТЛ:</strong> 5 сеансов база (СК со СЧ)</li>
+                    <li><strong>ФТЛ:</strong> перерыв ≤ 3 дней</li>
+                    <li><strong>ФТЛ:</strong> не более 2 видов воздействия</li>
+                    <li><strong>Массаж:</strong> 1 курс в год</li>
+                    <li><strong>Air Flow:</strong> 1 раз в год</li>
+                    <li><strong>Пародонтит:</strong> базово 5 сеансов</li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">7</span> Что НЕ оплачивается</h3>
+                <ul>
+                    <li>Лекарства, очки, линзы, слуховые аппараты</li>
+                    <li>Импланты, стенты, кардиостимуляторы</li>
+                    <li>Косметология, отбеливание</li>
+                    <li>Остеопатия, гомеопатия, гирудотерапия</li>
+                    <li>Плановое протезирование, ортодонтия</li>
+                    <li>Санаторно-курортное, реабилитация</li>
+                </ul>
+            </div>
+            <div class="cheat-card">
+                <h3><span class="num">8</span> Диагнозы-исключения</h3>
+                <ul>
+                    <li>ВИЧ, СПИД</li>
+                    <li>Туберкулёз</li>
+                    <li>Онкология</li>
+                    <li>Хронические гепатиты</li>
+                    <li>Психические расстройства</li>
+                    <li>Беременность, бесплодие</li>
+                </ul>
+                <div style="margin-top:0.8rem;padding:0.8rem;background:var(--accent-weak);border-radius:8px;font-size:0.8rem;">
+                    <strong>Исключение:</strong><br>
+                    Диагностика до подтверждения диагноза оплачивается.
+                </div>
+            </div>
+        </div>
+
+        <div class="cheat-full-width">
+            <h3><span class="num">9</span> Перед закрытием карты — проверь</h3>
+            <ul class="checklist" style="list-style:none;margin:0;padding:0;">
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Жалобы записаны детально (не формально)</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Есть объективный статус (данные осмотра)</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Диагноз уточнён, есть код МКБ-10</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Каждое назначение обосновано</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Есть связь: жалобы → диагноз → назначения</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>При повторном приёме — описана динамика</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--line);"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Нет триггерных слов («проверить», «профилактика»)</div></li>
+                <li style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 0;"><div class="check-box" onclick="this.classList.toggle('checked')"></div><div>Если требуется ГП — получено до оказания услуги</div></li>
+            </ul>
+        </div>
+
+        <style>
+            .check-box {
+                width: 20px; height: 20px;
+                border: 2px solid var(--accent);
+                border-radius: 4px;
+                flex-shrink: 0;
+                margin-top: 2px;
+                cursor: pointer;
+                transition: all 0.2s;
+                display: grid;
+                place-items: center;
+            }
+            .check-box:hover { background: var(--accent-weak); }
+            .check-box.checked { background: var(--accent); border-color: var(--accent); }
+            .check-box.checked::after {
+                content: '✓';
+                color: white;
+                font-size: 0.75rem;
+                font-weight: 700;
+            }
+        </style>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-name">Орлов Вячеслав Дмитриевич</div>
+    <p>Руководитель отдела медико-экономической экспертизы</p>
+    <p>Эл. почта: <a href="mailto:orlov@example.com" class="footer-email">orlov@example.com</a></p>
+</footer>
+
+<!-- Markdown-парсер -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+
+<script>
+// ============================================================
+// КОНФИГУРАЦИЯ GITHUB
+// ============================================================
+const GITHUB_USER = 'vdorlov';
+const GITHUB_REPO = 'dms_ed_doc';
+const GITHUB_BRANCH = 'master';
+const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
+
+const CACHE_TTL = 1000 * 60 * 60; // 1 час кэша
+
+// Иконки для карточек (SVG строки)
+const MODULE_ICONS = {
+    legal: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/><path d="M8 21h8"/></svg>`,
+    docs: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4z"/><path d="M4 8h10"/><path d="M4 12h10"/><path d="M4 16h6"/><path d="M19 12l3 3-4 4-3-3z"/></svg>`,
+    clinical: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 7h5"/><path d="M8 11h5"/><circle cx="17" cy="17" r="4"/><path d="M20 20l3 3"/></svg>`,
+    procedures: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0v7a3 3 0 1 1-6 0z"/><path d="M12 4v4"/><path d="M9 7c-2 0-3 1-3 3v8"/><path d="M15 7c2 0 3 1 3 3v8"/></svg>`,
+};
+
+// Известные "краткие" описания модулей (для карточек)
+const MODULE_DESCRIPTIONS = {
+    mod1: 'Входной фильтр, золотой список, запретные территории и материалы',
+    mod2: 'Структура записи, золотая формула, типичные ошибки и мотивационный спич',
+    mod3: 'МЭЭ, кариес, ОРВИ, дорсалгия, гипертония, гипотиреоз, периодонтит и пульпит',
+    mod4: 'Базовый пакет, сравнение программ, типичные ошибки и чек-лист стоматолога',
+    mod5: '7 этапов работы, классификация рисков, стоп-сигналы и готовые скрипты',
+    mod7: 'Средний чек, лечение vs реабилитация, интервальность, этапность и алгоритмы',
+    mod8: 'Показания, типичные ошибки, ГП и пошаговый алгоритм назначения ДС БЦА',
+    mod9: 'ХЗВ, атеросклероз, тромбофлебит, ГП и алгоритм назначения УЗДГ',
+};
+
+const MODULE_CATEGORIES = {
+    mod1: { label: 'Правовые основы', cls: 'legal' },
+    mod2: { label: 'Документация', cls: 'docs' },
+    mod3: { label: 'Клинические случаи', cls: 'clinical' },
+    mod4: { label: 'Клинические случаи', cls: 'clinical' },
+    mod5: { label: 'Правовые основы', cls: 'legal' },
+    mod7: { label: 'Процедуры', cls: 'procedures' },
+    mod8: { label: 'Процедуры', cls: 'procedures' },
+    mod9: { label: 'Процедуры', cls: 'procedures' },
+};
+
+// ============================================================
+// ЗАГРУЗКА КОНТЕНТА
+// ============================================================
+async function fetchWithCache(url, cacheKey) {
+    // Пробуем кэш
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+        try {
+            const { data, ts } = JSON.parse(cached);
+            if (Date.now() - ts < CACHE_TTL) return data;
+        } catch(e) {}
+    }
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status} для ${url}`);
+    const text = await res.text();
+
+    try {
+        localStorage.setItem(cacheKey, JSON.stringify({ data: text, ts: Date.now() }));
+    } catch(e) {
+        // localStorage может быть переполнен — не критично
+    }
+    return text;
+}
+
+async function loadManifest() {
+    const url = RAW_BASE + 'manifest.json';
+    const text = await fetchWithCache(url, 'dms-manifest');
+    return JSON.parse(text);
+}
+
+async function loadModuleMd(fileName) {
+    const url = RAW_BASE + fileName;
+    return await fetchWithCache(url, 'dms-md-' + fileName);
+}
+
+// ============================================================
+// ПАРСИНГ MARKDOWN
+// ============================================================
+marked.setOptions({
+    breaks: true,
+    gfm: true,
+    headerIds: false,
+    mangle: false,
+});
+
+function renderMarkdownToHtml(md) {
+    // 1. Предварительно: склеиваем blockquote, разделённые пустой строкой
+    //    "> строка1\n\n> строка2" → "> строка1\n>\n> строка2"
+    md = md.replace(/(^>[^\n]*)\n\n(>[^\n]*)/gm, '$1\n>\n$2');
+    md = md.replace(/(^>[^\n]*)\n\n(>[^\n]*)/gm, '$1\n>\n$2'); // повтор для трёх и более
+
+    // 2. Парсим markdown
+    let html = marked.parse(md);
+
+    // 3. Постобработка через DOM
+    const div = document.createElement('div');
+    div.innerHTML = html;
+
+    // === Blockquote: speech vs highlight vs обычный ===
+    div.querySelectorAll('blockquote').forEach(bq => {
+        const firstP = bq.querySelector('p');
+        if (!firstP) return;
+        const txt = firstP.textContent.trim().replace(/^_+|_+$/g, '').trim();
+
+        // Спич / Скрипт → speech-box
+        if (/^(Спич|Скрипт)/i.test(txt)) {
+            bq.className = 'speech-box';
+        }
+        // Важно! / Золотое правило / Запомните → highlight-box
+        else if (/^(Важно|Золотое правило|Запомните|Ключевое)/i.test(txt)) {
+            bq.className = 'highlight-box';
+        }
+    });
+
+    // === Абзацы, начинающиеся с ключевых фраз → цветные зоны ===
+    const zonesMap = [
+        { pattern: /^\s*\*\*(Красный флаг|Ошибка|Плохо|Ключевой момент)/i, cls: 'zone-red' },
+        { pattern: /^\s*\*\*(Зона риска|Внимание|Желтый флаг)/i, cls: 'zone-yellow' },
+        { pattern: /^\s*\*\*(Золотое правило|Хорошо|Это страховой случай|Исключение)/i, cls: 'zone-green' },
+    ];
+
+    div.querySelectorAll('p').forEach(p => {
+        // Пропускаем параграфы внутри blockquote, зон и т.д.
+        if (p.closest('blockquote, .zone-red, .zone-yellow, .zone-green, .highlight-box, .speech-box, .zone-list')) return;
+        const html = p.innerHTML.trim();
+        for (const { pattern, cls } of zonesMap) {
+            if (pattern.test(html)) {
+                p.classList.add(cls);
+                break;
+            }
+        }
+    });
+
+    // === Обернуть таблицы в .table-wrap ===
+    div.querySelectorAll('table').forEach(t => {
+        if (t.parentElement && t.parentElement.classList.contains('table-wrap')) return;
+        const wrap = document.createElement('div');
+        wrap.className = 'table-wrap';
+        t.parentNode.insertBefore(wrap, t);
+        wrap.appendChild(t);
+    });
+
+    // === Проставить id для h2 и h3 (для навигации) ===
+    let counter = 0;
+    div.querySelectorAll('h2, h3').forEach(h => {
+        if (!h.id) {
+            h.id = 'md-h-' + (++counter);
+        }
+    });
+
+    return div;
+}
+
+// ============================================================
+// ОТРИСОВКА МОДУЛЯ
+// ============================================================
+async function openModule(modId) {
+    try { history.pushState({page: modId}, '', '#' + modId); } catch(e) {}
+    await showPage(modId);
+}
+
+async function renderModule(modId) {
+    const container = document.getElementById('moduleContainer');
+
+    // Если уже отрисован — просто показать
+    let page = document.getElementById(modId);
+    if (page) {
+        // Обновляем текст, если нужно (можно оставить как есть)
+        return page;
+    }
+
+    // Создать страницу-заглушку
+    page = document.createElement('div');
+    page.className = 'module-page';
+    page.id = modId;
+    page.innerHTML = `
+        <div class="module-header">
+            <div class="breadcrumb">
+                <a onclick="goHome()">Главная</a>
+                <span>/</span>
+                <span>Загрузка...</span>
+            </div>
+            <h1>Загрузка модуля...</h1>
+            <p></p>
+            <button class="print-module-btn" onclick="printCurrentModule()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9V2h12v7"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+                Распечатать модуль
+            </button>
+        </div>
+        <div class="module-layout">
+            <div class="module-main">
+                <div class="module-loading">
+                    <div class="module-loading-spinner"></div>
+                    <div>Загружаем модуль с GitHub...</div>
+                </div>
+            </div>
+            <aside class="module-sidebar" style="display:none;"></aside>
+        </div>
+    `;
+    container.appendChild(page);
+
+    // Найти в манифесте
+    const manifest = await loadManifest();
+    const item = manifest.find(m => m.id === modId);
+    if (!item) throw new Error('Модуль не найден в манифесте: ' + modId);
+
+    // Загрузить markdown
+    const md = await loadModuleMd(item.file);
+    const mdNode = renderMarkdownToHtml(md);
+
+    // Извлечь заголовок из первого h1, если есть
+    const h1 = mdNode.querySelector('h1');
+    let moduleTitle = h1 ? h1.textContent.trim() : 'Модуль ' + modId;
+    if (h1) h1.remove();
+
+    // Извлечь "подзаголовок" из первого абзаца после h1 (курсив)
+    let subtitle = MODULE_DESCRIPTIONS[modId] || '';
+    const firstP = mdNode.querySelector('p');
+    if (firstP && /^<em>/.test(firstP.innerHTML)) {
+        subtitle = firstP.textContent.trim();
+        firstP.remove();
+    }
+
+    // Построить sidebar из h2
+    const h2s = mdNode.querySelectorAll('h2');
+    let sidebarHtml = '';
+    if (h2s.length) {
+        sidebarHtml = `
+            <div class="sidebar-box">
+                <div class="sidebar-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Оглавление
+                </div>
+                <ul class="sidebar-nav">
+                    ${Array.from(h2s).map(h => `<li><a data-target="${h.id}">${h.textContent.trim()}</a></li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+
+    // Пересобрать страницу
+    page.innerHTML = `
+        <div class="module-header">
+            <div class="breadcrumb">
+                <a onclick="goHome()">Главная</a>
+                <span>/</span>
+                <span>${moduleTitle}</span>
+            </div>
+            <h1>${moduleTitle}</h1>
+            ${subtitle ? `<p>${subtitle}</p>` : ''}
+            <button class="print-module-btn" onclick="printCurrentModule()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9V2h12v7"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+                Распечатать модуль
+            </button>
+        </div>
+        <div class="module-layout">
+            <div class="module-main">
+                <div class="md-content">${mdNode.innerHTML}</div>
+            </div>
+            <aside class="module-sidebar" ${sidebarHtml ? '' : 'style="display:none;"'}>
+                ${sidebarHtml}
+            </aside>
+        </div>
+    `;
+
+    // Навесить обработчики на ссылки sidebar
+    page.querySelectorAll('.sidebar-nav a').forEach(a => {
+        a.addEventListener('click', () => {
+            const target = document.getElementById(a.dataset.target);
+            if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        });
+    });
+
+    return page;
+}
+
+function printCurrentModule() {
+    window.print();
+}
+
+// ============================================================
+// НАВИГАЦИЯ
+// ============================================================
+async function showPage(pageId) {
+    const homePage = document.getElementById('homePage');
+    const cheatPage = document.getElementById('cheatPage');
+    const navHomeBtn = document.getElementById('navHomeBtn');
+
+    // Скрыть все модули
+    document.querySelectorAll('.module-page').forEach(p => p.classList.remove('active'));
+    if (cheatPage) cheatPage.classList.remove('active');
+
+    if (pageId === 'home') {
+        homePage.style.display = 'block';
+        navHomeBtn.style.display = 'none';
+    } else if (pageId === 'cheat') {
+        homePage.style.display = 'none';
+        if (cheatPage) cheatPage.classList.add('active');
+        navHomeBtn.style.display = 'inline-flex';
+    } else {
+        homePage.style.display = 'none';
+        try {
+            const page = await renderModule(pageId);
+            if (page) {
+                page.classList.add('active');
+                navHomeBtn.style.display = 'inline-flex';
+                initSidebarObserver(pageId);
+            }
+        } catch(err) {
+            console.error(err);
+            alert('Не удалось загрузить модуль: ' + err.message);
+            homePage.style.display = 'block';
+        }
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goHome() {
+    try { history.pushState({page: 'home'}, '', window.location.pathname + window.location.search); } catch(e) {}
+    showPage('home');
+}
+
+function openCheatSheet() {
+    try { history.pushState({page: 'cheat'}, '', '#cheat'); } catch(e) {}
+    showPage('cheat');
+}
+
+window.addEventListener('popstate', async function() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'cheat') {
+        await showPage('cheat');
+    } else if (hash) {
+        await showPage(hash);
+    } else {
+        await showPage('home');
+    }
+});
+
+function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+
+function initSidebarObserver(moduleId) {
+    const module = document.getElementById(moduleId);
+    if (!module) return;
+    const blocks = module.querySelectorAll('h2[id]');
+    const links = module.querySelectorAll('.sidebar-nav a');
+    if (!blocks.length || !links.length) return;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                links.forEach(l => l.classList.remove('active'));
+                const target = Array.from(links).find(l => l.dataset.target === entry.target.id);
+                if (target) target.classList.add('active');
+            }
+        });
+    }, {rootMargin: '-100px 0px -60% 0px', threshold: 0});
+    blocks.forEach(b => observer.observe(b));
+}
+
+// ============================================================
+// КАРТОЧКИ МОДУЛЕЙ
+// ============================================================
+async function renderModuleCards() {
+    const grid = document.getElementById('modulesGrid');
+    try {
+        const manifest = await loadManifest();
+        grid.innerHTML = manifest.map((m, i) => {
+            const cat = MODULE_CATEGORIES[m.id] || { label: 'Модуль', cls: 'procedures' };
+            const desc = MODULE_DESCRIPTIONS[m.id] || '';
+            const icon = MODULE_ICONS[cat.cls] || MODULE_ICONS.procedures;
+            const num = (i + 1).toString().padStart(2, '0');
+            const modNumber = m.id.replace('mod', '').padStart(2, '0');
+            return `
+                <div class="module-card" data-category="${cat.cls}" onclick="openModule('${m.id}')" style="animation-delay:${0.05 * i}s;">
+                    <div class="module-number">${modNumber}</div>
+                    <div class="module-icon">${icon}</div>
+                    <h3 data-module-title="${m.id}">Загрузка...</h3>
+                    <p>${desc}</p>
+                    <div class="module-tags">
+                        <span class="module-tag">${cat.label}</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Асинхронно подгрузить заголовки из md-файлов
+        manifest.forEach(async (m) => {
+            try {
+                const md = await loadModuleMd(m.file);
+                const match = md.match(/^#\s+(.+)$/m);
+                if (match) {
+                    const titleEl = grid.querySelector(`h3[data-module-title="${m.id}"]`);
+                    if (titleEl) titleEl.textContent = match[1].trim();
+                }
+            } catch(e) { /* игнорируем */ }
+        });
+    } catch(err) {
+        grid.innerHTML = `<div class="module-error">Не удалось загрузить список модулей.<br>${err.message}</div>`;
+    }
+}
+
+function filterModules(category, btn) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.querySelectorAll('.module-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// ============================================================
+// ПАРАЛЛАКС
+// ============================================================
+(function() {
+    const hero = document.getElementById('heroSection');
+    if (!hero) return;
+    const icons = hero.querySelectorAll('.medical-icon');
+    if (!icons.length) return;
+
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isTouch || reduced) return;
+
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    let rafId = null;
+
+    const GAIN = 55;
+
+    hero.addEventListener('mouseleave', () => { mouseX = 0; mouseY = 0; if (!rafId) rafId = requestAnimationFrame(update); });
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        if (!rafId) rafId = requestAnimationFrame(update);
+    });
+
+    function update() {
+        currentX += (mouseX - currentX) * 0.08;
+        currentY += (mouseY - currentY) * 0.08;
+        icons.forEach(icon => {
+            const factor = parseFloat(icon.dataset.parallax) || 0.2;
+            const tx = -currentX * GAIN * factor;
+            const ty = -currentY * GAIN * factor;
+            icon.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0)`;
+        });
+        if (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001) {
+            rafId = requestAnimationFrame(update);
+        } else {
+            rafId = null;
+        }
+    }
+    icons.forEach(icon => { icon.style.transform = 'translate3d(0, 0, 0)'; });
+})();
+
+// ============================================================
+// ТЕМА
+// ============================================================
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    localStorage.setItem('dms-theme', current === 'dark' ? 'light' : 'dark');
+}
+(function() {
+    const saved = localStorage.getItem('dms-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+// ============================================================
+// ПОИСК
+// ============================================================
+let searchIndexCache = null;
+
+async function buildSearchIndex() {
+    if (searchIndexCache) return searchIndexCache;
+    const manifest = await loadManifest();
+    const index = [];
+    for (const m of manifest) {
+        try {
+            const md = await loadModuleMd(m.file);
+            const titleMatch = md.match(/^#\s+(.+)$/m);
+            const moduleTitle = titleMatch ? titleMatch[1].trim() : m.id;
+            // Разбиваем по h2
+            const sections = md.split(/^##\s+/m).slice(1);
+            sections.forEach(sec => {
+                const lines = sec.split('\n');
+                const sectionTitle = lines[0].trim();
+                const body = lines.slice(1).join(' ').replace(/[#>*_|`\-]/g, ' ').replace(/\s+/g, ' ').trim();
+                index.push({
+                    id: m.id,
+                    module: moduleTitle,
+                    title: sectionTitle,
+                    text: body.slice(0, 300),
+                });
+            });
+        } catch(e) { /* ignore */ }
+    }
+    searchIndexCache = index;
+    return index;
+}
+
+let searchDebounce = null;
+function handleSearch(query) {
+    clearTimeout(searchDebounce);
+    if (!query.trim()) {
+        document.getElementById('searchResults').classList.remove('active');
+        return;
+    }
+    searchDebounce = setTimeout(async () => {
+        const resultsEl = document.getElementById('searchResults');
+        const q = query.toLowerCase();
+        try {
+            const index = await buildSearchIndex();
+            const results = index.filter(item =>
+                item.title.toLowerCase().includes(q) ||
+                item.text.toLowerCase().includes(q) ||
+                item.module.toLowerCase().includes(q)
+            ).slice(0, 8);
+
+            if (!results.length) {
+                resultsEl.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
+                resultsEl.classList.add('active');
+                return;
+            }
+
+            resultsEl.innerHTML = results.map(r => {
+                const safeQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const hlTitle = r.title.replace(new RegExp(safeQ, 'gi'), m => `<span class="search-highlight">${escapeHtml(m)}</span>`);
+                const hlText = r.text.replace(new RegExp(safeQ, 'gi'), m => `<span class="search-highlight">${escapeHtml(m)}</span>`);
+                return `<div class="search-result-item" data-mod="${r.id}">
+                    <div class="sr-module">${escapeHtml(r.module)}</div>
+                    <div class="sr-title">${hlTitle}</div>
+                    <div class="sr-context">${hlText}</div>
+                </div>`;
+            }).join('');
+            resultsEl.classList.add('active');
+
+            resultsEl.querySelectorAll('.search-result-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    document.getElementById('searchResults').classList.remove('active');
+                    document.getElementById('searchInput').value = '';
+                    openModule(el.dataset.mod);
+                });
+            });
+        } catch(e) {
+            console.error(e);
+        }
+    }, 250);
+}
+
+function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-search-wrap')) {
+        document.getElementById('searchResults').classList.remove('active');
+    }
+});
+
+// ============================================================
+// SCROLL EFFECTS
+// ============================================================
+const scrollTopBtn = document.getElementById('scrollTop');
+const progressBar = document.getElementById('progressBar');
+const topNav = document.getElementById('topNav');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+    scrollTopBtn.classList.toggle('visible', scrollTop > 300);
+    topNav.classList.toggle('scrolled', scrollTop > 50);
+});
+
+// ============================================================
+// INIT
+// ============================================================
+(async function init() {
+    await renderModuleCards();
+
+    // Если в URL есть hash — открыть нужный модуль
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'cheat') {
+        await showPage('cheat');
+    } else if (hash) {
+        await showPage(hash);
+    }
+})();
+</script>
+</body>
+</html>
