@@ -1,0 +1,10 @@
+[
+  { "id": "mod1", "file": "modul_1.md", "category": "legal" },
+  { "id": "mod2", "file": "modul_2.md", "category": "docs" },
+  { "id": "mod3", "file": "modul_3.md", "category": "clinical" },
+  { "id": "mod4", "file": "modul_4.md", "category": "clinical" },
+  { "id": "mod5", "file": "modul_5.md", "category": "legal" },
+  { "id": "mod7", "file": "modul_7.md", "category": "procedures" },
+  { "id": "mod8", "file": "modul_8.md", "category": "procedures" },
+  { "id": "mod9", "file": "modul_9.md", "category": "procedures" }
+]
