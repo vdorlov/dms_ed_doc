@@ -41,6 +41,7 @@
         --hero-bg: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
         --search-bg: rgba(255,255,255,0.7);
         --sidebar-bg: var(--surface);
+        --nav-height: 70px;
     }
     [data-theme="dark"] {
         --bg: #0f1a1d;
@@ -546,9 +547,9 @@
         width: 260px;
         flex-shrink: 0;
         position: sticky;
-        top: 80px;
+        top: calc(var(--nav-height) + 15px);
         align-self: flex-start;
-        max-height: calc(100vh - 100px);
+        max-height: calc(100vh - var(--nav-height) - 30px);
         overflow-y: auto;
         transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -767,20 +768,22 @@
         padding-bottom: 0.8rem;
         border-bottom: 2px solid var(--accent-light);
     }
+    .md-content h2,
+    .md-content h3 {
+        scroll-margin-top: calc(var(--nav-height) + 30px);
+    }
     .md-content h2 {
         font-size: var(--step-2);
         margin: 2.5rem 0 1.2rem;
         color: var(--ink);
         padding-bottom: 0.5rem;
         border-bottom: 1px dashed var(--line);
-        scroll-margin-top: 80px;
     }
     .md-content h2:first-of-type { margin-top: 0.5rem; }
     .md-content h3 {
         font-size: var(--step-1);
         margin: 2rem 0 0.8rem;
         color: var(--ink);
-        scroll-margin-top: 80px;
     }
     .md-content h4 {
         font-size: 1.05rem;
@@ -992,7 +995,7 @@
     /* SCROLL TOP */
     .scroll-top {
         position: fixed;
-        bottom: 2rem; right: 6.5rem;
+        bottom: 2rem; right: 2rem;
         width: 56px; height: 56px;
         border-radius: 50%;
         background: linear-gradient(135deg, var(--accent), var(--accent-dark));
@@ -1052,50 +1055,12 @@
             box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 14px rgba(245, 124, 0, 0);
         }
     }
-
-    /* FEEDBACK BUTTON */
-    .feedback-btn {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        z-index: 1000;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.85rem 1.2rem;
-        background: linear-gradient(135deg, #5c6bc0, #3f51b5);
-        color: white;
-        border: none;
-        border-radius: 100px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        font-size: 0.9rem;
-        cursor: pointer;
-        box-shadow: 0 8px 24px rgba(63, 81, 181, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .feedback-btn:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: 0 12px 32px rgba(63, 81, 181, 0.55), 0 6px 16px rgba(0, 0, 0, 0.2);
-    }
-    .feedback-btn svg {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-    }
-
     @media (max-width: 768px) {
         .cheat-sheet-btn {
             bottom: 5rem; left: 1rem;
             padding: 0.7rem 1rem; font-size: 0.8rem;
         }
         .cheat-sheet-btn .cheat-text { display: none; }
-        .feedback-btn {
-            bottom: 8.5rem; right: 1rem;
-            padding: 0.7rem 1rem; font-size: 0.8rem;
-        }
-        .feedback-btn .feedback-text { display: none; }
-        .scroll-top { right: 1rem; bottom: 1rem; width: 44px; height: 44px; }
     }
 
     .cheat-page {
@@ -1154,146 +1119,6 @@
         box-shadow: 0 8px 20px rgba(245, 124, 0, 0.45);
     }
 
-    /* MODAL FEEDBACK */
-    .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        z-index: 10002;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        animation: fadeIn 0.3s ease;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-box {
-        background: var(--surface);
-        border-radius: var(--radius);
-        padding: 2rem;
-        width: 100%;
-        max-width: 520px;
-        box-shadow: var(--shadow-lg);
-        border: 1px solid var(--line);
-        position: relative;
-        animation: fadeInUp 0.4s ease both;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-    .modal-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: var(--accent-weak);
-        border: none;
-        color: var(--muted);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        font-size: 1.2rem;
-        line-height: 1;
-    }
-    .modal-close:hover {
-        background: var(--danger);
-        color: white;
-    }
-    .modal-box h2 {
-        font-size: var(--step-2);
-        margin-bottom: 0.5rem;
-        color: var(--ink);
-    }
-    .modal-box .modal-subtitle {
-        color: var(--muted);
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-    }
-    .modal-field { margin-bottom: 1rem; }
-    .modal-field label {
-        display: block;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--ink);
-        margin-bottom: 0.4rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-    .modal-field input,
-    .modal-field textarea {
-        width: 100%;
-        padding: 0.7rem 1rem;
-        background: var(--bg);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        font-family: 'Open Sans', sans-serif;
-        font-size: 0.95rem;
-        color: var(--ink);
-        transition: all 0.25s ease;
-        resize: vertical;
-    }
-    .modal-field input:focus,
-    .modal-field textarea:focus {
-        outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-weak);
-    }
-    .modal-field textarea { min-height: 120px; }
-    .modal-submit {
-        width: 100%;
-        padding: 0.85rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-        color: white;
-        border: none;
-        border-radius: 100px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        margin-top: 0.5rem;
-    }
-    .modal-submit:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
-    }
-    .modal-submit:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-    .modal-status {
-        margin-top: 1rem;
-        padding: 0.8rem 1rem;
-        border-radius: var(--radius-sm);
-        font-size: 0.9rem;
-        display: none;
-    }
-    .modal-status.success {
-        display: block;
-        background: rgba(67, 160, 71, 0.1);
-        border: 1px solid var(--success);
-        color: var(--success);
-    }
-    .modal-status.error {
-        display: block;
-        background: rgba(229, 57, 53, 0.1);
-        border: 1px solid var(--danger);
-        color: var(--danger);
-    }
-    .honeypot {
-        position: absolute !important;
-        left: -9999px !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-
     footer {
         text-align: center;
         padding: 2.5rem 1rem;
@@ -1331,6 +1156,7 @@
 
     @media (max-width: 768px) {
         .modules-grid { grid-template-columns: 1fr; }
+        .scroll-top { right: 1rem; bottom: 1rem; width: 44px; height: 44px; }
         .md-content { padding: 1.2rem; }
         .nav-search { width: 140px; }
         .nav-search:focus-within { width: 160px; }
@@ -1348,8 +1174,7 @@
     @media print {
         .top-nav, .scroll-top, .nav-home-btn, .theme-toggle, .filter-btn,
         .nav-search-wrap, .module-sidebar, .filter-bar, .medical-icon,
-        .pulse-ring, .cheat-sheet-btn, .print-module-btn, .cheat-print-btn,
-        .feedback-btn {
+        .pulse-ring, .cheat-sheet-btn, .print-module-btn, .cheat-print-btn {
             display: none !important;
         }
         .hero { min-height: auto; padding: 2rem 1rem; }
@@ -1358,7 +1183,7 @@
             padding: 1rem 0 !important;
         }
         .modules-section, #homePage { display: none; }
-        .md-content, .cheat-card, .cheat-full-width {
+        .md-content {
             box-shadow: none;
             border: 1px solid #ccc;
             page-break-inside: avoid;
@@ -1436,13 +1261,6 @@
         <path d="M19 6l3 3-4 4"/>
     </svg>
     <span class="cheat-text">Шпаргалка врача</span>
-</button>
-
-<button class="feedback-btn" onclick="openFeedback()" title="Обратная связь">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-    <span class="feedback-text">Обратная связь</span>
 </button>
 
 <div id="homePage">
@@ -1616,46 +1434,17 @@
     <div class="cheat-content"></div>
 </div>
 
-<div class="modal-overlay" id="feedbackModal">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeFeedback()" aria-label="Закрыть">&times;</button>
-        <h2>Обратная связь</h2>
-        <p class="modal-subtitle">Заполните поля — сообщение придёт на почту руководителю отдела.</p>
-        <form id="feedbackForm" action="#" method="POST">
-            <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
-            <div class="modal-field">
-                <label for="fb-name">Ваше имя</label>
-                <input type="text" id="fb-name" name="name" required placeholder="Иванов Иван Иванович">
-            </div>
-            <div class="modal-field">
-                <label for="fb-email">Email для ответа</label>
-                <input type="email" id="fb-email" name="_replyto" required placeholder="doctor@clinic.ru">
-            </div>
-            <div class="modal-field">
-                <label for="fb-subject">Тема</label>
-                <input type="text" id="fb-subject" name="_subject" required placeholder="Вопрос по модулю 5">
-            </div>
-            <div class="modal-field">
-                <label for="fb-message">Сообщение</label>
-                <textarea id="fb-message" name="message" required placeholder="Опишите вопрос или предложение..."></textarea>
-            </div>
-            <button type="submit" class="modal-submit" id="fbSubmit">Отправить</button>
-            <div class="modal-status" id="fbStatus"></div>
-        </form>
-    </div>
-</div>
-
 <footer>
     <div class="footer-name">Орлов Вячеслав Дмитриевич</div>
     <p>Руководитель отдела медико-экономической экспертизы</p>
-    <p>Эл. почта: <a href="mailto:orlov.vd.mpf4@yandex.ru" class="footer-email">orlov.vd.mpf4@yandex.ru</a></p>
+    <p>Эл. почта: <a href="mailto:orlov@example.com" class="footer-email">orlov@example.com</a></p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 
 <script>
 // ============================================================
-// КОНФИГУРАЦИЯ
+// КОНФИГУРАЦИЯ GITHUB
 // ============================================================
 const GITHUB_USER = 'vdorlov';
 const GITHUB_REPO = 'dms_ed_doc';
@@ -1664,12 +1453,8 @@ const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO
 
 const CACHE_TTL = 1000 * 60 * 30; // 30 минут
 
-// ВАЖНО: замените на ваш Formspree endpoint
-// Регистрация: https://formspree.io (бесплатно, 50 сообщений/мес)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/ЗАМЕНИТЕ_НА_ВАШ_ID';
-
 // ============================================================
-// ЗАГРУЗКА КОНТЕНТА (с fallback)
+// ЗАГРУЗКА КОНТЕНТА (с fallback для localStorage)
 // ============================================================
 async function fetchWithCache(url, cacheKey) {
     let cached = null;
@@ -1687,7 +1472,7 @@ async function fetchWithCache(url, cacheKey) {
         const text = await res.text();
         try {
             localStorage.setItem(cacheKey, JSON.stringify({ data: text, ts: Date.now() }));
-        } catch(e) { /* переполнение или недоступен */ }
+        } catch(e) { /* переполнение */ }
         return text;
     } catch(err) {
         if (cached) return cached.data;
@@ -1716,7 +1501,11 @@ marked.setOptions({
     mangle: false,
 });
 
-function renderMarkdownToHtml(md) {
+function renderMarkdownToHtml(md, modId) {
+    // Чистим частые ошибки markdown из Obsidian
+    md = md.replace(/^\*{4,}/gm, '**');
+    md = md.replace(/\*{4,}$/gm, '**');
+
     // Склеиваем соседние blockquote
     md = md.replace(/(^>[^\n]*)\n\n(>[^\n]*)/gm, '$1\n>\n$2');
     md = md.replace(/(^>[^\n]*)\n\n(>[^\n]*)/gm, '$1\n>\n$2');
@@ -1725,6 +1514,7 @@ function renderMarkdownToHtml(md) {
     const div = document.createElement('div');
     div.innerHTML = html;
 
+    // Blockquote → speech / highlight
     div.querySelectorAll('blockquote').forEach(bq => {
         const firstP = bq.querySelector('p');
         if (!firstP) return;
@@ -1736,6 +1526,7 @@ function renderMarkdownToHtml(md) {
         }
     });
 
+    // Абзацы → цветные зоны
     const zonesMap = [
         { pattern: /^\s*\*\*(Красный флаг|Ошибка|Плохо|Ключевой момент)/i, cls: 'zone-red' },
         { pattern: /^\s*\*\*(Зона риска|Внимание|Желтый флаг)/i, cls: 'zone-yellow' },
@@ -1743,7 +1534,7 @@ function renderMarkdownToHtml(md) {
     ];
 
     div.querySelectorAll('p').forEach(p => {
-        if (p.closest('blockquote, .zone-red, .zone-yellow, .zone-green, .highlight-box, .speech-box, .zone-list')) return;
+        if (p.closest('blockquote, .zone-red, .zone-yellow, .zone-green, .highlight-box, .speech-box')) return;
         const htmlContent = p.innerHTML.trim();
         for (const { pattern, cls } of zonesMap) {
             if (pattern.test(htmlContent)) {
@@ -1753,6 +1544,7 @@ function renderMarkdownToHtml(md) {
         }
     });
 
+    // Таблицы → .table-wrap
     div.querySelectorAll('table').forEach(t => {
         if (t.parentElement && t.parentElement.classList.contains('table-wrap')) return;
         const wrap = document.createElement('div');
@@ -1761,16 +1553,20 @@ function renderMarkdownToHtml(md) {
         wrap.appendChild(t);
     });
 
+    // Уникальные ID с префиксом модуля (КРИТИЧНО для работы оглавления!)
     let counter = 0;
     div.querySelectorAll('h2, h3').forEach(h => {
-        if (!h.id) h.id = 'md-h-' + (++counter);
+        if (!h.id) {
+            counter++;
+            h.id = `${modId || 'mod'}-h-${counter}`;
+        }
     });
 
-    // Преобразуем строки чек-листов "☐ текст" в кликабельные чек-боксы
+    // Чек-листы: ☐ → кликабельные боксы
     div.querySelectorAll('li').forEach(li => {
-        const html = li.innerHTML;
-        if (/^\s*☐\s+/.test(html)) {
-            li.innerHTML = html.replace(/^\s*☐\s+/, '');
+        const htmlContent = li.innerHTML;
+        if (/^\s*☐\s+/.test(htmlContent)) {
+            li.innerHTML = htmlContent.replace(/^\s*☐\s+/, '');
             li.style.listStyle = 'none';
             li.style.display = 'flex';
             li.style.alignItems = 'flex-start';
@@ -1787,6 +1583,22 @@ function renderMarkdownToHtml(md) {
 }
 
 // ============================================================
+// НАДЁЖНАЯ ПРОКРУТКА К ЭЛЕМЕНТУ
+// ============================================================
+function scrollToElementInPage(element) {
+    if (!element) return;
+    const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 70;
+    const offset = navHeight + 30;
+    const rect = element.getBoundingClientRect();
+    const targetY = window.scrollY + rect.top - offset;
+
+    window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: 'smooth'
+    });
+}
+
+// ============================================================
 // ОТРИСОВКА МОДУЛЯ
 // ============================================================
 async function openModule(modId) {
@@ -1797,9 +1609,11 @@ async function openModule(modId) {
 async function renderModule(modId) {
     const container = document.getElementById('moduleContainer');
 
+    // Если страница уже отрисована — возвращаем её
     let page = document.getElementById(modId);
     if (page) return page;
 
+    // Заглушка загрузки
     page = document.createElement('div');
     page.className = 'module-page';
     page.id = modId;
@@ -1830,12 +1644,14 @@ async function renderModule(modId) {
         if (!item) throw new Error('Модуль не найден в манифесте: ' + modId);
 
         const md = await loadModuleMd(item.file);
-        const mdNode = renderMarkdownToHtml(md);
+        const mdNode = renderMarkdownToHtml(md, modId);
 
+        // Заголовок
         const h1 = mdNode.querySelector('h1');
         let moduleTitle = h1 ? h1.textContent.trim() : 'Модуль ' + modId;
         if (h1) h1.remove();
 
+        // Подзаголовок (курсив после h1)
         let subtitle = '';
         const firstP = mdNode.querySelector('p');
         if (firstP && /^<em>/.test(firstP.innerHTML)) {
@@ -1843,13 +1659,15 @@ async function renderModule(modId) {
             firstP.remove();
         }
 
+        // Собираем sidebar из h2 (или h3, если h2 нет)
         let headings = mdNode.querySelectorAll('h2');
         if (headings.length === 0) {
             headings = mdNode.querySelectorAll('h3');
         }
-        const h2s = headings;
+        const headingArray = Array.from(headings);
+
         let sidebarHtml = '';
-        if (h2s.length) {
+        if (headingArray.length) {
             sidebarHtml = `
                 <div class="sidebar-box">
                     <button class="sidebar-toggle" onclick="toggleSidebar(this)" title="Свернуть/развернуть">
@@ -1863,12 +1681,13 @@ async function renderModule(modId) {
                         <span class="sidebar-title-text">Оглавление</span>
                     </div>
                     <ul class="sidebar-nav">
-                        ${Array.from(h2s).map(h => `<li><a data-target="${h.id}">${h.textContent.trim()}</a></li>`).join('')}
+                        ${headingArray.map(h => `<li><a data-target="${h.id}">${h.textContent.trim()}</a></li>`).join('')}
                     </ul>
                 </div>
             `;
         }
 
+        // Собираем финальную страницу
         page.innerHTML = `
             <div class="module-header">
                 <div class="breadcrumb">
@@ -1897,10 +1716,14 @@ async function renderModule(modId) {
             </div>
         `;
 
+        // НАДЁЖНАЯ привязка кликов — ищем цели СТРОГО внутри этой страницы
         page.querySelectorAll('.sidebar-nav a').forEach(a => {
-            a.addEventListener('click', () => {
-                const target = document.getElementById(a.dataset.target);
-                if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = a.dataset.target;
+                // Ищем строго внутри page, а не через document.getElementById
+                const target = page.querySelector('#' + CSS.escape(targetId));
+                if (target) scrollToElementInPage(target);
             });
         });
 
@@ -1917,7 +1740,7 @@ async function renderModule(modId) {
             </div>
             <div class="module-error">
                 ${err.message}<br><br>
-                Проверьте, что файл <code>${modId}</code> существует в репозитории и <code>manifest.json</code> заполнен корректно.
+                Проверьте, что файл есть в репозитории и <code>manifest.json</code> заполнен корректно.
             </div>
         `;
         throw err;
@@ -1939,7 +1762,7 @@ function printCurrentModule() {
 }
 
 // ============================================================
-// ШПАРГАЛКА ВРАЧА (из внешнего .md)
+// ШПАРГАЛКА ВРАЧА
 // ============================================================
 async function openCheatSheet() {
     try { history.pushState({page: 'cheat'}, '', '#cheat'); } catch(e) {}
@@ -1949,8 +1772,6 @@ async function openCheatSheet() {
 async function renderCheatSheet() {
     const content = document.querySelector('#cheatPage .cheat-content');
     if (!content) return;
-
-    // Если уже отрисовано — не перезагружаем
     if (content.dataset.loaded === 'true') return;
 
     content.innerHTML = `
@@ -1962,7 +1783,7 @@ async function renderCheatSheet() {
 
     try {
         const md = await loadModuleMd('Shpargalka_vracha.md');
-        const mdNode = renderMarkdownToHtml(md);
+        const mdNode = renderMarkdownToHtml(md, 'cheat');
         const h1 = mdNode.querySelector('h1');
         if (h1) h1.remove();
 
@@ -1982,85 +1803,6 @@ async function renderCheatSheet() {
         content.innerHTML = `<div class="module-error">Не удалось загрузить шпаргалку.<br>${err.message}<br><br>Проверьте, что файл <code>Shpargalka_vracha.md</code> лежит в корне репозитория.</div>`;
     }
 }
-
-// ============================================================
-// ОБРАТНАЯ СВЯЗЬ
-// ============================================================
-function openFeedback() {
-    const modal = document.getElementById('feedbackModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeFeedback() {
-    const modal = document.getElementById('feedbackModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    const status = document.getElementById('fbStatus');
-    if (status) {
-        status.className = 'modal-status';
-        status.textContent = '';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('feedbackForm');
-    if (!form) return;
-
-    // Подставляем реальный endpoint
-    form.action = FORMSPREE_ENDPOINT;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = document.getElementById('fbSubmit');
-        const status = document.getElementById('fbStatus');
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Отправляем...';
-        status.className = 'modal-status';
-        status.textContent = '';
-
-        try {
-            const res = await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (res.ok) {
-                status.className = 'modal-status success';
-                status.textContent = 'Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.';
-                form.reset();
-                setTimeout(closeFeedback, 3000);
-            } else {
-                let msg = 'Ошибка отправки';
-                try {
-                    const data = await res.json();
-                    if (data.errors && data.errors.length) {
-                        msg = data.errors.map(err => err.message).join(', ');
-                    }
-                } catch(ex) {}
-                throw new Error(msg);
-            }
-        } catch(err) {
-            status.className = 'modal-status error';
-            status.textContent = 'Не удалось отправить сообщение. Попробуйте позже или напишите на почту напрямую.';
-            console.error(err);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Отправить';
-        }
-    });
-
-    const overlay = document.getElementById('feedbackModal');
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeFeedback();
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) closeFeedback();
-    });
-});
 
 // ============================================================
 // НАВИГАЦИЯ
@@ -2115,10 +1857,13 @@ window.addEventListener('popstate', async function() {
 
 function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
+// ============================================================
+// АКТИВНАЯ ССЫЛКА В САЙДБАРЕ ПРИ СКРОЛЛЕ
+// ============================================================
 function initSidebarObserver(moduleId) {
     const module = document.getElementById(moduleId);
     if (!module) return;
-    const blocks = module.querySelectorAll('h2[id]');
+    const blocks = module.querySelectorAll('h2[id], h3[id]');
     const links = module.querySelectorAll('.sidebar-nav a');
     if (!blocks.length || !links.length) return;
 
@@ -2141,7 +1886,7 @@ const MODULE_ICONS = {
     legal: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/><path d="M8 21h8"/></svg>`,
     docs: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4z"/><path d="M4 8h10"/><path d="M4 12h10"/><path d="M4 16h6"/><path d="M19 12l3 3-4 4-3-3z"/></svg>`,
     clinical: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 7h5"/><path d="M8 11h5"/><circle cx="17" cy="17" r="4"/><path d="M20 20l3 3"/></svg>`,
-    procedures: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0v7a3 3 1 1-6 0z"/><path d="M12 4v4"/><path d="M9 7c-2 0-3 1-3 3v8"/><path d="M15 7c2 0 3 1 3 3v8"/></svg>`,
+    procedures: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0v7a3 3 0 1 1-6 0z"/><path d="M12 4v4"/><path d="M9 7c-2 0-3 1-3 3v8"/><path d="M15 7c2 0 3 1 3 3v8"/></svg>`,
 };
 
 const MODULE_DESCRIPTIONS = {
@@ -2231,7 +1976,6 @@ function filterModules(category, btn) {
     let mouseX = 0, mouseY = 0;
     let currentX = 0, currentY = 0;
     let rafId = null;
-
     const GAIN = 55;
 
     hero.addEventListener('mouseleave', () => { mouseX = 0; mouseY = 0; if (!rafId) rafId = requestAnimationFrame(update); });
