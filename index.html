@@ -1843,7 +1843,11 @@ async function renderModule(modId) {
             firstP.remove();
         }
 
-        const h2s = mdNode.querySelectorAll('h2');
+        let headings = mdNode.querySelectorAll('h2');
+        if (headings.length === 0) {
+            headings = mdNode.querySelectorAll('h3');
+        }
+        const h2s = headings;
         let sidebarHtml = '';
         if (h2s.length) {
             sidebarHtml = `
