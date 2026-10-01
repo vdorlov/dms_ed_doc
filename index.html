@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#00a8b5">
 <title>ДМС Портал — Обучающие материалы для врачей</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300a8b5'/%3E%3Cpath d='M14 6h4v6h6v4h-6v6h-4v-6H8v-4h6z' fill='white'/%3E%3Cpath d='M4 16h5l2-4 3 8 2-5h6' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300a8b5'/%3E%3Cpath d='M14 6h4v6h6v4h-6v6h-4v-6H8v-4h6z' fill='white'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,6 @@
         --step-4: clamp(2.2rem, 1.6rem + 3vw, 3.8rem);
         --nav-bg: rgba(255, 255, 255, 0.92);
         --hero-bg: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
-        --search-bg: rgba(255,255,255,0.7);
         --sidebar-bg: var(--surface);
         --nav-height: 70px;
     }
@@ -59,7 +58,6 @@
         --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
         --nav-bg: rgba(15, 26, 29, 0.92);
         --hero-bg: linear-gradient(135deg, #0d282c 0%, #164a4f 50%, #0d3d42 100%);
-        --search-bg: rgba(26, 46, 53, 0.7);
         --sidebar-bg: #142428;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -207,14 +205,10 @@
         will-change: transform;
     }
     .medical-icon:hover { opacity: 0.85; z-index: 5; }
-    .medical-icon .float-layer {
-        width: 100%; height: 100%;
-        animation: medFloat 7s ease-in-out infinite;
-    }
+    .medical-icon .float-layer { width: 100%; height: 100%; animation: medFloat 7s ease-in-out infinite; }
     .medical-icon .hover-layer { width: 100%; height: 100%; }
     .medical-icon .hover-layer svg {
-        width: 100%; height: 100%;
-        display: block;
+        width: 100%; height: 100%; display: block;
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         transform-origin: center;
     }
@@ -252,10 +246,7 @@
     }
 
     .med-1:hover .hover-layer { animation: crossPulse 0.8s ease-in-out infinite; }
-    @keyframes crossPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.18); }
-    }
+    @keyframes crossPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
     .med-2:hover .hover-layer { animation: snakeSlither 1.6s ease-in-out infinite; }
     @keyframes snakeSlither {
         0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -269,10 +260,7 @@
         75% { transform: rotate(12deg); }
     }
     .med-4:hover .hover-layer { animation: pillSpin 1.4s linear infinite; }
-    @keyframes pillSpin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+    @keyframes pillSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .med-5:hover .hover-layer { animation: dnaSpin 2.5s ease-in-out infinite; }
     @keyframes dnaSpin {
         0%, 100% { transform: rotateY(0deg) scale(1); }
@@ -340,7 +328,7 @@
         100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* ГЛАВНАЯ — КАРТОЧКА ВВОДНОГО МОДУЛЯ */
+    /* ГЛАВНАЯ — КАРТОЧКА */
     .modules-section {
         padding: 3rem 1.5rem 5rem;
         max-width: 1100px;
@@ -403,19 +391,9 @@
         transition: transform 0.3s ease;
     }
     .intro-card:hover .intro-card-icon { transform: scale(1.1) rotate(-5deg); }
-
-    .intro-card h3 {
-        font-size: var(--step-2);
-        color: var(--ink);
-    }
-    .intro-card p {
-        font-size: var(--step-0);
-        color: var(--muted);
-        line-height: 1.6;
-    }
-    .intro-card .intro-tags {
-        display: flex; flex-wrap: wrap; gap: 0.4rem;
-    }
+    .intro-card h3 { font-size: var(--step-2); color: var(--ink); }
+    .intro-card p { font-size: var(--step-0); color: var(--muted); line-height: 1.6; }
+    .intro-card .intro-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .intro-card .intro-tag {
         font-size: 0.75rem;
         padding: 0.2rem 0.7rem;
@@ -444,13 +422,8 @@
         transform: translateX(4px);
         box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
     }
-    .intro-card .intro-cta svg {
-        width: 16px; height: 16px;
-        transition: transform 0.3s ease;
-    }
-    .intro-card:hover .intro-cta svg {
-        transform: translateX(4px);
-    }
+    .intro-card .intro-cta svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+    .intro-card:hover .intro-cta svg { transform: translateX(4px); }
 
     /* MODULE PAGE */
     .module-page {
@@ -505,11 +478,7 @@
         color: #fff;
         border-color: var(--accent);
     }
-    .sidebar-toggle svg {
-        width: 14px; height: 14px;
-        transition: transform 0.3s ease;
-        flex-shrink: 0;
-    }
+    .sidebar-toggle svg { width: 14px; height: 14px; transition: transform 0.3s ease; flex-shrink: 0; }
     .module-sidebar.collapsed .sidebar-toggle svg { transform: rotate(180deg); }
     .module-sidebar.collapsed .sidebar-toggle-text { display: none; }
 
@@ -695,9 +664,7 @@
     .md-content strong { font-weight: 700; color: var(--ink); }
     .md-content em { font-style: italic; }
     .md-content a { color: var(--accent-dark); text-decoration: underline; }
-    .md-content ul, .md-content ol {
-        margin: 0.5rem 0 1rem 1.5rem;
-    }
+    .md-content ul, .md-content ol { margin: 0.5rem 0 1rem 1.5rem; }
     .md-content li { margin-bottom: 0.5rem; }
     .md-content hr {
         border: none;
@@ -782,35 +749,6 @@
     .md-content .highlight-box::before { display: none; }
     .md-content .highlight-box strong { color: var(--accent-dark); }
 
-    .md-content .zone-red,
-    .md-content .zone-yellow,
-    .md-content .zone-green {
-        border-radius: var(--radius-sm);
-        padding: 1.2rem 1.5rem;
-        margin: 1rem 0;
-    }
-    .md-content .zone-red {
-        background: linear-gradient(135deg, #ffebee, #ffcdd2);
-        border-left: 4px solid var(--danger);
-    }
-    [data-theme="dark"] .md-content .zone-red {
-        background: linear-gradient(135deg, #3a1a1a, #4a2020);
-    }
-    .md-content .zone-yellow {
-        background: linear-gradient(135deg, #fff8e1, #ffecb3);
-        border-left: 4px solid var(--warning);
-    }
-    [data-theme="dark"] .md-content .zone-yellow {
-        background: linear-gradient(135deg, #3a3010, #4a3a15);
-    }
-    .md-content .zone-green {
-        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-        border-left: 4px solid var(--success);
-    }
-    [data-theme="dark"] .md-content .zone-green {
-        background: linear-gradient(135deg, #1a3a1a, #204a20);
-    }
-
     .md-content .table-wrap {
         overflow-x: auto;
         margin: 1rem 0;
@@ -843,176 +781,39 @@
     .md-content tr:last-child td { border-bottom: none; }
 
     /* ============================================
-       ИНФОГРАФИКА — СХЕМА ПРИНЯТИЯ РЕШЕНИЯ
+       ИНФОГРАФИКА — ВСТРОЕННАЯ КАРТИНКА
        ============================================ */
     .infographic-block {
         background: var(--surface);
         border-radius: var(--radius-sm);
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
         box-shadow: var(--shadow);
         border: 1px solid var(--line);
         margin: 2rem 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        text-align: center;
+        overflow: hidden;
     }
     .infographic-block h2 {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         color: var(--ink);
         font-size: var(--step-2);
     }
-
-    .flowchart {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.2rem;
-        min-width: 640px;
-        padding: 1rem 0;
+    .infographic-img-wrap {
+        background: #fafafa;
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        display: inline-block;
+        max-width: 100%;
     }
-
-    /* Узлы */
-    .fc-node {
-        padding: 0.7rem 1.2rem;
+    [data-theme="dark"] .infographic-img-wrap {
+        background: #f5f5f5;
+    }
+    .infographic-img-wrap img {
+        display: block;
+        max-width: 100%;
+        height: auto;
         border-radius: 8px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-align: center;
-        line-height: 1.35;
-        max-width: 260px;
-        border: 2px solid;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: default;
-    }
-    .fc-node:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-    .fc-node--root {
-        background: linear-gradient(135deg, #b3e5fc, #81d4fa);
-        border-color: #0277bd;
-        color: #01579b;
-        font-weight: 700;
-        font-size: 0.95rem;
-        max-width: 300px;
-    }
-    [data-theme="dark"] .fc-node--root {
-        background: linear-gradient(135deg, #0d3d5c, #10567a);
-        color: #b3e5fc;
-        border-color: #29b6f6;
-    }
-    .fc-node--no { 
-        background: linear-gradient(135deg, #fff9c4, #fff59d);
-        border-color: #f9a825;
-        color: #795548;
-    }
-    [data-theme="dark"] .fc-node--no {
-        background: linear-gradient(135deg, #3a3010, #4a3a15);
-        color: #ffe082;
-        border-color: #f9a825;
-    }
-    .fc-node--yes {
-        background: linear-gradient(135deg, #d1c4e9, #b39ddb);
-        border-color: #5e35b1;
-        color: #311b92;
-    }
-    [data-theme="dark"] .fc-node--yes {
-        background: linear-gradient(135deg, #2c1e4a, #3d2a63);
-        color: #d1c4e9;
-        border-color: #7e57c2;
-    }
-    .fc-node--step {
-        background: linear-gradient(135deg, #b2ebf2, #80deea);
-        border-color: #00838f;
-        color: #006064;
-    }
-    [data-theme="dark"] .fc-node--step {
-        background: linear-gradient(135deg, #0a3a40, #0e5057);
-        color: #b2ebf2;
-        border-color: #26c6da;
-    }
-    .fc-node--action {
-        background: linear-gradient(135deg, #ffe0b2, #ffcc80);
-        border-color: #ef6c00;
-        color: #e65100;
-    }
-    [data-theme="dark"] .fc-node--action {
-        background: linear-gradient(135deg, #3a2810, #4a3515);
-        color: #ffe0b2;
-        border-color: #ffa726;
-    }
-    .fc-node--success {
-        background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
-        border-color: #2e7d32;
-        color: #1b5e20;
-    }
-    [data-theme="dark"] .fc-node--success {
-        background: linear-gradient(135deg, #1a3a1a, #204a20);
-        color: #c8e6c9;
-        border-color: #66bb6a;
-    }
-    .fc-node--danger {
-        background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
-        border-color: #c62828;
-        color: #b71c1c;
-    }
-    [data-theme="dark"] .fc-node--danger {
-        background: linear-gradient(135deg, #3a1a1a, #4a2020);
-        color: #ffcdd2;
-        border-color: #ef5350;
-    }
-
-    /* Соединительные линии */
-    .fc-line {
-        width: 2px;
-        height: 24px;
-        background: var(--muted);
-        opacity: 0.5;
-    }
-    .fc-row {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100%;
-    }
-    .fc-column {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.8rem;
-        flex: 1;
-        min-width: 200px;
-    }
-    .fc-column-title {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--muted);
-        padding: 0.3rem 0.8rem;
-        background: var(--accent-weak);
-        border-radius: 100px;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Большой заголовок столбцов */
-    .fc-group-title {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: var(--accent-dark);
-        padding: 0.5rem 1rem;
-        background: var(--accent-light);
-        border-radius: 100px;
-        margin: 0.5rem 0;
-        text-align: center;
-    }
-    [data-theme="dark"] .fc-group-title {
-        background: rgba(38, 198, 218, 0.2);
-        color: var(--accent-light);
     }
 
     /* SCROLL TOP */
@@ -1032,10 +833,7 @@
     }
     .scroll-top.visible { opacity: 1; transform: translateY(0); }
     .scroll-top:hover { transform: translateY(-3px) scale(1.05); }
-    .scroll-top svg {
-        width: 22px; height: 22px;
-        animation: bounceUp 2s infinite;
-    }
+    .scroll-top svg { width: 22px; height: 22px; animation: bounceUp 2s infinite; }
     @keyframes bounceUp {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-4px); }
@@ -1046,65 +844,83 @@
     .infographic-btn {
         position: fixed;
         z-index: 1000;
-        display: inline-flex; align-items: center; gap: 0.6rem;
-        padding: 0.85rem 1.3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.1rem;
         color: white;
         border: none;
         border-radius: 100px;
         font-family: 'Montserrat', sans-serif;
-        font-weight: 700; font-size: 0.9rem;
+        font-weight: 700;
+        font-size: 0.85rem;
         cursor: pointer;
-        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Фиолетовая кнопка — СВЕРХУ СПРАВА, под шапкой */
+    .infographic-btn {
+        top: calc(var(--nav-height) + 12px);
+        right: 1.5rem;
+        background: linear-gradient(135deg, #7e57c2, #5e35b1);
+    }
+    .infographic-btn:hover {
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 10px 28px rgba(94, 53, 177, 0.5);
+    }
+
+    /* Оранжевая кнопка шпаргалки — СНИЗУ СЛЕВА */
+    .cheat-sheet-btn {
+        bottom: 2rem;
+        left: 2rem;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
         animation: cheatPulse 3s ease-in-out infinite;
     }
-    .cheat-sheet-btn {
-        bottom: 2rem; left: 2rem;
-        background: linear-gradient(135deg, #ff8f00, #f57c00);
-        box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    .infographic-btn {
-        bottom: 2rem; left: 13.5rem;
-        background: linear-gradient(135deg, #7e57c2, #5e35b1);
-        box-shadow: 0 8px 24px rgba(94, 53, 177, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
-        animation-delay: 1.5s;
-    }
-    .cheat-sheet-btn:hover,
-    .infographic-btn:hover {
+    .cheat-sheet-btn:hover {
         transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 12px 32px rgba(245, 124, 0, 0.55);
         animation-play-state: paused;
     }
+
     .cheat-sheet-btn svg,
     .infographic-btn svg {
-        width: 20px; height: 20px;
+        width: 18px;
+        height: 18px;
         flex-shrink: 0;
-        transition: transform 0.4s ease;
+        transition: transform 0.3s ease;
     }
     .cheat-sheet-btn:hover svg { transform: rotate(-12deg) scale(1.1); }
     .infographic-btn:hover svg { transform: rotate(12deg) scale(1.1); }
 
     @keyframes cheatPulse {
         0%, 100% {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 currentColor;
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4), 0 0 0 0 rgba(245, 124, 0, 0.6);
         }
         50% {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 14px rgba(255, 255, 255, 0);
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4), 0 0 0 12px rgba(245, 124, 0, 0);
         }
     }
 
     @media (max-width: 768px) {
         .cheat-sheet-btn {
-            bottom: 5rem; left: 1rem;
-            padding: 0.7rem 1rem; font-size: 0.8rem;
+            bottom: 1rem;
+            left: 1rem;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.78rem;
         }
         .infographic-btn {
-            bottom: 5rem; left: 4.5rem;
-            padding: 0.7rem 1rem; font-size: 0.8rem;
+            top: calc(var(--nav-height) + 8px);
+            right: 0.8rem;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.78rem;
         }
         .cheat-sheet-btn .cheat-text,
         .infographic-btn .infographic-text { display: none; }
     }
 
-    /* Страница шпаргалки (заглушка) */
+    /* Заглушка */
     .stub-page {
         display: none;
         padding: 6rem 1.5rem 3rem;
@@ -1144,7 +960,7 @@
     .infographic-page {
         display: none;
         padding: 5rem 0 3rem;
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
         animation: fadeIn 0.5s ease;
     }
@@ -1178,6 +994,50 @@
     }
     .infographic-page .infographic-content {
         padding: 0 1.5rem;
+    }
+    .infographic-page .infographic-full-card {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+        text-align: center;
+    }
+    .infographic-page .infographic-full-card img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 8px;
+    }
+    .infographic-page .infographic-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    .infographic-page .infographic-actions button,
+    .infographic-page .infographic-actions a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: white;
+        border: none;
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+    .infographic-page .infographic-actions button:hover,
+    .infographic-page .infographic-actions a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
     }
 
     footer {
@@ -1213,20 +1073,19 @@
     }
 
     @media (max-width: 768px) {
-        .scroll-top { right: 1rem; bottom: 8.5rem; width: 44px; height: 44px; }
+        .scroll-top { right: 1rem; bottom: 1rem; width: 44px; height: 44px; }
         .md-content { padding: 1.2rem; }
         .hero { min-height: 40vh; }
         .medical-icon { opacity: 0.18; }
         .med-7, .med-8, .med-9, .med-10, .med-11, .med-12 { display: none; }
         .nav-brand span { display: none; }
-        .fc-row { flex-direction: column; align-items: center; }
-        .flowchart { min-width: unset; }
     }
 
     @media print {
         .top-nav, .scroll-top, .nav-home-btn, .theme-toggle,
         .module-sidebar, .medical-icon, .pulse-ring,
-        .cheat-sheet-btn, .infographic-btn, .print-module-btn {
+        .cheat-sheet-btn, .infographic-btn, .print-module-btn,
+        .infographic-page .infographic-actions {
             display: none !important;
         }
         .hero { min-height: auto; padding: 2rem 1rem; }
@@ -1235,7 +1094,7 @@
             padding: 1rem 0 !important;
         }
         .modules-section, #homePage { display: none; }
-        .md-content, .infographic-block {
+        .md-content, .infographic-block, .infographic-full-card {
             box-shadow: none;
             border: 1px solid #ccc;
             page-break-inside: avoid;
@@ -1246,7 +1105,6 @@
             print-color-adjust: exact;
         }
         body { background: white; color: black; }
-        .fc-node { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
     @page { margin: 12mm; }
 
@@ -1294,17 +1152,7 @@
     </svg>
 </button>
 
-<button class="cheat-sheet-btn" onclick="openCheatSheet()" title="Шпаргалка врача">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4z"/>
-        <path d="M4 8h10"/>
-        <path d="M4 12h10"/>
-        <path d="M4 16h6"/>
-        <path d="M19 6l3 3-4 4"/>
-    </svg>
-    <span class="cheat-text">Шпаргалка врача</span>
-</button>
-
+<!-- Фиолетовая кнопка — ВВЕРХУ СПРАВА -->
 <button class="infographic-btn" onclick="openInfographic()" title="Принятие решение по ДМС">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="3" width="6" height="6" rx="1"/>
@@ -1317,6 +1165,18 @@
         <path d="M9 18h6"/>
     </svg>
     <span class="infographic-text">Принятие решение по ДМС</span>
+</button>
+
+<!-- Оранжевая кнопка — СНИЗУ СЛЕВА -->
+<button class="cheat-sheet-btn" onclick="openCheatSheet()" title="Шпаргалка врача">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4z"/>
+        <path d="M4 8h10"/>
+        <path d="M4 12h10"/>
+        <path d="M4 16h6"/>
+        <path d="M19 6l3 3-4 4"/>
+    </svg>
+    <span class="cheat-text">Шпаргалка врача</span>
 </button>
 
 <!-- ГЛАВНАЯ -->
@@ -1382,16 +1242,13 @@
             <h2>Начните с вводного модуля</h2>
             <p>Основы работы с программами ДМС: страховой случай, взаимодействие со СК, согласование услуг и причины удержаний</p>
         </div>
-        <div id="introCardContainer">
-            <!-- Карточка подгрузится из JS -->
-        </div>
+        <div id="introCardContainer"></div>
     </section>
 </div>
 
-<!-- КОНТЕЙНЕР МОДУЛЕЙ -->
 <div id="moduleContainer"></div>
 
-<!-- СТРАНИЦА ИНФОГРАФИКИ -->
+<!-- ИНФОГРАФИКА — ОТДЕЛЬНАЯ СТРАНИЦА -->
 <div class="infographic-page" id="infographicPage">
     <div class="infographic-header">
         <div class="breadcrumb">
@@ -1403,13 +1260,31 @@
         <p>Пошаговая схема: от приёма пациента до оплаты или отказа</p>
     </div>
     <div class="infographic-content">
-        <div id="infographicFullContainer">
-            <!-- Инфографика подгрузится из JS -->
+        <div class="infographic-full-card">
+            <img id="infographicFullImg" src="" alt="Инфографика принятия решения по ДМС">
+            <div class="infographic-actions">
+                <a id="infographicDownloadLink" href="#" download="Infografika_prinyatiya_resheniya.png">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Скачать PNG
+                </a>
+                <button onclick="window.print()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9V2h12v7"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Распечатать
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- СТРАНИЦА ШПАРГАЛКИ (ЗАГЛУШКА) -->
+<!-- ЗАГЛУШКА ШПАРГАЛКИ -->
 <div class="stub-page" id="cheatPage">
     <div class="stub-box">
         <div class="stub-icon">
@@ -1447,7 +1322,11 @@ const GITHUB_REPO = 'dms_ed_doc';
 const GITHUB_BRANCH = 'master';
 const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
 
-const CACHE_TTL = 1000 * 60 * 30; // 30 минут
+// Путь к PNG с инфографикой
+const INFOGRAPHIC_PNG_PATH = 'vvedenie/Infographika_prinytiya_resheniy.png';
+const INFOGRAPHIC_PNG_URL = RAW_BASE + INFOGRAPHIC_PNG_PATH;
+
+const CACHE_TTL = 1000 * 60 * 30;
 
 // ============================================================
 // ЗАГРУЗКА
@@ -1477,7 +1356,6 @@ async function fetchWithCache(url, cacheKey) {
 }
 
 async function loadManifest() {
-    // Manifest не кэшируем — всегда свежий
     const url = RAW_BASE + 'manifest.json';
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status} — manifest.json не найден`);
@@ -1541,87 +1419,6 @@ function renderMarkdownToHtml(md, modId) {
     });
 
     return div;
-}
-
-// ============================================================
-// ИНФОГРАФИКА ПРИНЯТИЯ РЕШЕНИЯ (HTML/CSS)
-// ============================================================
-function buildInfographicHtml() {
-    return `
-        <div class="infographic-block">
-            <h2>Инфографика принятия решения</h2>
-            <div class="flowchart">
-                <!-- Корневой узел -->
-                <div class="fc-node fc-node--root">Приём врача-специалиста<br>пациента ДМС</div>
-                <div class="fc-line"></div>
-
-                <!-- Три ветки -->
-                <div class="fc-row">
-                    <!-- Ветка 1: Нет страхового случая -->
-                    <div class="fc-column">
-                        <div class="fc-node fc-node--no">Нет страхового случая</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-node fc-node--no">Первичный приём оплачивает СК.<br>Исключение: ранее установленный нестраховой диагноз</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-node fc-node--danger">Все обследования и приёмы<br>за наличный расчёт</div>
-                    </div>
-
-                    <!-- Ветка 2: Есть страховой случай (прямой доступ) -->
-                    <div class="fc-column">
-                        <div class="fc-node fc-node--yes">Есть страховой случай</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-node fc-node--yes">Условия обслуживания<br>по прямому доступу</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-row" style="gap:0.6rem;">
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--step">Услуги, входящие<br>в программу ДМС<br>без согласования</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--action">Создание направления<br>на исследование на приёме</div>
-                            </div>
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--step">Услуги, требующие<br>согласования</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--action">Согласование услуг<br>ответственным сотрудником</div>
-                            </div>
-                        </div>
-                        <div class="fc-line"></div>
-                        <div class="fc-row" style="gap:0.6rem;">
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--success">Услуги согласованы</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--success">Запись на исследование<br>по ДМС</div>
-                            </div>
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--danger">Отказ СК</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--danger">Запись на исследование<br>за наличный расчёт</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ветка 3: Непрямой доступ (по ГП) -->
-                    <div class="fc-column">
-                        <div class="fc-node fc-node--no">Условия обслуживания<br>по ГП (непрямой доступ)</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-node fc-node--action">Согласование услуг<br>ответственным сотрудником</div>
-                        <div class="fc-line"></div>
-                        <div class="fc-row" style="gap:0.6rem;">
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--success">Услуга согласована</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--success">Оказание услуги<br>при наличии ГП</div>
-                            </div>
-                            <div class="fc-column" style="min-width:0;flex:1;">
-                                <div class="fc-node fc-node--danger">Отказ СК</div>
-                                <div class="fc-line"></div>
-                                <div class="fc-node fc-node--danger">Запись на услугу<br>за наличный расчёт</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
 }
 
 // ============================================================
@@ -1731,7 +1528,6 @@ async function renderModule(modId) {
             firstP.remove();
         }
 
-        // sidebar из h2 (или h3)
         let headings = mdNode.querySelectorAll('h2');
         if (headings.length === 0) headings = mdNode.querySelectorAll('h3');
         const headingArray = Array.from(headings);
@@ -1757,8 +1553,15 @@ async function renderModule(modId) {
             `;
         }
 
-        // Инфографика в конце модуля
-        const infographicHtml = buildInfographicHtml();
+        // Инфографика — встроенная PNG в конце модуля
+        const infographicHtml = `
+            <div class="infographic-block" id="infographic-block-in-module">
+                <h2>Инфографика принятия решения</h2>
+                <div class="infographic-img-wrap">
+                    <img src="${INFOGRAPHIC_PNG_URL}" alt="Инфографика принятия решения по ДМС" loading="lazy">
+                </div>
+            </div>
+        `;
 
         page.innerHTML = `
             <div class="module-header">
@@ -1840,10 +1643,14 @@ function openInfographic() {
 }
 
 function renderInfographicPage() {
-    const container = document.getElementById('infographicFullContainer');
-    if (container.dataset.loaded === 'true') return;
-    container.innerHTML = buildInfographicHtml();
-    container.dataset.loaded = 'true';
+    const img = document.getElementById('infographicFullImg');
+    const dl = document.getElementById('infographicDownloadLink');
+    if (img && !img.src) {
+        img.src = INFOGRAPHIC_PNG_URL;
+    }
+    if (dl) {
+        dl.href = INFOGRAPHIC_PNG_URL;
+    }
 }
 
 // ============================================================
@@ -1918,7 +1725,7 @@ function initSidebarObserver(moduleId) {
     if (!module) return;
     const blocks = module.querySelectorAll('h2[id], h3[id]');
     const links = module.querySelectorAll('.sidebar-nav a');
-    if (!blocks.length || !links.length) return;
+    if (!links.length) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
