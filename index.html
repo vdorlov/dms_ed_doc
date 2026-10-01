@@ -40,6 +40,7 @@
         --hero-bg: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
         --sidebar-bg: var(--surface);
         --nav-height: 70px;
+        --svg-bg: #ffffff;
     }
     [data-theme="dark"] {
         --bg: #0f1a1d;
@@ -59,6 +60,7 @@
         --nav-bg: rgba(15, 26, 29, 0.92);
         --hero-bg: linear-gradient(135deg, #0d282c 0%, #164a4f 50%, #0d3d42 100%);
         --sidebar-bg: #142428;
+        --svg-bg: #f5f7f8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -781,7 +783,7 @@
     .md-content tr:last-child td { border-bottom: none; }
 
     /* ============================================
-       ИНФОГРАФИКА — ИНТЕРАКТИВНАЯ СХЕМА
+       ИНФОГРАФИКА — SVG
        ============================================ */
     .infographic-block {
         background: var(--surface);
@@ -806,183 +808,203 @@
         padding: 0 1rem;
     }
 
-    .flow-wrap {
+    .svg-viewer {
         position: relative;
-        width: 100%;
-        overflow-x: auto;
+        background: var(--svg-bg);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        transition: background 0.3s ease;
+    }
+
+    .svg-scroll {
+        overflow: auto;
+        max-height: 720px;
+        padding: 1.5rem;
         -webkit-overflow-scrolling: touch;
-        padding: 0.5rem;
-    }
-    .flow-stage {
-        position: relative;
-        min-width: 1080px;
-        height: 740px;
-        margin: 0 auto;
-    }
-
-    .flow-svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-    .flow-svg path {
-        fill: none;
-        stroke: #B0BEC5;
-        stroke-width: 1.8;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-    .flow-svg marker path {
-        fill: #B0BEC5;
-        stroke: none;
-    }
-    .flow-svg path.flow-draw {
-        stroke-dasharray: 3000;
-        stroke-dashoffset: 3000;
-        animation: drawLine 1.4s ease forwards;
-    }
-    @keyframes drawLine {
-        to { stroke-dashoffset: 0; }
-    }
-
-    .flow-node {
-        position: absolute;
-        padding: 0.7rem 0.9rem;
-        border-radius: 10px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-align: center;
-        line-height: 1.35;
-        border: 1.5px solid;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 2;
+        cursor: grab;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: default;
-        opacity: 0;
-        animation: nodeAppear 0.6s ease forwards;
+        min-height: 300px;
     }
-    @keyframes nodeAppear {
-        from { opacity: 0; transform: translateY(8px) scale(0.95); }
+    .svg-scroll:active { cursor: grabbing; }
+
+    .svg-scroll .svg-inner {
+        width: 100%;
+        max-width: 1400px;
+        transition: transform 0.25s ease;
+        transform-origin: center center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .svg-scroll .svg-inner svg {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        display: block;
+        filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.06));
+        animation: svgAppear 1s ease both;
+    }
+    [data-theme="dark"] .svg-scroll .svg-inner svg {
+        filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+    }
+    @keyframes svgAppear {
+        from { opacity: 0; transform: translateY(20px) scale(0.97); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .flow-node:hover {
-        transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-        z-index: 10;
+
+    /* Стилизация SVG-узлов (если в SVG есть группы с классами) */
+    .svg-scroll svg g.node,
+    .svg-scroll svg .node {
+        transition: filter 0.3s ease, transform 0.3s ease;
+        transform-origin: center;
+        transform-box: fill-box;
+    }
+    .svg-scroll svg g.node:hover,
+    .svg-scroll svg .node:hover {
+        filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    }
+    .svg-scroll svg g.node:hover > *,
+    .svg-scroll svg .node:hover > * {
+        filter: brightness(1.05);
     }
 
-    .flow-node--root {
-        background: #E3F2FD;
-        border-color: #64B5F6;
-        color: #0D47A1;
+    /* Панель управления SVG */
+    .svg-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+        flex-wrap: wrap;
+    }
+    .svg-toolbar-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.5rem 0.9rem;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        user-select: none;
+    }
+    .svg-toolbar-btn:hover {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+        transform: translateY(-1px);
+    }
+    .svg-toolbar-btn svg {
+        width: 14px; height: 14px;
+        flex-shrink: 0;
+    }
+    .svg-toolbar-zoom {
+        display: inline-flex;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        overflow: hidden;
+    }
+    .svg-toolbar-zoom button {
+        padding: 0.5rem 0.8rem;
+        background: transparent;
+        border: none;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 1.05rem;
         font-weight: 700;
+        line-height: 1;
+        transition: background 0.2s;
+        font-family: 'Montserrat', sans-serif;
     }
-    [data-theme="dark"] .flow-node--root {
-        background: #0D2847;
-        border-color: #42A5F5;
-        color: #BBDEFB;
+    .svg-toolbar-zoom button:hover {
+        background: var(--accent);
+        color: white;
     }
-
-    .flow-node--no {
-        background: #FFF9C4;
-        border-color: #FDD835;
-        color: #7A5C00;
-    }
-    [data-theme="dark"] .flow-node--no {
-        background: #3A2E0A;
-        border-color: #FDD835;
-        color: #FFF59D;
-    }
-
-    .flow-node--yes {
-        background: #EDE7F6;
-        border-color: #9575CD;
-        color: #4527A0;
-    }
-    [data-theme="dark"] .flow-node--yes {
-        background: #2A1E4A;
-        border-color: #B39DDB;
-        color: #D1C4E9;
+    .svg-toolbar-zoom .zoom-value {
+        padding: 0 0.5rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--muted);
+        min-width: 52px;
+        text-align: center;
     }
 
-    .flow-node--gp {
-        background: #FFF3E0;
-        border-color: #FFB74D;
-        color: #E65100;
+    .svg-loading {
+        text-align: center;
+        padding: 3rem;
+        color: var(--muted);
     }
-    [data-theme="dark"] .flow-node--gp {
-        background: #3A2510;
-        border-color: #FFB74D;
-        color: #FFE0B2;
+    .svg-loading .module-loading-spinner {
+        display: inline-block;
+        width: 40px; height: 40px;
+        border: 3px solid var(--accent-light);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
     }
-
-    .flow-node--neutral {
-        background: #E0F7FA;
-        border-color: #4DD0E1;
-        color: #00695C;
-    }
-    [data-theme="dark"] .flow-node--neutral {
-        background: #0A2F35;
-        border-color: #4DD0E1;
-        color: #B2EBF2;
+    .svg-loading-text {
+        font-size: 0.9rem;
     }
 
-    .flow-node--action {
-        background: #F3E5F5;
-        border-color: #BA68C8;
-        color: #6A1B9A;
+    /* Fullscreen-режим */
+    .svg-fullscreen {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: var(--svg-bg);
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        animation: fadeIn 0.3s ease;
     }
-    [data-theme="dark"] .flow-node--action {
-        background: #2E1A35;
-        border-color: #BA68C8;
-        color: #E1BEE7;
+    .svg-fullscreen .svg-scroll {
+        flex: 1;
+        max-height: none;
+        background: var(--svg-bg);
     }
-
-    .flow-node--success {
-        background: #E8F5E9;
-        border-color: #81C784;
-        color: #1B5E20;
+    .svg-fullscreen .svg-toolbar {
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     }
-    [data-theme="dark"] .flow-node--success {
-        background: #16331A;
-        border-color: #81C784;
-        color: #C8E6C9;
+    .svg-fullscreen .close-fullscreen {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-lg);
     }
-
-    .flow-node--danger {
-        background: #FFEBEE;
-        border-color: #EF9A9A;
-        color: #B71C1C;
-    }
-    [data-theme="dark"] .flow-node--danger {
-        background: #3A1414;
-        border-color: #EF9A9A;
-        color: #FFCDD2;
-    }
-
-    @media (max-width: 900px) {
-        .flow-stage {
-            min-width: unset;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-            padding: 1rem;
-        }
-        .flow-svg { display: none; }
-        .flow-node {
-            position: static;
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            animation-delay: 0s !important;
-        }
+    .svg-fullscreen .close-fullscreen:hover {
+        background: var(--danger);
+        color: white;
+        border-color: var(--danger);
     }
 
     /* Страница инфографики */
@@ -1027,19 +1049,24 @@
     .infographic-page .infographic-full-card {
         background: var(--surface);
         border-radius: var(--radius-sm);
-        padding: 2rem;
+        padding: 0;
         box-shadow: var(--shadow);
         border: 1px solid var(--line);
         overflow: hidden;
     }
+    .infographic-page .svg-scroll {
+        max-height: 78vh;
+    }
     .infographic-page .infographic-actions {
-        margin-top: 1.5rem;
+        margin-top: 0;
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: 0.7rem;
         flex-wrap: wrap;
+        padding: 1rem;
     }
-    .infographic-page .infographic-actions button {
+    .infographic-page .infographic-actions button,
+    .infographic-page .infographic-actions a {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
@@ -1052,9 +1079,11 @@
         font-weight: 600;
         font-size: 0.85rem;
         cursor: pointer;
+        text-decoration: none;
         transition: all 0.25s ease;
     }
-    .infographic-page .infographic-actions button:hover {
+    .infographic-page .infographic-actions button:hover,
+    .infographic-page .infographic-actions a:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
     }
@@ -1159,6 +1188,21 @@
         }
         .cheat-sheet-btn .cheat-text,
         .infographic-btn .infographic-text { display: none; }
+        .svg-scroll {
+            padding: 0.8rem;
+            max-height: 60vh;
+        }
+        .svg-toolbar {
+            gap: 0.3rem;
+            padding: 0.5rem;
+        }
+        .svg-toolbar-btn {
+            padding: 0.4rem 0.7rem;
+            font-size: 0.72rem;
+        }
+        .svg-toolbar-btn span {
+            display: none;
+        }
     }
 
     /* Заглушка */
@@ -1242,7 +1286,7 @@
         .top-nav, .scroll-top, .nav-home-btn, .theme-toggle,
         .module-sidebar, .medical-icon, .pulse-ring,
         .cheat-sheet-btn, .infographic-btn, .print-module-btn,
-        .infographic-page .infographic-actions {
+        .svg-toolbar, .infographic-page .infographic-actions {
             display: none !important;
         }
         .hero { min-height: auto; padding: 2rem 1rem; }
@@ -1256,18 +1300,18 @@
             border: 1px solid #ccc;
             page-break-inside: avoid;
         }
-        .flow-node, .flow-svg path {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+        .svg-viewer {
+            border: none;
+            background: white;
         }
-        .flow-node {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
+        .svg-scroll {
+            overflow: visible;
+            max-height: none;
+            padding: 0;
         }
-        .flow-svg path.flow-draw {
+        .svg-scroll .svg-inner svg {
+            filter: none;
             animation: none !important;
-            stroke-dashoffset: 0 !important;
         }
         .module-header, .infographic-page .infographic-header {
             background: #008c99 !important;
@@ -1428,16 +1472,6 @@
     <div class="infographic-content">
         <div class="infographic-full-card">
             <div id="infographicFullContainer"></div>
-            <div class="infographic-actions">
-                <button onclick="window.print()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9V2h12v7"/>
-                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                        <rect x="6" y="14" width="12" height="8"/>
-                    </svg>
-                    Распечатать
-                </button>
-            </div>
         </div>
     </div>
 </div>
@@ -1480,6 +1514,10 @@ const GITHUB_BRANCH = 'master';
 const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
 const CACHE_TTL = 1000 * 60 * 30;
 
+// Путь к SVG-файлу инфографики
+const INFOGRAPHIC_SVG_PATH = 'vvedenie/Infographika_prinytiya_resheniy.svg';
+const INFOGRAPHIC_SVG_URL = RAW_BASE + INFOGRAPHIC_SVG_PATH;
+
 // ============================================================
 // ЗАГРУЗКА
 // ============================================================
@@ -1517,6 +1555,11 @@ async function loadManifest() {
 async function loadMd(filePath) {
     const url = RAW_BASE + filePath;
     return await fetchWithCache(url, 'dms-md-' + filePath);
+}
+
+async function loadSvg(filePath) {
+    const url = RAW_BASE + filePath;
+    return await fetchWithCache(url, 'dms-svg-' + filePath);
 }
 
 // ============================================================
@@ -1566,160 +1609,134 @@ function renderMarkdownToHtml(md, modId) {
 }
 
 // ============================================================
-// ИНФОГРАФИКА — ДАННЫЕ И РЕНДЕР
+// SVG-ВЬЮЕР: загрузка, зум, fullscreen
 // ============================================================
-// Координаты в пикселях внутри stage 1080×740
-const FLOW_NODES = [
-    // === Уровень 0: корень ===
-    { id: 'root', x: 390, y: 20, w: 300, h: 60, text: 'Приём врача-специалиста<br>пациента ДМС', type: 'root' },
+let svgZoom = 1;
+const SVG_MIN_ZOOM = 0.5;
+const SVG_MAX_ZOOM = 3;
 
-    // === Уровень 1: три исхода ===
-    { id: 'no-case', x: 30, y: 140, w: 260, h: 50, text: 'Нет страхового случая', type: 'no' },
-    { id: 'yes-case', x: 400, y: 140, w: 280, h: 50, text: 'Есть страховой случай', type: 'yes' },
-    { id: 'gp', x: 790, y: 140, w: 260, h: 60, text: 'Условия обслуживания по<br>ГП (не прямой доступ)', type: 'gp' },
+async function buildSvgViewerHtml(containerId) {
+    // Загружаем SVG-контент
+    let svgContent;
+    try {
+        svgContent = await loadSvg(INFOGRAPHIC_SVG_PATH);
+    } catch(err) {
+        return `<div class="module-error">Не удалось загрузить инфографику.<br>${err.message}<br><br>Проверьте, что файл <code>${INFOGRAPHIC_SVG_PATH}</code> лежит в репозитории.</div>`;
+    }
 
-    // === Уровень 2: слева (нет СС) ===
-    { id: 'no-primary', x: 30, y: 240, w: 260, h: 100, text: 'Первичный приём<br>оплачивает СК.<br>Исключение: ранее<br>установленный нестраховой<br>диагноз', type: 'no' },
-    { id: 'no-cash', x: 30, y: 390, w: 260, h: 60, text: 'Все обследования и приёмы<br>за наличный расчёт', type: 'no' },
+    // Нормализуем: убираем XML-декларацию, doctype, делаем svg адаптивным
+    svgContent = svgContent
+        .replace(/<\?xml[^>]*\?>/gi, '')
+        .replace(/<!DOCTYPE[^>]*>/gi, '')
+        .trim();
 
-    // === Уровень 2: центр (есть СС) ===
-    { id: 'direct', x: 400, y: 240, w: 280, h: 50, text: 'Условия обслуживания<br>по прямому доступу', type: 'yes' },
-
-    // === Уровень 2: справа (по ГП) ===
-    { id: 'gp-approve', x: 790, y: 240, w: 260, h: 60, text: 'Согласование услуг<br>ответственным сотрудником', type: 'gp' },
-
-    // === Уровень 3: центральные ветки ===
-    { id: 'no-approve-needed', x: 300, y: 340, w: 210, h: 100, text: 'Услуги, входящие<br>в программу ДМС<br>без согласования', type: 'neutral' },
-    { id: 'approve-needed', x: 570, y: 340, w: 210, h: 90, text: 'Услуги,<br>требующие<br>согласования', type: 'gp' },
-
-    // === Уровень 3: правая ветка от ГП ===
-    { id: 'gp-agreed', x: 780, y: 340, w: 130, h: 60, text: 'Услуга<br>согласована', type: 'success' },
-    { id: 'gp-denied', x: 920, y: 340, w: 130, h: 60, text: 'Отказ<br>СК', type: 'danger' },
-
-    // === Уровень 4: под центральной веткой ===
-    { id: 'create-direction', x: 300, y: 490, w: 210, h: 90, text: 'Создание<br>направления на<br>исследование<br>на приёме', type: 'neutral' },
-    { id: 'approve-action', x: 570, y: 480, w: 210, h: 90, text: 'Согласование<br>услуг<br>ответственным<br>сотрудником', type: 'action' },
-
-    // === Уровень 4: под правой веткой ===
-    { id: 'gp-service', x: 780, y: 430, w: 130, h: 70, text: 'Оказание<br>услуги при<br>наличии ГП', type: 'success' },
-    { id: 'gp-cash', x: 920, y: 430, w: 130, h: 70, text: 'Запись на<br>услугу за<br>наличный<br>расчёт', type: 'danger' },
-
-    // === Уровень 5: финал центральной ветки ===
-    { id: 'agreed', x: 550, y: 630, w: 120, h: 55, text: 'Услуга<br>согласована', type: 'success' },
-    { id: 'denied', x: 680, y: 630, w: 120, h: 55, text: 'Отказ<br>СК', type: 'danger' },
-
-    // === Уровень 6: финал ===
-    { id: 'schedule-dms', x: 520, y: 730, w: 180, h: 60, text: 'Запись на<br>исследование по ДМС', type: 'success' },
-    { id: 'schedule-cash', x: 710, y: 730, w: 180, h: 60, text: 'Запись на<br>исследование за нал', type: 'danger' },
-];
-
-const FLOW_EDGES = [
-    // root → 3 исхода
-    ['root', 'bottom', 'no-case', 'top'],
-    ['root', 'bottom', 'yes-case', 'top'],
-    ['root', 'bottom', 'gp', 'top'],
-
-    // левая ветка
-    ['no-case', 'bottom', 'no-primary', 'top'],
-    ['no-primary', 'bottom', 'no-cash', 'top'],
-
-    // центр
-    ['yes-case', 'bottom', 'direct', 'top'],
-    ['direct', 'bottom', 'no-approve-needed', 'top'],
-    ['direct', 'bottom', 'approve-needed', 'top'],
-    ['no-approve-needed', 'bottom', 'create-direction', 'top'],
-    ['approve-needed', 'bottom', 'approve-action', 'top'],
-
-    // правая ветка
-    ['gp', 'bottom', 'gp-approve', 'top'],
-    ['gp-approve', 'bottom', 'gp-agreed', 'top'],
-    ['gp-approve', 'bottom', 'gp-denied', 'top'],
-    ['gp-agreed', 'bottom', 'gp-service', 'top'],
-    ['gp-denied', 'bottom', 'gp-cash', 'top'],
-
-    // финал центральной ветки
-    ['approve-action', 'bottom', 'agreed', 'top'],
-    ['approve-action', 'bottom', 'denied', 'top'],
-    ['agreed', 'bottom', 'schedule-dms', 'top'],
-    ['denied', 'bottom', 'schedule-cash', 'top'],
-];
-
-function buildFlowSvg() {
-    const nodeMap = {};
-    FLOW_NODES.forEach(n => nodeMap[n.id] = n);
-
-    function getPoint(n, side) {
-        switch(side) {
-            case 'top':    return { x: n.x + n.w / 2, y: n.y };
-            case 'bottom': return { x: n.x + n.w / 2, y: n.y + n.h };
-            case 'left':   return { x: n.x,             y: n.y + n.h / 2 };
-            case 'right':  return { x: n.x + n.w,       y: n.y + n.h / 2 };
+    // Убедимся, что у svg есть viewBox (иначе он не масштабируется)
+    if (!/viewBox=/i.test(svgContent)) {
+        // Пытаемся извлечь width/height и превратить их в viewBox
+        const wMatch = svgContent.match(/<svg[^>]*\swidth=["']?(\d+)/i);
+        const hMatch = svgContent.match(/<svg[^>]*\sheight=["']?(\d+)/i);
+        if (wMatch && hMatch) {
+            const w = wMatch[1], h = hMatch[1];
+            svgContent = svgContent.replace(/<svg/i, `<svg viewBox="0 0 ${w} ${h}"`);
         }
     }
 
-    function buildPath(from, to) {
-        const p1 = getPoint(from.node, from.side);
-        const p2 = getPoint(to.node, to.side);
-        const r = 10;
-
-        // Из bottom в top с вертикальным ходом
-        if (from.side === 'bottom' && to.side === 'top') {
-            if (Math.abs(p1.x - p2.x) < 2) {
-                return `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y - 10}`;
-            }
-            const midY = (p1.y + p2.y) / 2;
-            const dir = p2.x > p1.x ? 1 : -1;
-            return `M ${p1.x} ${p1.y} L ${p1.x} ${midY - r} Q ${p1.x} ${midY} ${p1.x + dir * r} ${midY} L ${p2.x - dir * r} ${midY} Q ${p2.x} ${midY} ${p2.x} ${midY + r} L ${p2.x} ${p2.y - 10}`;
-        }
-
-        // Дефолт
-        return `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y - 10}`;
-    }
-
-    let paths = '';
-    FLOW_EDGES.forEach((edge, i) => {
-        const [fromId, fromSide, toId, toSide] = edge;
-        const fromNode = nodeMap[fromId];
-        const toNode = nodeMap[toId];
-        if (!fromNode || !toNode) return;
-        const d = buildPath({ node: fromNode, side: fromSide }, { node: toNode, side: toSide });
-        paths += `<path d="${d}" marker-end="url(#arrow)" class="flow-draw" style="animation-delay:${0.1 + i * 0.05}s"/>`;
-    });
+    // Убираем фиксированные width/height (чтобы SVG масштабировался контейнером)
+    svgContent = svgContent
+        .replace(/(<svg[^>]*)\swidth=["'][^"']*["']/i, '$1')
+        .replace(/(<svg[^>]*)\sheight=["'][^"']*["']/i, '$1')
+        .replace(/(<svg[^>]*\s)style=["'][^"']*["']/i, '$1');
 
     return `
-        <svg class="flow-svg" viewBox="0 0 1080 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z"/>
-                </marker>
-            </defs>
-            ${paths}
-        </svg>
-    `;
-}
-
-function buildFlowNodes() {
-    return FLOW_NODES.map((n, i) => `
-        <div class="flow-node flow-node--${n.type}"
-             style="left:${n.x}px; top:${n.y}px; width:${n.w}px; height:${n.h}px; animation-delay:${0.05 + i * 0.03}s;">
-            ${n.text}
-        </div>
-    `).join('');
-}
-
-function buildInfographicHtml() {
-    return `
-        <div class="infographic-block">
-            <h2>Инфографика принятия решения</h2>
-            <p class="infographic-caption">Наведите курсор на блок — увидите его роль. Стрелки показывают логику движения пациента</p>
-            <div class="flow-wrap">
-                <div class="flow-stage">
-                    ${buildFlowSvg()}
-                    ${buildFlowNodes()}
+        <div class="svg-viewer" data-viewer-id="${containerId}">
+            <div class="svg-scroll" data-scroll-id="${containerId}">
+                <div class="svg-inner" data-inner-id="${containerId}" style="transform: scale(1);">
+                    ${svgContent}
                 </div>
+            </div>
+            <div class="svg-toolbar">
+                <div class="svg-toolbar-zoom">
+                    <button type="button" onclick="zoomSvg('${containerId}', -0.2)" title="Уменьшить">−</button>
+                    <span class="zoom-value" data-zoom-value="${containerId}">100%</span>
+                    <button type="button" onclick="zoomSvg('${containerId}', 0.2)" title="Увеличить">+</button>
+                </div>
+                <button type="button" class="svg-toolbar-btn" onclick="resetSvgZoom('${containerId}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9"/>
+                        <polyline points="3 4 3 12 11 12"/>
+                    </svg>
+                    <span>Сбросить</span>
+                </button>
+                <button type="button" class="svg-toolbar-btn" onclick="openSvgFullscreen('${containerId}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                        <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                        <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                        <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                    </svg>
+                    <span>Во весь экран</span>
+                </button>
+                <a class="svg-toolbar-btn" href="${INFOGRAPHIC_SVG_URL}" download="Infographika_prinytiya_resheniy.svg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Скачать SVG</span>
+                </a>
             </div>
         </div>
     `;
+}
+
+function zoomSvg(containerId, delta) {
+    const inner = document.querySelector(`[data-inner-id="${containerId}"]`);
+    const value = document.querySelector(`[data-zoom-value="${containerId}"]`);
+    if (!inner) return;
+    svgZoom = Math.min(SVG_MAX_ZOOM, Math.max(SVG_MIN_ZOOM, svgZoom + delta));
+    inner.style.transform = `scale(${svgZoom})`;
+    if (value) value.textContent = Math.round(svgZoom * 100) + '%';
+}
+
+function resetSvgZoom(containerId) {
+    const inner = document.querySelector(`[data-inner-id="${containerId}"]`);
+    const value = document.querySelector(`[data-zoom-value="${containerId}"]`);
+    if (!inner) return;
+    svgZoom = 1;
+    inner.style.transform = 'scale(1)';
+    if (value) value.textContent = '100%';
+}
+
+function openSvgFullscreen(containerId) {
+    const viewer = document.querySelector(`[data-viewer-id="${containerId}"]`);
+    if (!viewer) return;
+    const clone = viewer.cloneNode(true);
+    // Обновляем id, чтобы не было конфликтов
+    const overlay = document.createElement('div');
+    overlay.className = 'svg-fullscreen';
+    overlay.innerHTML = `
+        <button class="close-fullscreen" aria-label="Закрыть" onclick="this.parentElement.remove(); document.body.style.overflow='';">&times;</button>
+    `;
+    overlay.appendChild(clone);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+    // Закрытие по Esc
+    const escHandler = (e) => {
+        if (e.key === 'Escape') {
+            overlay.remove();
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', escHandler);
+        }
+    };
+    document.addEventListener('keydown', escHandler);
+    // Закрытие по клику вне вьюера
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', escHandler);
+        }
+    });
 }
 
 // ============================================================
@@ -1854,7 +1871,20 @@ async function renderModule(modId) {
             `;
         }
 
-        const infographicHtml = buildInfographicHtml();
+        // Инфографика — загружаем SVG
+        const svgViewerId = 'svg-' + modId;
+        const infographicHtml = `
+            <div class="infographic-block">
+                <h2>Инфографика принятия решения</h2>
+                <p class="infographic-caption">Схема движения пациента по программе ДМС. Используйте панель управления для зума и полноэкранного режима</p>
+                <div id="${svgViewerId}">
+                    <div class="svg-loading">
+                        <div class="module-loading-spinner"></div>
+                        <div class="svg-loading-text">Загружаем инфографику...</div>
+                    </div>
+                </div>
+            </div>
+        `;
 
         page.innerHTML = `
             <div class="module-header">
@@ -1893,6 +1923,13 @@ async function renderModule(modId) {
                 if (target) scrollToElementInPage(target);
             });
         });
+
+        // Асинхронно подгружаем SVG-вьюер
+        const svgContainer = document.getElementById(svgViewerId);
+        if (svgContainer) {
+            const svgHtml = await buildSvgViewerHtml(svgViewerId);
+            svgContainer.innerHTML = svgHtml;
+        }
 
         return page;
     } catch(err) {
@@ -1934,10 +1971,17 @@ function openInfographic() {
     showPage('infographic');
 }
 
-function renderInfographicPage() {
+async function renderInfographicPage() {
     const container = document.getElementById('infographicFullContainer');
     if (!container || container.dataset.loaded === 'true') return;
-    container.innerHTML = buildInfographicHtml();
+    container.innerHTML = `
+        <div class="svg-loading">
+            <div class="module-loading-spinner"></div>
+            <div class="svg-loading-text">Загружаем инфографику...</div>
+        </div>
+    `;
+    const svgHtml = await buildSvgViewerHtml('infographic-full');
+    container.innerHTML = svgHtml;
     container.dataset.loaded = 'true';
 }
 
@@ -1973,7 +2017,7 @@ async function showPage(pageId) {
         homePage.style.display = 'none';
         if (infographicPage) infographicPage.classList.add('active');
         navHomeBtn.style.display = 'inline-flex';
-        renderInfographicPage();
+        await renderInfographicPage();
     } else {
         homePage.style.display = 'none';
         try {
