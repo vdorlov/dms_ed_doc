@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="description" content="Обучающий портал для врачей по работе с ДМС: алгоритмы, чек-листы и готовые формулировки.">
+<meta name="description" content="ДМС Портал — обучающие материалы для врачей">
 <meta name="theme-color" content="#00a8b5">
-<title>ДМС Портал — Обучающие модули для врачей</title>
+<title>ДМС Портал — Обучающие материалы для врачей</title>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300a8b5'/%3E%3Cpath d='M14 6h4v6h6v4h-6v6h-4v-6H8v-4h6z' fill='white'/%3E%3Cpath d='M4 16h5l2-4 3 8 2-5h6' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%2300a8b5'/%3E%3Cpath d='M80 30h20v30h30v20h-30v30h-20v-30H50V60h30z' fill='white'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,70 +112,7 @@
     }
     .nav-brand:hover { opacity: 0.8; }
     .nav-brand svg { width: 36px; height: 36px; flex-shrink: 0; }
-    .nav-search-wrap { position: relative; }
-    .nav-search {
-        display: flex; align-items: center; gap: 0.4rem;
-        background: var(--search-bg);
-        border: 1px solid var(--line);
-        border-radius: 100px;
-        padding: 0.4rem 1rem;
-        width: 280px;
-        transition: all 0.3s ease;
-    }
-    .nav-search:focus-within {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-weak);
-        width: 340px;
-    }
-    .nav-search input {
-        background: transparent; border: none; outline: none;
-        color: var(--ink); font-family: 'Open Sans', sans-serif;
-        font-size: 0.9rem; width: 100%;
-    }
-    .nav-search input::placeholder { color: var(--muted); }
-    .search-results {
-        position: absolute;
-        top: calc(100% + 0.5rem); left: 0; right: 0;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        box-shadow: var(--shadow-lg);
-        max-height: 400px; overflow-y: auto;
-        display: none; z-index: 10002;
-    }
-    .search-results.active { display: block; }
-    .search-result-item {
-        padding: 0.8rem 1rem;
-        border-bottom: 1px solid var(--line);
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-    .search-result-item:last-child { border-bottom: none; }
-    .search-result-item:hover { background: var(--accent-weak); }
-    .search-result-item .sr-module {
-        font-size: 0.75rem; color: var(--accent);
-        font-weight: 700; text-transform: uppercase;
-        letter-spacing: 0.03em;
-    }
-    .search-result-item .sr-title {
-        font-size: 0.9rem; color: var(--ink);
-        font-weight: 600; margin-top: 0.2rem;
-    }
-    .search-result-item .sr-context {
-        font-size: 0.8rem; color: var(--muted);
-        margin-top: 0.2rem; line-height: 1.4;
-    }
-    .search-no-results {
-        padding: 1.5rem; text-align: center;
-        color: var(--muted); font-size: 0.9rem;
-    }
-    .search-highlight {
-        background: var(--accent-light);
-        color: var(--accent-dark);
-        padding: 0 2px; border-radius: 3px;
-        font-weight: 600;
-    }
-    .nav-home-btn, .theme-toggle, .filter-btn {
+    .nav-home-btn, .theme-toggle {
         display: inline-flex; align-items: center; gap: 0.4rem;
         padding: 0.45rem 1rem;
         background: var(--accent-weak);
@@ -189,18 +125,18 @@
         transition: all 0.25s ease;
         text-decoration: none;
     }
-    .nav-home-btn:hover, .theme-toggle:hover, .filter-btn:hover {
+    .nav-home-btn:hover, .theme-toggle:hover {
         background: var(--accent); color: #fff;
         transform: translateY(-1px);
     }
 
     /* HERO */
     .hero {
-        min-height: 60vh;
+        min-height: 55vh;
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
         text-align: center;
-        padding: 7rem 1.5rem 4rem;
+        padding: 7rem 1.5rem 3rem;
         position: relative; overflow: hidden;
         background: var(--hero-bg);
         transition: background 0.3s ease;
@@ -260,7 +196,7 @@
         animation: fadeInUp 0.8s 0.3s ease both;
     }
 
-    /* МЕДИЦИНСКИЕ ПЛАВАЮЩИЕ ИКОНКИ (12) + ПАРАЛЛАКС */
+    /* МЕДИЦИНСКИЕ ИКОНКИ + ПАРАЛЛАКС */
     .medical-icon {
         position: absolute;
         opacity: 0.28;
@@ -275,9 +211,7 @@
         width: 100%; height: 100%;
         animation: medFloat 7s ease-in-out infinite;
     }
-    .medical-icon .hover-layer {
-        width: 100%; height: 100%;
-    }
+    .medical-icon .hover-layer { width: 100%; height: 100%; }
     .medical-icon .hover-layer svg {
         width: 100%; height: 100%;
         display: block;
@@ -406,33 +340,11 @@
         100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* FILTER */
-    .filter-bar {
-        display: flex; gap: 0.5rem; justify-content: center;
-        flex-wrap: wrap; margin-bottom: 2rem;
-        animation: fadeInUp 0.8s 0.5s ease both;
-    }
-    .filter-chip {
-        padding: 0.4rem 1rem;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 100px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.8rem; font-weight: 600;
-        color: var(--muted); cursor: pointer;
-        transition: all 0.25s ease;
-    }
-    .filter-chip:hover, .filter-chip.active {
-        background: var(--accent); color: #fff;
-        border-color: var(--accent);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow);
-    }
-
-    /* MODULES */
+    /* ГЛАВНАЯ — КАРТОЧКА ВВОДНОГО МОДУЛЯ */
     .modules-section {
         padding: 3rem 1.5rem 5rem;
-        max-width: 1200px; margin: 0 auto;
+        max-width: 1100px;
+        margin: 0 auto;
     }
     .section-header {
         text-align: center; margin-bottom: 2.5rem;
@@ -442,33 +354,32 @@
     }
     .section-header p {
         color: var(--muted);
-        max-width: 500px; margin: 0 auto;
+        max-width: 600px; margin: 0 auto;
     }
-    .modules-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
-    }
-    .module-card {
+
+    .intro-card {
         background: var(--surface);
         border-radius: var(--radius);
-        padding: 1.8rem 1.5rem;
+        padding: 2.5rem 2rem;
         box-shadow: var(--shadow);
         cursor: pointer;
         transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative; overflow: hidden;
+        position: relative;
+        overflow: hidden;
         border: 1px solid var(--line);
-        display: flex; flex-direction: column;
-        gap: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
         opacity: 0;
         animation: cardAppear 0.6s ease forwards;
+        max-width: 700px;
+        margin: 0 auto;
     }
     @keyframes cardAppear {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .module-card.hidden { display: none; }
-    .module-card::before {
+    .intro-card::before {
         content: '';
         position: absolute; top: 0; left: 0;
         width: 100%; height: 5px;
@@ -476,13 +387,14 @@
         transform: scaleX(0); transform-origin: left;
         transition: transform 0.35s ease;
     }
-    .module-card:hover {
+    .intro-card:hover {
         transform: translateY(-6px) scale(1.01);
         box-shadow: var(--shadow-lg);
     }
-    .module-card:hover::before { transform: scaleX(1); }
-    .module-icon {
-        width: 56px; height: 56px;
+    .intro-card:hover::before { transform: scaleX(1); }
+
+    .intro-card-icon {
+        width: 72px; height: 72px;
         border-radius: var(--radius-sm);
         background: linear-gradient(135deg, var(--accent-light), var(--accent-weak));
         display: flex; align-items: center; justify-content: center;
@@ -490,42 +402,54 @@
         flex-shrink: 0;
         transition: transform 0.3s ease;
     }
-    .module-card:hover .module-icon { transform: scale(1.1) rotate(-5deg); }
-    .module-card:hover .module-icon svg {
-        animation: modIconPulse 1.2s ease-in-out infinite;
+    .intro-card:hover .intro-card-icon { transform: scale(1.1) rotate(-5deg); }
+
+    .intro-card h3 {
+        font-size: var(--step-2);
+        color: var(--ink);
     }
-    @keyframes modIconPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
+    .intro-card p {
+        font-size: var(--step-0);
+        color: var(--muted);
+        line-height: 1.6;
     }
-    .module-number {
-        position: absolute; top: 1rem; right: 1rem;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 3.5rem; font-weight: 800;
-        color: var(--accent); opacity: 0.06;
-        line-height: 1;
-        transition: opacity 0.3s ease;
+    .intro-card .intro-tags {
+        display: flex; flex-wrap: wrap; gap: 0.4rem;
     }
-    .module-card:hover .module-number { opacity: 0.12; }
-    .module-card h3 {
-        font-size: 1.05rem; color: var(--ink);
-        margin-top: 0.2rem;
-    }
-    .module-card p {
-        font-size: 0.9rem; color: var(--muted);
-        line-height: 1.5; flex-grow: 1;
-    }
-    .module-tags {
-        display: flex; flex-wrap: wrap;
-        gap: 0.3rem; margin-top: 0.3rem;
-    }
-    .module-tag {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.5rem;
+    .intro-card .intro-tag {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.7rem;
         background: var(--accent-weak);
         color: var(--accent-dark);
         border-radius: 100px;
         font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .intro-card .intro-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        padding: 0.7rem 1.4rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: white;
+        border-radius: 100px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        align-self: flex-start;
+        transition: all 0.25s ease;
+    }
+    .intro-card:hover .intro-cta {
+        transform: translateX(4px);
+        box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
+    }
+    .intro-card .intro-cta svg {
+        width: 16px; height: 16px;
+        transition: transform 0.3s ease;
+    }
+    .intro-card:hover .intro-cta svg {
+        transform: translateX(4px);
     }
 
     /* MODULE PAGE */
@@ -553,20 +477,11 @@
         overflow-y: auto;
         transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .module-sidebar.collapsed {
-        width: 52px;
-    }
-    .module-sidebar.collapsed .sidebar-box {
-        padding: 0.6rem 0.4rem;
-    }
+    .module-sidebar.collapsed { width: 52px; }
+    .module-sidebar.collapsed .sidebar-box { padding: 0.6rem 0.4rem; }
     .module-sidebar.collapsed .sidebar-title-text,
-    .module-sidebar.collapsed .sidebar-nav {
-        display: none;
-    }
-    .module-sidebar.collapsed .sidebar-title {
-        justify-content: center;
-        margin-bottom: 0;
-    }
+    .module-sidebar.collapsed .sidebar-nav { display: none; }
+    .module-sidebar.collapsed .sidebar-title { justify-content: center; margin-bottom: 0; }
     .sidebar-toggle {
         display: flex;
         align-items: center;
@@ -591,14 +506,11 @@
         border-color: var(--accent);
     }
     .sidebar-toggle svg {
-        width: 14px;
-        height: 14px;
+        width: 14px; height: 14px;
         transition: transform 0.3s ease;
         flex-shrink: 0;
     }
-    .module-sidebar.collapsed .sidebar-toggle svg {
-        transform: rotate(180deg);
-    }
+    .module-sidebar.collapsed .sidebar-toggle svg { transform: rotate(180deg); }
     .module-sidebar.collapsed .sidebar-toggle-text { display: none; }
 
     .sidebar-box {
@@ -707,16 +619,7 @@
         transform: translateY(-2px) scale(1.03);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
-    .print-module-btn svg {
-        width: 14px; height: 14px;
-        transition: transform 0.3s ease;
-    }
-    .print-module-btn:hover svg { animation: printShake 0.6s ease-in-out infinite; }
-    @keyframes printShake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-2px); }
-        75% { transform: translateX(2px); }
-    }
+    .print-module-btn svg { width: 14px; height: 14px; }
     @media (max-width: 640px) {
         .print-module-btn {
             position: static;
@@ -740,9 +643,7 @@
         animation: spin 1s linear infinite;
         margin-bottom: 1rem;
     }
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .module-error {
         background: var(--surface);
         border-radius: var(--radius-sm);
@@ -768,8 +669,7 @@
         padding-bottom: 0.8rem;
         border-bottom: 2px solid var(--accent-light);
     }
-    .md-content h2,
-    .md-content h3 {
+    .md-content h2, .md-content h3 {
         scroll-margin-top: calc(var(--nav-height) + 30px);
     }
     .md-content h2 {
@@ -791,23 +691,10 @@
         color: var(--accent-dark);
         font-weight: 600;
     }
-    .md-content h5 {
-        font-size: 0.95rem;
-        margin: 1.2rem 0 0.5rem;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    .md-content p {
-        margin-bottom: 1rem;
-        color: var(--ink);
-    }
+    .md-content p { margin-bottom: 1rem; color: var(--ink); }
     .md-content strong { font-weight: 700; color: var(--ink); }
     .md-content em { font-style: italic; }
-    .md-content a {
-        color: var(--accent-dark);
-        text-decoration: underline;
-    }
+    .md-content a { color: var(--accent-dark); text-decoration: underline; }
     .md-content ul, .md-content ol {
         margin: 0.5rem 0 1rem 1.5rem;
     }
@@ -824,16 +711,6 @@
         border-radius: 4px;
         font-family: 'Consolas', 'Monaco', monospace;
         font-size: 0.9em;
-    }
-    .md-content pre {
-        background: var(--accent-weak);
-        padding: 1rem;
-        border-radius: var(--radius-sm);
-        overflow-x: auto;
-        margin: 1rem 0;
-    }
-    .md-content pre code {
-        background: none; padding: 0;
     }
     .md-content blockquote {
         background: linear-gradient(135deg, #e3f2fd, #bbdefb);
@@ -885,10 +762,7 @@
         line-height: 1;
     }
     [data-theme="dark"] .md-content .speech-box::before { color: #42a5f5; }
-    .md-content .speech-box p {
-        font-style: italic;
-        margin-bottom: 0.8rem;
-    }
+    .md-content .speech-box p { font-style: italic; margin-bottom: 0.8rem; }
     .md-content .speech-box p:last-child { margin-bottom: 0; }
     .md-content .speech-box strong {
         font-style: normal;
@@ -904,7 +778,6 @@
         border-radius: var(--radius-sm);
         padding: 1.2rem 1.4rem;
         margin: 1rem 0;
-        font-style: normal;
     }
     .md-content .highlight-box::before { display: none; }
     .md-content .highlight-box strong { color: var(--accent-dark); }
@@ -937,9 +810,6 @@
     [data-theme="dark"] .md-content .zone-green {
         background: linear-gradient(135deg, #1a3a1a, #204a20);
     }
-    .md-content .zone-red strong:first-child { color: #c62828; }
-    .md-content .zone-yellow strong:first-child { color: #ef6c00; }
-    .md-content .zone-green strong:first-child { color: #2e7d32; }
 
     .md-content .table-wrap {
         overflow-x: auto;
@@ -972,24 +842,177 @@
     .md-content tr:hover td { background: rgba(0, 168, 181, 0.03); }
     .md-content tr:last-child td { border-bottom: none; }
 
-    .check-box {
-        width: 20px; height: 20px;
-        border: 2px solid var(--accent);
-        border-radius: 4px;
-        flex-shrink: 0;
-        margin-top: 2px;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: grid;
-        place-items: center;
+    /* ============================================
+       ИНФОГРАФИКА — СХЕМА ПРИНЯТИЯ РЕШЕНИЯ
+       ============================================ */
+    .infographic-block {
+        background: var(--surface);
+        border-radius: var(--radius-sm);
+        padding: 2rem 1.5rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+        margin: 2rem 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
-    .check-box:hover { background: var(--accent-weak); }
-    .check-box.checked { background: var(--accent); border-color: var(--accent); }
-    .check-box.checked::after {
-        content: '✓';
-        color: white;
+    .infographic-block h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--ink);
+        font-size: var(--step-2);
+    }
+
+    .flowchart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        min-width: 640px;
+        padding: 1rem 0;
+    }
+
+    /* Узлы */
+    .fc-node {
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.35;
+        max-width: 260px;
+        border: 2px solid;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: default;
+    }
+    .fc-node:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+    .fc-node--root {
+        background: linear-gradient(135deg, #b3e5fc, #81d4fa);
+        border-color: #0277bd;
+        color: #01579b;
+        font-weight: 700;
+        font-size: 0.95rem;
+        max-width: 300px;
+    }
+    [data-theme="dark"] .fc-node--root {
+        background: linear-gradient(135deg, #0d3d5c, #10567a);
+        color: #b3e5fc;
+        border-color: #29b6f6;
+    }
+    .fc-node--no { 
+        background: linear-gradient(135deg, #fff9c4, #fff59d);
+        border-color: #f9a825;
+        color: #795548;
+    }
+    [data-theme="dark"] .fc-node--no {
+        background: linear-gradient(135deg, #3a3010, #4a3a15);
+        color: #ffe082;
+        border-color: #f9a825;
+    }
+    .fc-node--yes {
+        background: linear-gradient(135deg, #d1c4e9, #b39ddb);
+        border-color: #5e35b1;
+        color: #311b92;
+    }
+    [data-theme="dark"] .fc-node--yes {
+        background: linear-gradient(135deg, #2c1e4a, #3d2a63);
+        color: #d1c4e9;
+        border-color: #7e57c2;
+    }
+    .fc-node--step {
+        background: linear-gradient(135deg, #b2ebf2, #80deea);
+        border-color: #00838f;
+        color: #006064;
+    }
+    [data-theme="dark"] .fc-node--step {
+        background: linear-gradient(135deg, #0a3a40, #0e5057);
+        color: #b2ebf2;
+        border-color: #26c6da;
+    }
+    .fc-node--action {
+        background: linear-gradient(135deg, #ffe0b2, #ffcc80);
+        border-color: #ef6c00;
+        color: #e65100;
+    }
+    [data-theme="dark"] .fc-node--action {
+        background: linear-gradient(135deg, #3a2810, #4a3515);
+        color: #ffe0b2;
+        border-color: #ffa726;
+    }
+    .fc-node--success {
+        background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+        border-color: #2e7d32;
+        color: #1b5e20;
+    }
+    [data-theme="dark"] .fc-node--success {
+        background: linear-gradient(135deg, #1a3a1a, #204a20);
+        color: #c8e6c9;
+        border-color: #66bb6a;
+    }
+    .fc-node--danger {
+        background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
+        border-color: #c62828;
+        color: #b71c1c;
+    }
+    [data-theme="dark"] .fc-node--danger {
+        background: linear-gradient(135deg, #3a1a1a, #4a2020);
+        color: #ffcdd2;
+        border-color: #ef5350;
+    }
+
+    /* Соединительные линии */
+    .fc-line {
+        width: 2px;
+        height: 24px;
+        background: var(--muted);
+        opacity: 0.5;
+    }
+    .fc-row {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+    .fc-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+        flex: 1;
+        min-width: 200px;
+    }
+    .fc-column-title {
+        font-family: 'Montserrat', sans-serif;
         font-size: 0.75rem;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        padding: 0.3rem 0.8rem;
+        background: var(--accent-weak);
+        border-radius: 100px;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Большой заголовок столбцов */
+    .fc-group-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--accent-dark);
+        padding: 0.5rem 1rem;
+        background: var(--accent-light);
+        border-radius: 100px;
+        margin: 0.5rem 0;
+        text-align: center;
+    }
+    [data-theme="dark"] .fc-group-title {
+        background: rgba(38, 198, 218, 0.2);
+        color: var(--accent-light);
     }
 
     /* SCROLL TOP */
@@ -1018,61 +1041,116 @@
         50% { transform: translateY(-4px); }
     }
 
-    /* CHEAT SHEET */
-    .cheat-sheet-btn {
+    /* ПЛАВАЮЩИЕ КНОПКИ */
+    .cheat-sheet-btn,
+    .infographic-btn {
         position: fixed;
-        bottom: 2rem; left: 2rem;
         z-index: 1000;
         display: inline-flex; align-items: center; gap: 0.6rem;
         padding: 0.85rem 1.3rem;
-        background: linear-gradient(135deg, #ff8f00, #f57c00);
         color: white;
         border: none;
         border-radius: 100px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 700; font-size: 0.9rem;
         cursor: pointer;
-        box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
         transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         animation: cheatPulse 3s ease-in-out infinite;
     }
-    .cheat-sheet-btn:hover {
+    .cheat-sheet-btn {
+        bottom: 2rem; left: 2rem;
+        background: linear-gradient(135deg, #ff8f00, #f57c00);
+        box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .infographic-btn {
+        bottom: 2rem; left: 13.5rem;
+        background: linear-gradient(135deg, #7e57c2, #5e35b1);
+        box-shadow: 0 8px 24px rgba(94, 53, 177, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+        animation-delay: 1.5s;
+    }
+    .cheat-sheet-btn:hover,
+    .infographic-btn:hover {
         transform: translateY(-4px) scale(1.05);
-        box-shadow: 0 12px 32px rgba(245, 124, 0, 0.55), 0 6px 16px rgba(0, 0, 0, 0.2);
         animation-play-state: paused;
     }
-    .cheat-sheet-btn svg {
+    .cheat-sheet-btn svg,
+    .infographic-btn svg {
         width: 20px; height: 20px;
         flex-shrink: 0;
         transition: transform 0.4s ease;
     }
     .cheat-sheet-btn:hover svg { transform: rotate(-12deg) scale(1.1); }
+    .infographic-btn:hover svg { transform: rotate(12deg) scale(1.1); }
+
     @keyframes cheatPulse {
         0%, 100% {
-            box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(245, 124, 0, 0.6);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 currentColor;
         }
         50% {
-            box-shadow: 0 8px 24px rgba(245, 124, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 14px rgba(245, 124, 0, 0);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 14px rgba(255, 255, 255, 0);
         }
     }
+
     @media (max-width: 768px) {
         .cheat-sheet-btn {
             bottom: 5rem; left: 1rem;
             padding: 0.7rem 1rem; font-size: 0.8rem;
         }
-        .cheat-sheet-btn .cheat-text { display: none; }
+        .infographic-btn {
+            bottom: 5rem; left: 4.5rem;
+            padding: 0.7rem 1rem; font-size: 0.8rem;
+        }
+        .cheat-sheet-btn .cheat-text,
+        .infographic-btn .infographic-text { display: none; }
     }
 
-    .cheat-page {
+    /* Страница шпаргалки (заглушка) */
+    .stub-page {
+        display: none;
+        padding: 6rem 1.5rem 3rem;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+    }
+    .stub-page.active { display: block; }
+    .stub-box {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 3rem 2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+    }
+    .stub-icon {
+        width: 80px; height: 80px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        background: var(--accent-weak);
+        display: flex; align-items: center; justify-content: center;
+        color: var(--accent-dark);
+    }
+    .stub-icon svg { width: 40px; height: 40px; }
+    .stub-box h2 {
+        font-size: var(--step-2);
+        margin-bottom: 1rem;
+        color: var(--ink);
+    }
+    .stub-box p {
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Страница инфографики */
+    .infographic-page {
         display: none;
         padding: 5rem 0 3rem;
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
         animation: fadeIn 0.5s ease;
     }
-    .cheat-page.active { display: block; }
-    .cheat-header {
-        background: linear-gradient(135deg, #ff8f00, #e65100);
+    .infographic-page.active { display: block; }
+    .infographic-page .infographic-header {
+        background: linear-gradient(135deg, #7e57c2, #5e35b1);
         color: white;
         padding: 2.5rem 2rem;
         border-radius: var(--radius);
@@ -1081,7 +1159,7 @@
         overflow: hidden;
         box-shadow: var(--shadow-lg);
     }
-    .cheat-header::before {
+    .infographic-page .infographic-header::before {
         content: '';
         position: absolute;
         top: -50%; right: -20%;
@@ -1089,34 +1167,17 @@
         background: rgba(255,255,255,0.1);
         border-radius: 50%;
     }
-    .cheat-header h1 {
+    .infographic-page .infographic-header h1 {
         font-size: var(--step-3);
         margin-bottom: 0.5rem;
         position: relative;
     }
-    .cheat-header p {
+    .infographic-page .infographic-header p {
         opacity: 0.95;
-        font-size: var(--step-0);
         position: relative;
     }
-    .cheat-content { padding: 0 1.5rem; }
-    .cheat-print-btn {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        padding: 0.6rem 1.2rem;
-        background: linear-gradient(135deg, #ff8f00, #f57c00);
-        color: white;
-        border: none;
-        border-radius: 100px;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600; font-size: 0.85rem;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
-        margin-bottom: 1.5rem;
-    }
-    .cheat-print-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(245, 124, 0, 0.45);
+    .infographic-page .infographic-content {
+        padding: 0 1.5rem;
     }
 
     footer {
@@ -1141,10 +1202,7 @@
     }
     .footer-email:hover { text-decoration: underline; }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(25px); }
         to { opacity: 1; transform: translateY(0); }
@@ -1155,46 +1213,40 @@
     }
 
     @media (max-width: 768px) {
-        .modules-grid { grid-template-columns: 1fr; }
-        .scroll-top { right: 1rem; bottom: 1rem; width: 44px; height: 44px; }
+        .scroll-top { right: 1rem; bottom: 8.5rem; width: 44px; height: 44px; }
         .md-content { padding: 1.2rem; }
-        .nav-search { width: 140px; }
-        .nav-search:focus-within { width: 160px; }
         .hero { min-height: 40vh; }
         .medical-icon { opacity: 0.18; }
         .med-7, .med-8, .med-9, .med-10, .med-11, .med-12 { display: none; }
         .nav-brand span { display: none; }
-    }
-
-    @media (max-width: 480px) {
-        .nav-search { width: 120px; }
-        .nav-home-btn span { display: none; }
+        .fc-row { flex-direction: column; align-items: center; }
+        .flowchart { min-width: unset; }
     }
 
     @media print {
-        .top-nav, .scroll-top, .nav-home-btn, .theme-toggle, .filter-btn,
-        .nav-search-wrap, .module-sidebar, .filter-bar, .medical-icon,
-        .pulse-ring, .cheat-sheet-btn, .print-module-btn, .cheat-print-btn {
+        .top-nav, .scroll-top, .nav-home-btn, .theme-toggle,
+        .module-sidebar, .medical-icon, .pulse-ring,
+        .cheat-sheet-btn, .infographic-btn, .print-module-btn {
             display: none !important;
         }
         .hero { min-height: auto; padding: 2rem 1rem; }
-        .module-page, .cheat-page {
+        .module-page, .infographic-page, .stub-page {
             display: block !important;
             padding: 1rem 0 !important;
         }
         .modules-section, #homePage { display: none; }
-        .md-content {
+        .md-content, .infographic-block {
             box-shadow: none;
             border: 1px solid #ccc;
             page-break-inside: avoid;
         }
-        .module-header, .cheat-header {
+        .module-header, .infographic-page .infographic-header {
             background: #008c99 !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        .cheat-header { background: #e65100 !important; }
         body { background: white; color: black; }
+        .fc-node { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
     @page { margin: 12mm; }
 
@@ -1218,16 +1270,6 @@
             </svg>
             <span>ДМС Портал</span>
         </a>
-        <div class="nav-search-wrap">
-            <div class="nav-search">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0;">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="m21 21-4.35-4.35"/>
-                </svg>
-                <input type="text" id="searchInput" placeholder="Поиск..." oninput="handleSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();}">
-            </div>
-            <div class="search-results" id="searchResults"></div>
-        </div>
     </div>
     <div class="nav-right">
         <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
@@ -1263,127 +1305,59 @@
     <span class="cheat-text">Шпаргалка врача</span>
 </button>
 
+<button class="infographic-btn" onclick="openInfographic()" title="Принятие решение по ДМС">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="6" height="6" rx="1"/>
+        <rect x="15" y="3" width="6" height="6" rx="1"/>
+        <rect x="3" y="15" width="6" height="6" rx="1"/>
+        <rect x="15" y="15" width="6" height="6" rx="1"/>
+        <path d="M9 6h6"/>
+        <path d="M6 9v6"/>
+        <path d="M18 9v6"/>
+        <path d="M9 18h6"/>
+    </svg>
+    <span class="infographic-text">Принятие решение по ДМС</span>
+</button>
+
+<!-- ГЛАВНАЯ -->
 <div id="homePage">
     <section class="hero" id="heroSection">
-        <div class="medical-icon med-1" data-parallax="0.15" title="Медицинский крест">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-2" data-parallax="0.22" title="Змея Асклепия">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v20"/>
-                    <path d="M8 6c0-2 4-2 4 0s-4 2-4 4 4 2 4 4-4 2-4 4 4 2 4 0"/>
-                    <path d="M6 22h12"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-3" data-parallax="0.18" title="Стетоскоп">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 3v6a5 5 0 0 0 10 0V3"/>
-                    <path d="M4 3h2M12 3h2"/>
-                    <path d="M9 14v3a4 4 0 0 0 8 0v-2"/>
-                    <circle cx="18" cy="13" r="2.5"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-4" data-parallax="0.28" title="Таблетка">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="8" width="20" height="8" rx="4"/>
-                    <path d="M12 8v8"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-5" data-parallax="0.20" title="ДНК">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 3c0 6 14 6 14 12s-14 6-14 6"/>
-                    <path d="M19 3c0 6-14 6-14 12s14 6 14 6"/>
-                    <path d="M6 7h12"/>
-                    <path d="M6 17h12"/>
-                    <path d="M8 12h8"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-6" data-parallax="0.25" title="Сердце">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    <path d="M4 12h3l2-3 3 6 2-3h6"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-7" data-parallax="0.16" title="Микроскоп">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 18h12"/>
-                    <path d="M8 18v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/>
-                    <path d="M10 12V6a2 2 0 0 1 4 0v6"/>
-                    <circle cx="12" cy="4" r="1.5"/>
-                    <path d="M4 22h16"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-8" data-parallax="0.30" title="Шприц">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 2l4 4"/>
-                    <path d="M17 3l4 4"/>
-                    <path d="M14 6l4 4"/>
-                    <path d="M3 21l9-9"/>
-                    <path d="M12 12l4-4"/>
-                    <path d="M9 9l6 6"/>
-                    <path d="M15 15l-4 4-6-6 4-4z"/>
-                    <path d="M6 18l-3 3"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-9" data-parallax="0.22" title="Капельница">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v4"/>
-                    <path d="M9 6h6l1 3v7a4 4 0 0 1-8 0V9z"/>
-                    <path d="M10 12h4"/>
-                    <path d="M12 19v3"/>
-                    <path d="M11 22h2"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-10" data-parallax="0.26" title="Блистер таблеток">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="6" width="20" height="12" rx="2"/>
-                    <circle cx="6" cy="12" r="1.3"/>
-                    <circle cx="10" cy="12" r="1.3"/>
-                    <circle cx="14" cy="12" r="1.3"/>
-                    <circle cx="18" cy="12" r="1.3"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-11" data-parallax="0.19" title="ЭКГ">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 12h4l2-5 3 10 3-6 2 3h4"/>
-                    <path d="M20 8v8"/>
-                </svg>
-            </div></div>
-        </div>
-        <div class="medical-icon med-12" data-parallax="0.24" title="Аптекарские весы">
-            <div class="float-layer"><div class="hover-layer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 4v16"/>
-                    <path d="M4 8h16"/>
-                    <path d="M4 8l-2 5h4z"/>
-                    <path d="M20 8l-2 5h4z"/>
-                    <path d="M8 20h8"/>
-                </svg>
-            </div></div>
-        </div>
+        <div class="medical-icon med-1" data-parallax="0.15"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-2" data-parallax="0.22"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M8 6c0-2 4-2 4 0s-4 2-4 4 4 2 4 4-4 2-4 4 4 2 4 0"/><path d="M6 22h12"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-3" data-parallax="0.18"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v6a5 5 0 0 0 10 0V3"/><path d="M4 3h2M12 3h2"/><path d="M9 14v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="13" r="2.5"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-4" data-parallax="0.28"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="8" rx="4"/><path d="M12 8v8"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-5" data-parallax="0.20"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3c0 6 14 6 14 12s-14 6-14 6"/><path d="M19 3c0 6-14 6-14 12s14 6 14 6"/><path d="M6 7h12"/><path d="M6 17h12"/><path d="M8 12h8"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-6" data-parallax="0.25"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><path d="M4 12h3l2-3 3 6 2-3h6"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-7" data-parallax="0.16"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h12"/><path d="M8 18v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/><path d="M10 12V6a2 2 0 0 1 4 0v6"/><circle cx="12" cy="4" r="1.5"/><path d="M4 22h16"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-8" data-parallax="0.30"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4"/><path d="M17 3l4 4"/><path d="M14 6l4 4"/><path d="M3 21l9-9"/><path d="M12 12l4-4"/><path d="M9 9l6 6"/><path d="M15 15l-4 4-6-6 4-4z"/><path d="M6 18l-3 3"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-9" data-parallax="0.22"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M9 6h6l1 3v7a4 4 0 0 1-8 0V9z"/><path d="M10 12h4"/><path d="M12 19v3"/><path d="M11 22h2"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-10" data-parallax="0.26"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="6" cy="12" r="1.3"/><circle cx="10" cy="12" r="1.3"/><circle cx="14" cy="12" r="1.3"/><circle cx="18" cy="12" r="1.3"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-11" data-parallax="0.19"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-5 3 10 3-6 2 3h4"/><path d="M20 8v8"/></svg>
+        </div></div></div>
+        <div class="medical-icon med-12" data-parallax="0.24"><div class="float-layer"><div class="hover-layer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 8l-2 5h4z"/><path d="M20 8l-2 5h4z"/><path d="M8 20h8"/></svg>
+        </div></div></div>
 
         <div class="pulse-ring"></div>
         <div class="pulse-ring"></div>
@@ -1405,33 +1379,55 @@
 
     <section class="modules-section">
         <div class="section-header">
-            <h2>Выберите модуль</h2>
-            <p>Каждый модуль содержит алгоритмы, чек-листы и готовые формулировки для конкретной ситуации</p>
+            <h2>Начните с вводного модуля</h2>
+            <p>Основы работы с программами ДМС: страховой случай, взаимодействие со СК, согласование услуг и причины удержаний</p>
         </div>
-        <div class="filter-bar">
-            <button class="filter-chip active" onclick="filterModules('all', this)">Все</button>
-            <button class="filter-chip" onclick="filterModules('legal', this)">Правовые основы</button>
-            <button class="filter-chip" onclick="filterModules('docs', this)">Документация</button>
-            <button class="filter-chip" onclick="filterModules('clinical', this)">Клинические случаи</button>
-            <button class="filter-chip" onclick="filterModules('procedures', this)">Процедуры и исследования</button>
+        <div id="introCardContainer">
+            <!-- Карточка подгрузится из JS -->
         </div>
-        <div class="modules-grid" id="modulesGrid"></div>
     </section>
 </div>
 
+<!-- КОНТЕЙНЕР МОДУЛЕЙ -->
 <div id="moduleContainer"></div>
 
-<div class="cheat-page" id="cheatPage">
-    <div class="cheat-header">
+<!-- СТРАНИЦА ИНФОГРАФИКИ -->
+<div class="infographic-page" id="infographicPage">
+    <div class="infographic-header">
         <div class="breadcrumb">
             <a onclick="goHome()">Главная</a>
             <span>/</span>
-            <span>Шпаргалка врача</span>
+            <span>Принятие решение по ДМС</span>
         </div>
-        <h1>Шпаргалка врача по ДМС</h1>
-        <p>Одна страница — самое главное. Распечатайте и повесьте в кабинете</p>
+        <h1>Принятие решение по ДМС</h1>
+        <p>Пошаговая схема: от приёма пациента до оплаты или отказа</p>
     </div>
-    <div class="cheat-content"></div>
+    <div class="infographic-content">
+        <div id="infographicFullContainer">
+            <!-- Инфографика подгрузится из JS -->
+        </div>
+    </div>
+</div>
+
+<!-- СТРАНИЦА ШПАРГАЛКИ (ЗАГЛУШКА) -->
+<div class="stub-page" id="cheatPage">
+    <div class="stub-box">
+        <div class="stub-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 9v4"/>
+                <path d="M12 17h.01"/>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            </svg>
+        </div>
+        <h2>Шпаргалка врача</h2>
+        <p>Раздел находится в разработке. Материал будет добавлен после согласования с руководством.</p>
+        <button class="theme-toggle" onclick="goHome()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Вернуться на главную
+        </button>
+    </div>
 </div>
 
 <footer>
@@ -1444,7 +1440,7 @@
 
 <script>
 // ============================================================
-// КОНФИГУРАЦИЯ GITHUB
+// КОНФИГУРАЦИЯ
 // ============================================================
 const GITHUB_USER = 'vdorlov';
 const GITHUB_REPO = 'dms_ed_doc';
@@ -1454,7 +1450,7 @@ const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO
 const CACHE_TTL = 1000 * 60 * 30; // 30 минут
 
 // ============================================================
-// ЗАГРУЗКА КОНТЕНТА (с fallback для localStorage)
+// ЗАГРУЗКА
 // ============================================================
 async function fetchWithCache(url, cacheKey) {
     let cached = null;
@@ -1464,7 +1460,7 @@ async function fetchWithCache(url, cacheKey) {
             cached = JSON.parse(raw);
             if (Date.now() - cached.ts < CACHE_TTL) return cached.data;
         }
-    } catch(e) { /* localStorage недоступен */ }
+    } catch(e) {}
 
     try {
         const res = await fetch(url, { mode: 'cors', cache: 'no-store' });
@@ -1472,7 +1468,7 @@ async function fetchWithCache(url, cacheKey) {
         const text = await res.text();
         try {
             localStorage.setItem(cacheKey, JSON.stringify({ data: text, ts: Date.now() }));
-        } catch(e) { /* переполнение */ }
+        } catch(e) {}
         return text;
     } catch(err) {
         if (cached) return cached.data;
@@ -1481,28 +1477,28 @@ async function fetchWithCache(url, cacheKey) {
 }
 
 async function loadManifest() {
+    // Manifest не кэшируем — всегда свежий
     const url = RAW_BASE + 'manifest.json';
-    const text = await fetchWithCache(url, 'dms-manifest');
-    return JSON.parse(text);
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status} — manifest.json не найден`);
+    return await res.json();
 }
 
-async function loadModuleMd(fileName) {
-    const url = RAW_BASE + fileName;
-    return await fetchWithCache(url, 'dms-md-' + fileName);
+async function loadMd(filePath) {
+    const url = RAW_BASE + filePath;
+    return await fetchWithCache(url, 'dms-md-' + filePath);
 }
 
 // ============================================================
 // ПАРСИНГ MARKDOWN
 // ============================================================
-marked.setOptions({
-    breaks: true,
-    gfm: true,
-    headerIds: false,
-    mangle: false,
-});
+marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
 
 function renderMarkdownToHtml(md, modId) {
-    // Чистим частые ошибки markdown из Obsidian
+    // Убираем Obsidian-вставки (canvas, wiki-ссылки)
+    md = md.replace(/!\[\[[^\]]+\]\]/g, '');
+
+    // Чистка markdown
     md = md.replace(/^\*{4,}/gm, '**');
     md = md.replace(/\*{4,}$/gm, '**');
 
@@ -1521,30 +1517,12 @@ function renderMarkdownToHtml(md, modId) {
         const txt = firstP.textContent.trim().replace(/^_+|_+$/g, '').trim();
         if (/^(Спич|Скрипт)/i.test(txt)) {
             bq.className = 'speech-box';
-        } else if (/^(Важно|Золотое правило|Запомните|Ключевое)/i.test(txt)) {
+        } else if (/^(Важно|Золотое правило|Запомните|Ключевое|✔️)/i.test(txt)) {
             bq.className = 'highlight-box';
         }
     });
 
-    // Абзацы → цветные зоны
-    const zonesMap = [
-        { pattern: /^\s*\*\*(Красный флаг|Ошибка|Плохо|Ключевой момент)/i, cls: 'zone-red' },
-        { pattern: /^\s*\*\*(Зона риска|Внимание|Желтый флаг)/i, cls: 'zone-yellow' },
-        { pattern: /^\s*\*\*(Золотое правило|Хорошо|Это страховой случай|Исключение)/i, cls: 'zone-green' },
-    ];
-
-    div.querySelectorAll('p').forEach(p => {
-        if (p.closest('blockquote, .zone-red, .zone-yellow, .zone-green, .highlight-box, .speech-box')) return;
-        const htmlContent = p.innerHTML.trim();
-        for (const { pattern, cls } of zonesMap) {
-            if (pattern.test(htmlContent)) {
-                p.classList.add(cls);
-                break;
-            }
-        }
-    });
-
-    // Таблицы → .table-wrap
+    // Таблицы → обёртка
     div.querySelectorAll('table').forEach(t => {
         if (t.parentElement && t.parentElement.classList.contains('table-wrap')) return;
         const wrap = document.createElement('div');
@@ -1553,7 +1531,7 @@ function renderMarkdownToHtml(md, modId) {
         wrap.appendChild(t);
     });
 
-    // Уникальные ID с префиксом модуля (КРИТИЧНО для работы оглавления!)
+    // Уникальные ID
     let counter = 0;
     div.querySelectorAll('h2, h3').forEach(h => {
         if (!h.id) {
@@ -1562,28 +1540,92 @@ function renderMarkdownToHtml(md, modId) {
         }
     });
 
-    // Чек-листы: ☐ → кликабельные боксы
-    div.querySelectorAll('li').forEach(li => {
-        const htmlContent = li.innerHTML;
-        if (/^\s*☐\s+/.test(htmlContent)) {
-            li.innerHTML = htmlContent.replace(/^\s*☐\s+/, '');
-            li.style.listStyle = 'none';
-            li.style.display = 'flex';
-            li.style.alignItems = 'flex-start';
-            li.style.gap = '0.7rem';
-            li.style.marginLeft = '-1.2rem';
-            const box = document.createElement('div');
-            box.className = 'check-box';
-            box.onclick = function() { this.classList.toggle('checked'); };
-            li.insertBefore(box, li.firstChild);
-        }
-    });
-
     return div;
 }
 
 // ============================================================
-// НАДЁЖНАЯ ПРОКРУТКА К ЭЛЕМЕНТУ
+// ИНФОГРАФИКА ПРИНЯТИЯ РЕШЕНИЯ (HTML/CSS)
+// ============================================================
+function buildInfographicHtml() {
+    return `
+        <div class="infographic-block">
+            <h2>Инфографика принятия решения</h2>
+            <div class="flowchart">
+                <!-- Корневой узел -->
+                <div class="fc-node fc-node--root">Приём врача-специалиста<br>пациента ДМС</div>
+                <div class="fc-line"></div>
+
+                <!-- Три ветки -->
+                <div class="fc-row">
+                    <!-- Ветка 1: Нет страхового случая -->
+                    <div class="fc-column">
+                        <div class="fc-node fc-node--no">Нет страхового случая</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-node fc-node--no">Первичный приём оплачивает СК.<br>Исключение: ранее установленный нестраховой диагноз</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-node fc-node--danger">Все обследования и приёмы<br>за наличный расчёт</div>
+                    </div>
+
+                    <!-- Ветка 2: Есть страховой случай (прямой доступ) -->
+                    <div class="fc-column">
+                        <div class="fc-node fc-node--yes">Есть страховой случай</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-node fc-node--yes">Условия обслуживания<br>по прямому доступу</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-row" style="gap:0.6rem;">
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--step">Услуги, входящие<br>в программу ДМС<br>без согласования</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--action">Создание направления<br>на исследование на приёме</div>
+                            </div>
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--step">Услуги, требующие<br>согласования</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--action">Согласование услуг<br>ответственным сотрудником</div>
+                            </div>
+                        </div>
+                        <div class="fc-line"></div>
+                        <div class="fc-row" style="gap:0.6rem;">
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--success">Услуги согласованы</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--success">Запись на исследование<br>по ДМС</div>
+                            </div>
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--danger">Отказ СК</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--danger">Запись на исследование<br>за наличный расчёт</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ветка 3: Непрямой доступ (по ГП) -->
+                    <div class="fc-column">
+                        <div class="fc-node fc-node--no">Условия обслуживания<br>по ГП (непрямой доступ)</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-node fc-node--action">Согласование услуг<br>ответственным сотрудником</div>
+                        <div class="fc-line"></div>
+                        <div class="fc-row" style="gap:0.6rem;">
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--success">Услуга согласована</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--success">Оказание услуги<br>при наличии ГП</div>
+                            </div>
+                            <div class="fc-column" style="min-width:0;flex:1;">
+                                <div class="fc-node fc-node--danger">Отказ СК</div>
+                                <div class="fc-line"></div>
+                                <div class="fc-node fc-node--danger">Запись на услугу<br>за наличный расчёт</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================
+// НАДЁЖНАЯ ПРОКРУТКА
 // ============================================================
 function scrollToElementInPage(element) {
     if (!element) return;
@@ -1591,11 +1633,46 @@ function scrollToElementInPage(element) {
     const offset = navHeight + 30;
     const rect = element.getBoundingClientRect();
     const targetY = window.scrollY + rect.top - offset;
+    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+}
 
-    window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: 'smooth'
-    });
+// ============================================================
+// ГЛАВНАЯ КАРТОЧКА
+// ============================================================
+async function renderIntroCard() {
+    const container = document.getElementById('introCardContainer');
+    try {
+        const manifest = await loadManifest();
+        if (!manifest.length) {
+            container.innerHTML = '<div class="module-error">manifest.json пуст</div>';
+            return;
+        }
+        const m = manifest[0];
+        container.innerHTML = `
+            <div class="intro-card" onclick="openModule('${m.id}')">
+                <div class="intro-card-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                </div>
+                <h3>${m.title || 'Вводный модуль'}</h3>
+                <p>${m.description || ''}</p>
+                <div class="intro-tags">
+                    <span class="intro-tag">Вводный модуль</span>
+                    <span class="intro-tag">Обязательно к прочтению</span>
+                </div>
+                <div class="intro-cta">
+                    Читать модуль
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </div>
+            </div>
+        `;
+    } catch(err) {
+        container.innerHTML = `<div class="module-error">Не удалось загрузить список материалов.<br>${err.message}</div>`;
+    }
 }
 
 // ============================================================
@@ -1608,12 +1685,9 @@ async function openModule(modId) {
 
 async function renderModule(modId) {
     const container = document.getElementById('moduleContainer');
-
-    // Если страница уже отрисована — возвращаем её
     let page = document.getElementById(modId);
     if (page) return page;
 
-    // Заглушка загрузки
     page = document.createElement('div');
     page.className = 'module-page';
     page.id = modId;
@@ -1641,17 +1715,15 @@ async function renderModule(modId) {
     try {
         const manifest = await loadManifest();
         const item = manifest.find(m => m.id === modId);
-        if (!item) throw new Error('Модуль не найден в манифесте: ' + modId);
+        if (!item) throw new Error('Модуль не найден: ' + modId);
 
-        const md = await loadModuleMd(item.file);
+        const md = await loadMd(item.file);
         const mdNode = renderMarkdownToHtml(md, modId);
 
-        // Заголовок
         const h1 = mdNode.querySelector('h1');
-        let moduleTitle = h1 ? h1.textContent.trim() : 'Модуль ' + modId;
+        let moduleTitle = h1 ? h1.textContent.trim() : (item.title || 'Модуль');
         if (h1) h1.remove();
 
-        // Подзаголовок (курсив после h1)
         let subtitle = '';
         const firstP = mdNode.querySelector('p');
         if (firstP && /^<em>/.test(firstP.innerHTML)) {
@@ -1659,11 +1731,9 @@ async function renderModule(modId) {
             firstP.remove();
         }
 
-        // Собираем sidebar из h2 (или h3, если h2 нет)
+        // sidebar из h2 (или h3)
         let headings = mdNode.querySelectorAll('h2');
-        if (headings.length === 0) {
-            headings = mdNode.querySelectorAll('h3');
-        }
+        if (headings.length === 0) headings = mdNode.querySelectorAll('h3');
         const headingArray = Array.from(headings);
 
         let sidebarHtml = '';
@@ -1687,7 +1757,9 @@ async function renderModule(modId) {
             `;
         }
 
-        // Собираем финальную страницу
+        // Инфографика в конце модуля
+        const infographicHtml = buildInfographicHtml();
+
         page.innerHTML = `
             <div class="module-header">
                 <div class="breadcrumb">
@@ -1709,6 +1781,7 @@ async function renderModule(modId) {
             <div class="module-layout">
                 <div class="module-main">
                     <div class="md-content">${mdNode.innerHTML}</div>
+                    ${infographicHtml}
                 </div>
                 <aside class="module-sidebar" ${sidebarHtml ? '' : 'style="display:none;"'}>
                     ${sidebarHtml}
@@ -1716,12 +1789,11 @@ async function renderModule(modId) {
             </div>
         `;
 
-        // НАДЁЖНАЯ привязка кликов — ищем цели СТРОГО внутри этой страницы
+        // Надёжные клики по оглавлению
         page.querySelectorAll('.sidebar-nav a').forEach(a => {
             a.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = a.dataset.target;
-                // Ищем строго внутри page, а не через document.getElementById
                 const target = page.querySelector('#' + CSS.escape(targetId));
                 if (target) scrollToElementInPage(target);
             });
@@ -1740,7 +1812,7 @@ async function renderModule(modId) {
             </div>
             <div class="module-error">
                 ${err.message}<br><br>
-                Проверьте, что файл есть в репозитории и <code>manifest.json</code> заполнен корректно.
+                Проверьте, что файл существует и <code>manifest.json</code> заполнен корректно.
             </div>
         `;
         throw err;
@@ -1757,51 +1829,29 @@ function toggleSidebar(btn) {
     }
 }
 
-function printCurrentModule() {
-    window.print();
+function printCurrentModule() { window.print(); }
+
+// ============================================================
+// ИНФОГРАФИКА — ОТДЕЛЬНАЯ СТРАНИЦА
+// ============================================================
+function openInfographic() {
+    try { history.pushState({page: 'infographic'}, '', '#infographic'); } catch(e) {}
+    showPage('infographic');
+}
+
+function renderInfographicPage() {
+    const container = document.getElementById('infographicFullContainer');
+    if (container.dataset.loaded === 'true') return;
+    container.innerHTML = buildInfographicHtml();
+    container.dataset.loaded = 'true';
 }
 
 // ============================================================
-// ШПАРГАЛКА ВРАЧА
+// ШПАРГАЛКА — ЗАГЛУШКА
 // ============================================================
-async function openCheatSheet() {
+function openCheatSheet() {
     try { history.pushState({page: 'cheat'}, '', '#cheat'); } catch(e) {}
-    await showPage('cheat');
-}
-
-async function renderCheatSheet() {
-    const content = document.querySelector('#cheatPage .cheat-content');
-    if (!content) return;
-    if (content.dataset.loaded === 'true') return;
-
-    content.innerHTML = `
-        <div class="module-loading">
-            <div class="module-loading-spinner"></div>
-            <div>Загружаем шпаргалку...</div>
-        </div>
-    `;
-
-    try {
-        const md = await loadModuleMd('Shpargalka_vracha.md');
-        const mdNode = renderMarkdownToHtml(md, 'cheat');
-        const h1 = mdNode.querySelector('h1');
-        if (h1) h1.remove();
-
-        content.innerHTML = `
-            <button class="cheat-print-btn" onclick="window.print()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 9V2h12v7"/>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                    <rect x="6" y="14" width="12" height="8"/>
-                </svg>
-                Распечатать шпаргалку
-            </button>
-            <div class="md-content">${mdNode.innerHTML}</div>
-        `;
-        content.dataset.loaded = 'true';
-    } catch(err) {
-        content.innerHTML = `<div class="module-error">Не удалось загрузить шпаргалку.<br>${err.message}<br><br>Проверьте, что файл <code>Shpargalka_vracha.md</code> лежит в корне репозитория.</div>`;
-    }
+    showPage('cheat');
 }
 
 // ============================================================
@@ -1810,10 +1860,12 @@ async function renderCheatSheet() {
 async function showPage(pageId) {
     const homePage = document.getElementById('homePage');
     const cheatPage = document.getElementById('cheatPage');
+    const infographicPage = document.getElementById('infographicPage');
     const navHomeBtn = document.getElementById('navHomeBtn');
 
     document.querySelectorAll('.module-page').forEach(p => p.classList.remove('active'));
     if (cheatPage) cheatPage.classList.remove('active');
+    if (infographicPage) infographicPage.classList.remove('active');
 
     if (pageId === 'home') {
         homePage.style.display = 'block';
@@ -1822,7 +1874,11 @@ async function showPage(pageId) {
         homePage.style.display = 'none';
         if (cheatPage) cheatPage.classList.add('active');
         navHomeBtn.style.display = 'inline-flex';
-        await renderCheatSheet();
+    } else if (pageId === 'infographic') {
+        homePage.style.display = 'none';
+        if (infographicPage) infographicPage.classList.add('active');
+        navHomeBtn.style.display = 'inline-flex';
+        renderInfographicPage();
     } else {
         homePage.style.display = 'none';
         try {
@@ -1846,8 +1902,8 @@ function goHome() {
 
 window.addEventListener('popstate', async function() {
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'cheat') {
-        await showPage('cheat');
+    if (hash === 'cheat' || hash === 'infographic') {
+        await showPage(hash);
     } else if (hash) {
         await showPage(hash);
     } else {
@@ -1857,9 +1913,6 @@ window.addEventListener('popstate', async function() {
 
 function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
-// ============================================================
-// АКТИВНАЯ ССЫЛКА В САЙДБАРЕ ПРИ СКРОЛЛЕ
-// ============================================================
 function initSidebarObserver(moduleId) {
     const module = document.getElementById(moduleId);
     if (!module) return;
@@ -1880,87 +1933,6 @@ function initSidebarObserver(moduleId) {
 }
 
 // ============================================================
-// КАРТОЧКИ МОДУЛЕЙ
-// ============================================================
-const MODULE_ICONS = {
-    legal: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/><path d="M8 21h8"/></svg>`,
-    docs: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4z"/><path d="M4 8h10"/><path d="M4 12h10"/><path d="M4 16h6"/><path d="M19 12l3 3-4 4-3-3z"/></svg>`,
-    clinical: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 7h5"/><path d="M8 11h5"/><circle cx="17" cy="17" r="4"/><path d="M20 20l3 3"/></svg>`,
-    procedures: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0v7a3 3 0 1 1-6 0z"/><path d="M12 4v4"/><path d="M9 7c-2 0-3 1-3 3v8"/><path d="M15 7c2 0 3 1 3 3v8"/></svg>`,
-};
-
-const MODULE_DESCRIPTIONS = {
-    mod1: 'Входной фильтр, золотой список, запретные территории и материалы',
-    mod2: 'Структура записи, золотая формула, типичные ошибки и мотивационный спич',
-    mod3: 'МЭЭ, кариес, ОРВИ, дорсалгия, гипертония, гипотиреоз, периодонтит и пульпит',
-    mod4: 'Базовый пакет, сравнение программ, типичные ошибки и чек-лист стоматолога',
-    mod5: '7 этапов работы, классификация рисков, стоп-сигналы и готовые скрипты',
-    mod7: 'Средний чек, лечение vs реабилитация, интервальность, этапность и алгоритмы',
-    mod8: 'Показания, типичные ошибки, ГП и пошаговый алгоритм назначения ДС БЦА',
-    mod9: 'ХЗВ, атеросклероз, тромбофлебит, ГП и алгоритм назначения УЗДГ',
-};
-
-const MODULE_CATEGORIES = {
-    mod1: { label: 'Правовые основы', cls: 'legal' },
-    mod2: { label: 'Документация', cls: 'docs' },
-    mod3: { label: 'Клинические случаи', cls: 'clinical' },
-    mod4: { label: 'Клинические случаи', cls: 'clinical' },
-    mod5: { label: 'Правовые основы', cls: 'legal' },
-    mod7: { label: 'Процедуры', cls: 'procedures' },
-    mod8: { label: 'Процедуры', cls: 'procedures' },
-    mod9: { label: 'Процедуры', cls: 'procedures' },
-};
-
-async function renderModuleCards() {
-    const grid = document.getElementById('modulesGrid');
-    try {
-        const manifest = await loadManifest();
-        grid.innerHTML = manifest.map((m, i) => {
-            const cat = MODULE_CATEGORIES[m.id] || { label: 'Модуль', cls: 'procedures' };
-            const desc = MODULE_DESCRIPTIONS[m.id] || '';
-            const icon = MODULE_ICONS[cat.cls] || MODULE_ICONS.procedures;
-            const modNumber = m.id.replace('mod', '').padStart(2, '0');
-            return `
-                <div class="module-card" data-category="${cat.cls}" onclick="openModule('${m.id}')" style="animation-delay:${0.05 * i}s;">
-                    <div class="module-number">${modNumber}</div>
-                    <div class="module-icon">${icon}</div>
-                    <h3 data-module-title="${m.id}">Загрузка...</h3>
-                    <p>${desc}</p>
-                    <div class="module-tags">
-                        <span class="module-tag">${cat.label}</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        manifest.forEach(async (m) => {
-            try {
-                const md = await loadModuleMd(m.file);
-                const match = md.match(/^#\s+(.+)$/m);
-                if (match) {
-                    const titleEl = grid.querySelector(`h3[data-module-title="${m.id}"]`);
-                    if (titleEl) titleEl.textContent = match[1].trim();
-                }
-            } catch(e) { /* игнорируем */ }
-        });
-    } catch(err) {
-        grid.innerHTML = `<div class="module-error">Не удалось загрузить список модулей.<br>${err.message}</div>`;
-    }
-}
-
-function filterModules(category, btn) {
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    document.querySelectorAll('.module-card').forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-            card.classList.remove('hidden');
-        } else {
-            card.classList.add('hidden');
-        }
-    });
-}
-
-// ============================================================
 // ПАРАЛЛАКС
 // ============================================================
 (function() {
@@ -1973,8 +1945,7 @@ function filterModules(category, btn) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isTouch || reduced) return;
 
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
+    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
     let rafId = null;
     const GAIN = 55;
 
@@ -2021,97 +1992,6 @@ function toggleTheme() {
 })();
 
 // ============================================================
-// ПОИСК
-// ============================================================
-let searchIndexCache = null;
-
-async function buildSearchIndex() {
-    if (searchIndexCache) return searchIndexCache;
-    const manifest = await loadManifest();
-    const index = [];
-    for (const m of manifest) {
-        try {
-            const md = await loadModuleMd(m.file);
-            const titleMatch = md.match(/^#\s+(.+)$/m);
-            const moduleTitle = titleMatch ? titleMatch[1].trim() : m.id;
-            const sections = md.split(/^##\s+/m).slice(1);
-            sections.forEach(sec => {
-                const lines = sec.split('\n');
-                const sectionTitle = lines[0].trim();
-                const body = lines.slice(1).join(' ').replace(/[#>*_|`\-]/g, ' ').replace(/\s+/g, ' ').trim();
-                index.push({
-                    id: m.id,
-                    module: moduleTitle,
-                    title: sectionTitle,
-                    text: body.slice(0, 300),
-                });
-            });
-        } catch(e) { /* ignore */ }
-    }
-    searchIndexCache = index;
-    return index;
-}
-
-let searchDebounce = null;
-function handleSearch(query) {
-    clearTimeout(searchDebounce);
-    if (!query.trim()) {
-        document.getElementById('searchResults').classList.remove('active');
-        return;
-    }
-    searchDebounce = setTimeout(async () => {
-        const resultsEl = document.getElementById('searchResults');
-        const q = query.toLowerCase();
-        try {
-            const index = await buildSearchIndex();
-            const results = index.filter(item =>
-                item.title.toLowerCase().includes(q) ||
-                item.text.toLowerCase().includes(q) ||
-                item.module.toLowerCase().includes(q)
-            ).slice(0, 8);
-
-            if (!results.length) {
-                resultsEl.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
-                resultsEl.classList.add('active');
-                return;
-            }
-
-            resultsEl.innerHTML = results.map(r => {
-                const safeQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const hlTitle = r.title.replace(new RegExp(safeQ, 'gi'), m => `<span class="search-highlight">${escapeHtml(m)}</span>`);
-                const hlText = r.text.replace(new RegExp(safeQ, 'gi'), m => `<span class="search-highlight">${escapeHtml(m)}</span>`);
-                return `<div class="search-result-item" data-mod="${r.id}">
-                    <div class="sr-module">${escapeHtml(r.module)}</div>
-                    <div class="sr-title">${hlTitle}</div>
-                    <div class="sr-context">${hlText}</div>
-                </div>`;
-            }).join('');
-            resultsEl.classList.add('active');
-
-            resultsEl.querySelectorAll('.search-result-item').forEach(el => {
-                el.addEventListener('click', () => {
-                    document.getElementById('searchResults').classList.remove('active');
-                    document.getElementById('searchInput').value = '';
-                    openModule(el.dataset.mod);
-                });
-            });
-        } catch(e) {
-            console.error(e);
-        }
-    }, 250);
-}
-
-function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
-
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-search-wrap')) {
-        document.getElementById('searchResults').classList.remove('active');
-    }
-});
-
-// ============================================================
 // SCROLL EFFECTS
 // ============================================================
 const scrollTopBtn = document.getElementById('scrollTop');
@@ -2130,11 +2010,11 @@ window.addEventListener('scroll', () => {
 // INIT
 // ============================================================
 (async function init() {
-    await renderModuleCards();
+    await renderIntroCard();
 
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'cheat') {
-        await showPage('cheat');
+    if (hash === 'cheat' || hash === 'infographic') {
+        await showPage(hash);
     } else if (hash) {
         await showPage(hash);
     }
