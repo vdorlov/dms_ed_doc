@@ -39,24 +39,24 @@
     "file": "for_doc/modul_5_Stomatology.md"
   },
   {
-    "id": "mod7",
+    "id": "mod6",
     "title": "Физиотерапия, массаж, мануальная терапия",
     "description": "Средний чек, лечение vs реабилитация, интервальность и этапность",
     "category": "procedures",
-    "file": "for_doc/modul_7_Fizioterapia.md"
+    "file": "for_doc/modul_6_Fizioterapia.md"
   },
   {
-    "id": "mod8",
+    "id": "mod7",
     "title": "ДС БЦА в ДМС",
     "description": "Показания, типичные ошибки, ГП и алгоритм назначения",
     "category": "procedures",
-    "file": "for_doc/modul_8_Dupleks_BCA.md"
+    "file": "for_doc/modul_7_Dupleks_BCA.md"
   },
   {
-    "id": "mod9",
+    "id": "mod8",
     "title": "УЗДГ сосудов нижних конечностей",
     "description": "ХЗВ, атеросклероз, тромбофлебит и алгоритм назначения",
     "category": "procedures",
-    "file": "for_doc/modul_9_Dupleks_niz_konechnostey.md"
+    "file": "for_doc/modul_8_Dupleks_niz_konechnostey.md"
   }
 ]
