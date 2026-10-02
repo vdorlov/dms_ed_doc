@@ -1,7 +1,15 @@
 [
   {
+    "id": "mod_vvedenie",
+    "title": "Особенности работы с программами ДМС",
+    "description": "Вводный модуль: базовые принципы работы с ДМС, страховой случай, взаимодействие со СК",
+    "category": "intro",
+    "file": "vvedenie/Osobennosti_rabory_DMS.md",
+    "is_intro": true
+  },
+  {
     "id": "mod1",
-    "title": "Страховой случай: базовая версия",
+    "title": "Страховой случай",
     "description": "Что такое страховой случай, входной фильтр, острые состояния и обострения",
     "category": "legal",
     "file": "for_all/modul_1_Strakhovou_sluchay_adm.md",
