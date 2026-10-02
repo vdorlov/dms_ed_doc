@@ -1,9 +1,62 @@
 [
   {
-    "id": "mod_vvedenie",
-    "file": "vvedenie/Osobennosti_rabory_DMS.md",
-    "title": "Особенности работы с программами ДМС",
-    "description": "Вводный модуль: как работает ДМС, взаимодействие со страховыми компаниями, согласование услуг и причины удержаний",
-    "category": "vvedenie"
+    "id": "mod1",
+    "title": "Страховой случай: базовая версия",
+    "description": "Что такое страховой случай, входной фильтр, острые состояния и обострения",
+    "category": "legal",
+    "file": "for_all/modul_1_Strakhovou_sluchay_adm.md",
+    "advanced_file": "for_doc/modul_1_Strakhovoi_sluchay.md"
+  },
+  {
+    "id": "mod2",
+    "title": "Заполнение меддокументации",
+    "description": "Структура записи, обязательные элементы, типичные ошибки экспертизы",
+    "category": "docs",
+    "file": "for_all/modul_2_Zapolnenie_meddokumentacii_adm.md",
+    "advanced_file": "for_doc/modul_2_Zapolnenie_meddokumentacii.md"
+  },
+  {
+    "id": "mod3",
+    "title": "Вопросы экспертизы",
+    "description": "Как работает МЭЭ и разбор частых диагнозов с причинами удержаний",
+    "category": "clinical",
+    "file": "for_all/modul_3_Voprosi_ekspertizi_adm.md",
+    "advanced_file": "for_doc/modul_3_Voprosi_ekspertizi.md"
+  },
+  {
+    "id": "mod4",
+    "title": "Риск-менеджмент",
+    "description": "Практический алгоритм ведения пациента и минимизация снятий",
+    "category": "legal",
+    "file": "for_all/modul_4_Risk_menedjment_adm.md",
+    "advanced_file": "for_doc/modul_4_Risk_menedjment.md"
+  },
+  {
+    "id": "mod5",
+    "title": "Стоматологическая помощь по ДМС",
+    "description": "Базовый пакет, ограничения, типичные ошибки стоматолога",
+    "category": "clinical",
+    "file": "for_doc/modul_5_Stomatology.md"
+  },
+  {
+    "id": "mod7",
+    "title": "Физиотерапия, массаж, мануальная терапия",
+    "description": "Средний чек, лечение vs реабилитация, интервальность и этапность",
+    "category": "procedures",
+    "file": "for_doc/modul_7_Fizioterapia.md"
+  },
+  {
+    "id": "mod8",
+    "title": "ДС БЦА в ДМС",
+    "description": "Показания, типичные ошибки, ГП и алгоритм назначения",
+    "category": "procedures",
+    "file": "for_doc/modul_8_Dupleks_BCA.md"
+  },
+  {
+    "id": "mod9",
+    "title": "УЗДГ сосудов нижних конечностей",
+    "description": "ХЗВ, атеросклероз, тромбофлебит и алгоритм назначения",
+    "category": "procedures",
+    "file": "for_doc/modul_9_Dupleks_niz_konechnostey.md"
   }
 ]
