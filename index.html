@@ -1883,6 +1883,10 @@ function buildFlowSvg() {
         }
 
         if (from.side === 'right' && to.side === 'left') {
+            if (Math.abs(p1.y - p2.y) < 3) {
+                return `M ${p1.x + 4} ${p1.y} L ${p2.x - arrowGap} ${p2.y}`;
+            }
+            // Иначе — S-образный изгиб
             const midX = (p1.x + p2.x) / 2;
             const dir = p2.y > p1.y ? 1 : -1;
             return [
