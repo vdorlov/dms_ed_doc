@@ -196,7 +196,7 @@
         animation: fadeInUp 0.8s 0.3s ease both;
     }
 
-    /* МЕДИЦИНСКИЕ ИКОНКИ */
+    /* МЕДИЦИНСКИЕ ИКОНКИ + ПАРАЛЛАКС */
     .medical-icon {
         position: absolute;
         opacity: 0.28;
@@ -330,10 +330,10 @@
         100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* ГЛАВНАЯ */
+    /* ГЛАВНАЯ — КАРТОЧКИ МОДУЛЕЙ */
     .modules-section {
         padding: 3rem 1.5rem 5rem;
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
     }
     .section-header {
@@ -347,29 +347,31 @@
         max-width: 600px; margin: 0 auto;
     }
 
-    .intro-card {
+    .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    .module-card {
         background: var(--surface);
         border-radius: var(--radius);
-        padding: 2.5rem 2rem;
+        padding: 1.8rem 1.5rem;
         box-shadow: var(--shadow);
-        cursor: pointer;
         transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
         border: 1px solid var(--line);
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
+        gap: 0.8rem;
         opacity: 0;
         animation: cardAppear 0.6s ease forwards;
-        max-width: 700px;
-        margin: 0 auto;
     }
     @keyframes cardAppear {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .intro-card::before {
+    .module-card::before {
         content: '';
         position: absolute; top: 0; left: 0;
         width: 100%; height: 5px;
@@ -377,14 +379,13 @@
         transform: scaleX(0); transform-origin: left;
         transition: transform 0.35s ease;
     }
-    .intro-card:hover {
+    .module-card:hover {
         transform: translateY(-6px) scale(1.01);
         box-shadow: var(--shadow-lg);
     }
-    .intro-card:hover::before { transform: scaleX(1); }
-
-    .intro-card-icon {
-        width: 72px; height: 72px;
+    .module-card:hover::before { transform: scaleX(1); }
+    .module-icon {
+        width: 56px; height: 56px;
         border-radius: var(--radius-sm);
         background: linear-gradient(135deg, var(--accent-light), var(--accent-weak));
         display: flex; align-items: center; justify-content: center;
@@ -392,40 +393,86 @@
         flex-shrink: 0;
         transition: transform 0.3s ease;
     }
-    .intro-card:hover .intro-card-icon { transform: scale(1.1) rotate(-5deg); }
-    .intro-card h3 { font-size: var(--step-2); color: var(--ink); }
-    .intro-card p { font-size: var(--step-0); color: var(--muted); line-height: 1.6; }
-    .intro-card .intro-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .intro-card .intro-tag {
-        font-size: 0.75rem;
-        padding: 0.2rem 0.7rem;
+    .module-card:hover .module-icon { transform: scale(1.1) rotate(-5deg); }
+    .module-card:hover .module-icon svg {
+        animation: modIconPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes modIconPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+    }
+    .module-number {
+        position: absolute; top: 1rem; right: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3.5rem; font-weight: 800;
+        color: var(--accent); opacity: 0.06;
+        line-height: 1;
+        transition: opacity 0.3s ease;
+    }
+    .module-card:hover .module-number { opacity: 0.12; }
+    .module-card h3 {
+        font-size: 1.05rem; color: var(--ink);
+        margin-top: 0.2rem;
+    }
+    .module-card p {
+        font-size: 0.9rem; color: var(--muted);
+        line-height: 1.5; flex-grow: 1;
+    }
+    .module-tags {
+        display: flex; flex-wrap: wrap;
+        gap: 0.3rem; margin-top: 0.3rem;
+    }
+    .module-tag {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
         background: var(--accent-weak);
         color: var(--accent-dark);
         border-radius: 100px;
         font-weight: 600;
-        font-family: 'Montserrat', sans-serif;
     }
-    .intro-card .intro-cta {
+
+    .module-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.6rem;
+    }
+    .module-btn {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-        padding: 0.7rem 1.4rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-        color: white;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
         border-radius: 100px;
         font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        font-size: 0.95rem;
-        align-self: flex-start;
+        font-weight: 600;
+        font-size: 0.8rem;
+        cursor: pointer;
         transition: all 0.25s ease;
+        border: none;
+        text-decoration: none;
+        white-space: nowrap;
     }
-    .intro-card:hover .intro-cta {
-        transform: translateX(4px);
+    .module-btn--primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: white;
+    }
+    .module-btn--primary:hover {
+        transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(0, 168, 181, 0.4);
     }
-    .intro-card .intro-cta svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
-    .intro-card:hover .intro-cta svg { transform: translateX(4px); }
+    .module-btn--advanced {
+        background: linear-gradient(135deg, #7e57c2, #5e35b1);
+        color: white;
+    }
+    .module-btn--advanced:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(94, 53, 177, 0.4);
+    }
+    .module-btn svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
 
     /* MODULE PAGE */
     .module-page {
@@ -567,9 +614,16 @@
     }
     .breadcrumb a:hover { opacity: 0.7; text-decoration: underline; }
 
-    .print-module-btn {
+    /* Кнопки в шапке модуля */
+    .module-header-actions {
         position: absolute;
         top: 1.5rem; right: 1.5rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        z-index: 3;
+    }
+    .header-btn {
         display: inline-flex; align-items: center; gap: 0.4rem;
         padding: 0.5rem 1rem;
         background: rgba(255, 255, 255, 0.2);
@@ -582,19 +636,28 @@
         transition: all 0.25s ease;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-        z-index: 3;
     }
-    .print-module-btn:hover {
+    .header-btn:hover {
         background: white;
         color: var(--accent-dark);
         transform: translateY(-2px) scale(1.03);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
-    .print-module-btn svg { width: 14px; height: 14px; }
+    .header-btn--advanced {
+        background: rgba(126, 87, 194, 0.5);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    .header-btn--advanced:hover {
+        background: #7e57c2;
+        color: white;
+    }
+    .header-btn svg { width: 14px; height: 14px; }
     @media (max-width: 640px) {
-        .print-module-btn {
+        .module-header-actions {
             position: static;
             margin-top: 1rem;
+        }
+        .header-btn {
             padding: 0.45rem 0.8rem;
             font-size: 0.75rem;
         }
@@ -825,7 +888,6 @@
         margin: 0 auto;
     }
 
-    /* === SVG-слой стрелок === */
     .flow-svg {
         position: absolute;
         inset: 0;
@@ -840,11 +902,9 @@
         stroke-width: 1.6;
         stroke-linecap: round;
         stroke-linejoin: round;
-        transition: stroke 0.35s ease, stroke-width 0.35s ease, filter 0.35s ease;
+        transition: stroke 0.35s ease, stroke-width 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
     }
-    [data-theme="dark"] .flow-svg path {
-        stroke: #475569;
-    }
+    [data-theme="dark"] .flow-svg path { stroke: #475569; }
     .flow-svg path.is-active {
         stroke: var(--accent);
         stroke-width: 2.4;
@@ -855,12 +915,7 @@
         stroke: none;
         transition: fill 0.35s ease;
     }
-    [data-theme="dark"] .flow-svg marker path {
-        fill: #475569;
-    }
-    .flow-svg path.is-active {
-        marker-end: url(#arrow-active);
-    }
+    [data-theme="dark"] .flow-svg marker path { fill: #475569; }
 
     /* === Блоки === */
     .flow-node {
@@ -894,16 +949,15 @@
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Затемнение всех блоков, кроме активного */
     .flow-stage.is-hovering .flow-node:not(.is-hovered) {
-        opacity: 0.4;
-        filter: saturate(0.6);
+        opacity: 0.35;
+        filter: saturate(0.5);
     }
     .flow-stage.is-hovering .flow-svg path:not(.is-active) {
-        opacity: 0.25;
+        opacity: 0.2;
     }
 
-    /* === Цветовые схемы (современная пастельная палитра) === */
+    /* === Цветовые схемы === */
     .flow-node--root {
         background: #EEF2FF;
         border-color: #A5B4FC;
@@ -912,6 +966,7 @@
         box-shadow: 0 1px 3px rgba(99, 102, 241, 0.08);
     }
     .flow-node--root.is-hovered {
+        opacity: 1;
         background: #E0E7FF;
         box-shadow: 0 12px 32px rgba(99, 102, 241, 0.25), 0 0 0 6px rgba(165, 180, 252, 0.3);
     }
@@ -931,14 +986,15 @@
         color: #92400E;
     }
     .flow-node--no.is-hovered {
+        opacity: 1;
         background: #FEF3C7;
-        box-shadow: 0 12px 32px rgba(245, 158, 11, 0.25), 0 0 0 6px rgba(252, 211, 77, 0.3);
+        box-shadow: 0 12px 32px rgba(245, 158, 11, 0.25), 0 0 0 6px rgba(252, 211, 77, 0.35);
         animation: gentleShake 0.5s ease-in-out;
     }
     @keyframes gentleShake {
-        0%, 100% { transform: translateY(-3px) scale(1.04) rotate(0deg); }
-        25% { transform: translateY(-3px) scale(1.04) rotate(-1.2deg); }
-        75% { transform: translateY(-3px) scale(1.04) rotate(1.2deg); }
+        0%, 100% { transform: translateY(-3px) scale(1.04) rotate(0deg); opacity: 1; }
+        25% { transform: translateY(-3px) scale(1.04) rotate(-1.2deg); opacity: 1; }
+        75% { transform: translateY(-3px) scale(1.04) rotate(1.2deg); opacity: 1; }
     }
     [data-theme="dark"] .flow-node--no {
         background: #422006;
@@ -955,6 +1011,7 @@
         color: #5B21B6;
     }
     .flow-node--yes.is-hovered {
+        opacity: 1;
         background: #E9D5FF;
         box-shadow: 0 12px 32px rgba(139, 92, 246, 0.25), 0 0 0 6px rgba(196, 181, 253, 0.3);
     }
@@ -973,6 +1030,7 @@
         color: #9A3412;
     }
     .flow-node--gp.is-hovered {
+        opacity: 1;
         background: #FFEDD5;
         box-shadow: 0 12px 32px rgba(249, 115, 22, 0.25), 0 0 0 6px rgba(253, 186, 116, 0.3);
     }
@@ -991,6 +1049,7 @@
         color: #155E75;
     }
     .flow-node--neutral.is-hovered {
+        opacity: 1;
         background: #CFFAFE;
         box-shadow: 0 12px 32px rgba(6, 182, 212, 0.25), 0 0 0 6px rgba(103, 232, 249, 0.3);
     }
@@ -1009,6 +1068,7 @@
         color: #6B21A8;
     }
     .flow-node--action.is-hovered {
+        opacity: 1;
         background: #F3E8FF;
         box-shadow: 0 12px 32px rgba(168, 85, 247, 0.25), 0 0 0 6px rgba(216, 180, 254, 0.3);
     }
@@ -1027,6 +1087,7 @@
         color: #065F46;
     }
     .flow-node--success.is-hovered {
+        opacity: 1;
         background: #D1FAE5;
         box-shadow: 0 12px 32px rgba(16, 185, 129, 0.25), 0 0 0 6px rgba(110, 231, 183, 0.3);
     }
@@ -1045,8 +1106,9 @@
         color: #991B1B;
     }
     .flow-node--danger.is-hovered {
+        opacity: 1;
         background: #FEE2E2;
-        box-shadow: 0 12px 32px rgba(239, 68, 68, 0.25), 0 0 0 6px rgba(252, 165, 165, 0.3);
+        box-shadow: 0 12px 32px rgba(239, 68, 68, 0.25), 0 0 0 6px rgba(252, 165, 165, 0.35);
         animation: gentleShake 0.5s ease-in-out;
     }
     [data-theme="dark"] .flow-node--danger {
@@ -1058,13 +1120,12 @@
         background: #7F1D1D;
     }
 
-    /* Общий hover-эффект: подъём */
     .flow-node.is-hovered {
+        opacity: 1;
         transform: translateY(-3px) scale(1.04);
         z-index: 10;
     }
 
-    /* Мобильная адаптация: вертикальный стек */
     @media (max-width: 900px) {
         .flow-wrap {
             padding: 1rem;
@@ -1138,10 +1199,6 @@
         box-shadow: var(--shadow);
         border: 1px solid var(--line);
         overflow: hidden;
-    }
-    .infographic-page .flow-stage {
-        width: 1240px;
-        height: 900px;
     }
 
     /* SCROLL TOP */
@@ -1321,12 +1378,13 @@
         .medical-icon { opacity: 0.18; }
         .med-7, .med-8, .med-9, .med-10, .med-11, .med-12 { display: none; }
         .nav-brand span { display: none; }
+        .modules-grid { grid-template-columns: 1fr; }
     }
 
     @media print {
         .top-nav, .scroll-top, .nav-home-btn, .theme-toggle,
         .module-sidebar, .medical-icon, .pulse-ring,
-        .cheat-sheet-btn, .infographic-btn, .print-module-btn,
+        .cheat-sheet-btn, .infographic-btn, .module-header-actions,
         .infographic-page .infographic-actions {
             display: none !important;
         }
@@ -1494,10 +1552,10 @@
 
     <section class="modules-section">
         <div class="section-header">
-            <h2>Начните с вводного модуля</h2>
-            <p>Основы работы с программами ДМС: страховой случай, взаимодействие со СК, согласование услуг и причины удержаний</p>
+            <h2>Выберите модуль</h2>
+            <p>Каждый модуль содержит алгоритмы, чек-листы и готовые формулировки для конкретной ситуации</p>
         </div>
-        <div id="introCardContainer"></div>
+        <div class="modules-grid" id="modulesGrid"></div>
     </section>
 </div>
 
@@ -1557,6 +1615,21 @@ const GITHUB_REPO = 'dms_ed_doc';
 const GITHUB_BRANCH = 'master';
 const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
 const CACHE_TTL = 1000 * 60 * 30;
+
+// Иконки по категориям
+const MODULE_ICONS = {
+    legal: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/><path d="M8 21h8"/></svg>`,
+    docs: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4z"/><path d="M4 8h10"/><path d="M4 12h10"/><path d="M4 16h6"/><path d="M19 12l3 3-4 4-3-3z"/></svg>`,
+    clinical: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M8 7h5"/><path d="M8 11h5"/><circle cx="17" cy="17" r="4"/><path d="M20 20l3 3"/></svg>`,
+    procedures: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0v7a3 3 0 1 1-6 0z"/><path d="M12 4v4"/><path d="M9 7c-2 0-3 1-3 3v8"/><path d="M15 7c2 0 3 1 3 3v8"/></svg>`,
+};
+
+const CATEGORY_LABELS = {
+    legal: 'Правовые основы',
+    docs: 'Документация',
+    clinical: 'Клинические случаи',
+    procedures: 'Процедуры и исследования',
+};
 
 // ============================================================
 // ЗАГРУЗКА
@@ -1644,79 +1717,52 @@ function renderMarkdownToHtml(md, modId) {
 }
 
 // ============================================================
-// ИНФОГРАФИКА — ДАННЫЕ
+// ИНФОГРАФИКА — данные
 // ============================================================
-// Stage: 1240 × 900
 const FLOW_STAGE_W = 1240;
 const FLOW_STAGE_H = 900;
 
-// Узлы: id, x, y, w, h, text, type
-// Уровни по Y: 30, 180, 340, 510, 660, 810
 const FLOW_NODES = [
-    // === Уровень 0: Корень ===
     { id: 'root', x: 470, y: 30, w: 300, h: 65, text: 'Приём врачом-специалистом<br>пациента по ДМС', type: 'root' },
-
-    // === Уровень 1: три исхода (y=180) ===
     { id: 'no-case',  x: 40,  y: 180, w: 240, h: 60, text: 'Нет страхового<br>случая', type: 'no' },
     { id: 'yes-case', x: 480, y: 180, w: 280, h: 60, text: 'Есть страховой<br>случай', type: 'yes' },
     { id: 'gp',       x: 900, y: 180, w: 280, h: 65, text: 'Условия обслуживания<br>по ГП (не прямой доступ)', type: 'gp' },
-
-    // === Уровень 2: условия (y=340) ===
     { id: 'no-primary', x: 40,  y: 340, w: 240, h: 110, text: 'Первичный приём<br>оплачивает СК.<br>Исключение: ранее<br>установленный нестраховой<br>диагноз', type: 'no' },
     { id: 'direct',     x: 480, y: 340, w: 280, h: 60,  text: 'Условия обслуживания<br>по прямому доступу', type: 'yes' },
     { id: 'gp-approve', x: 900, y: 340, w: 280, h: 65,  text: 'Согласование услуг<br>ответственным сотрудником', type: 'gp' },
-
-    // === Уровень 3: услуги / результаты согласования (y=510) ===
     { id: 'no-cash',           x: 40,  y: 510, w: 240, h: 60, text: 'Все обследования<br>и приёмы за наличный расчёт', type: 'no' },
     { id: 'no-approve-needed', x: 350, y: 510, w: 210, h: 90, text: 'Услуги, входящие<br>в программу ДМС<br>без согласования', type: 'neutral' },
     { id: 'approve-needed',    x: 600, y: 510, w: 210, h: 90, text: 'Услуги,<br>требующие<br>согласования', type: 'gp' },
     { id: 'gp-agreed',         x: 880, y: 510, w: 140, h: 65, text: 'Услуга<br>согласована', type: 'success' },
     { id: 'gp-denied',         x: 1050, y: 510, w: 140, h: 65, text: 'Отказ<br>СК', type: 'danger' },
-
-    // === Уровень 4: действия (y=660) ===
     { id: 'create-direction', x: 350, y: 660, w: 210, h: 90, text: 'Создание<br>направления на<br>исследование<br>на приёме', type: 'neutral' },
     { id: 'approve-action',   x: 600, y: 660, w: 210, h: 90, text: 'Согласование<br>услуг<br>ответственным<br>сотрудником', type: 'action' },
     { id: 'gp-service',       x: 880, y: 660, w: 140, h: 70, text: 'Оказание<br>услуги при<br>наличии ГП', type: 'success' },
     { id: 'gp-cash',          x: 1050, y: 660, w: 140, h: 70, text: 'Запись на<br>услугу<br>за наличный расчёт', type: 'danger' },
-
-    // === Уровень 5: финал согласования (y=810) ===
     { id: 'agreed', x: 600, y: 810, w: 130, h: 65, text: 'Услуга<br>согласована', type: 'success' },
     { id: 'denied', x: 750, y: 810, w: 130, h: 65, text: 'Отказ<br>СК', type: 'danger' },
 ];
 
-// Связи: [fromId, fromSide, toId, toSide]
 const FLOW_EDGES = [
-    // root → 3 исхода
     ['root', 'bottom', 'no-case', 'top'],
     ['root', 'bottom', 'yes-case', 'top'],
     ['root', 'bottom', 'gp', 'top'],
-
-    // левая ветка
     ['no-case', 'bottom', 'no-primary', 'top'],
     ['no-primary', 'bottom', 'no-cash', 'top'],
-
-    // центр
     ['yes-case', 'bottom', 'direct', 'top'],
     ['direct', 'bottom', 'no-approve-needed', 'top'],
     ['direct', 'bottom', 'approve-needed', 'top'],
     ['no-approve-needed', 'bottom', 'create-direction', 'top'],
     ['approve-needed', 'bottom', 'approve-action', 'top'],
-
-    // правая ветка
     ['gp', 'bottom', 'gp-approve', 'top'],
     ['gp-approve', 'bottom', 'gp-agreed', 'top'],
     ['gp-approve', 'bottom', 'gp-denied', 'top'],
     ['gp-agreed', 'bottom', 'gp-service', 'top'],
     ['gp-denied', 'bottom', 'gp-cash', 'top'],
-
-    // финал центральной ветки
     ['approve-action', 'bottom', 'agreed', 'top'],
     ['approve-action', 'bottom', 'denied', 'top'],
 ];
 
-// ============================================================
-// SVG-СТРЕЛКИ
-// ============================================================
 function buildFlowSvg() {
     const nodeMap = {};
     FLOW_NODES.forEach(n => nodeMap[n.id] = n);
@@ -1733,15 +1779,13 @@ function buildFlowSvg() {
     function buildPath(from, to) {
         const p1 = getPoint(from.node, from.side);
         const p2 = getPoint(to.node, to.side);
-        const r = 14;       // радиус скругления
-        const arrowGap = 8; // чтобы стрелка не касалась блока
+        const r = 14;
+        const arrowGap = 8;
 
-        // Прямая вертикаль
         if (Math.abs(p1.x - p2.x) < 3) {
             return `M ${p1.x} ${p1.y + 4} L ${p2.x} ${p2.y - arrowGap}`;
         }
 
-        // Г-образный путь
         const midY = (p1.y + p2.y) / 2;
         const dir = p2.x > p1.x ? 1 : -1;
         return [
@@ -1770,18 +1814,12 @@ function buildFlowSvg() {
                 <marker id="arrow" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                     <path d="M 0 0 L 12 6 L 0 12 L 3 6 z" fill="#CBD5E1"/>
                 </marker>
-                <marker id="arrow-active" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                    <path d="M 0 0 L 12 6 L 0 12 L 3 6 z" fill="#00a8b5"/>
-                </marker>
             </defs>
             ${paths}
         </svg>
     `;
 }
 
-// ============================================================
-// БЛОКИ
-// ============================================================
 function buildFlowNodes() {
     return FLOW_NODES.map((n, i) => `
         <div class="flow-node flow-node--${n.type}"
@@ -1792,9 +1830,6 @@ function buildFlowNodes() {
     `).join('');
 }
 
-// ============================================================
-// СБОРКА ИНФОГРАФИКИ
-// ============================================================
 function buildInfographicHtml() {
     return `
         <div class="infographic-block">
@@ -1810,7 +1845,6 @@ function buildInfographicHtml() {
     `;
 }
 
-// Навешиваем интерактив на узлы (после того как HTML вставлен в DOM)
 function initInfographicInteractivity(stageEl) {
     if (!stageEl) return;
     const nodes = stageEl.querySelectorAll('.flow-node');
@@ -1819,14 +1853,8 @@ function initInfographicInteractivity(stageEl) {
     nodes.forEach(node => {
         node.addEventListener('mouseenter', () => {
             const id = node.dataset.id;
-
-            // Активируем сам блок
             node.classList.add('is-hovered');
-
-            // Приглушаем остальные блоки
             stageEl.classList.add('is-hovering');
-
-            // Подсвечиваем связанные стрелки
             edges.forEach(edge => {
                 if (edge.dataset.from === id || edge.dataset.to === id) {
                     edge.classList.add('is-active');
@@ -1843,7 +1871,7 @@ function initInfographicInteractivity(stageEl) {
 }
 
 // ============================================================
-// НАДЁЖНАЯ ПРОКРУТКА
+// ПРОКРУТКА
 // ============================================================
 function scrollToElementInPage(element) {
     if (!element) return;
@@ -1855,60 +1883,74 @@ function scrollToElementInPage(element) {
 }
 
 // ============================================================
-// ГЛАВНАЯ КАРТОЧКА
+// КАРТОЧКИ МОДУЛЕЙ
 // ============================================================
-async function renderIntroCard() {
-    const container = document.getElementById('introCardContainer');
+async function renderModuleCards() {
+    const grid = document.getElementById('modulesGrid');
     try {
         const manifest = await loadManifest();
-        if (!manifest.length) {
-            container.innerHTML = '<div class="module-error">manifest.json пуст</div>';
-            return;
-        }
-        const m = manifest[0];
-        container.innerHTML = `
-            <div class="intro-card" onclick="openModule('${m.id}')">
-                <div class="intro-card-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                    </svg>
+        grid.innerHTML = manifest.map((m, i) => {
+            const cat = m.category || 'procedures';
+            const icon = MODULE_ICONS[cat] || MODULE_ICONS.procedures;
+            const label = CATEGORY_LABELS[cat] || 'Модуль';
+            const modNumber = m.id.replace('mod', '').padStart(2, '0');
+            const hasAdvanced = !!m.advanced_file;
+
+            return `
+                <div class="module-card" style="animation-delay:${0.05 * i}s;">
+                    <div class="module-number">${modNumber}</div>
+                    <div class="module-icon">${icon}</div>
+                    <h3>${m.title || 'Модуль ' + modNumber}</h3>
+                    <p>${m.description || ''}</p>
+                    <div class="module-tags">
+                        <span class="module-tag">${label}</span>
+                        ${hasAdvanced ? '<span class="module-tag">2 версии</span>' : ''}
+                    </div>
+                    <div class="module-actions">
+                        <button class="module-btn module-btn--primary" onclick="openModule('${m.id}', false)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                            Читать
+                        </button>
+                        ${hasAdvanced ? `
+                            <button class="module-btn module-btn--advanced" onclick="openModule('${m.id}', true)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/>
+                                </svg>
+                                Для врачей
+                            </button>
+                        ` : ''}
+                    </div>
                 </div>
-                <h3>${m.title || 'Вводный модуль'}</h3>
-                <p>${m.description || ''}</p>
-                <div class="intro-tags">
-                    <span class="intro-tag">Вводный модуль</span>
-                    <span class="intro-tag">Обязательно к прочтению</span>
-                </div>
-                <div class="intro-cta">
-                    Читать модуль
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                </div>
-            </div>
-        `;
+            `;
+        }).join('');
     } catch(err) {
-        container.innerHTML = `<div class="module-error">Не удалось загрузить список материалов.<br>${err.message}</div>`;
+        grid.innerHTML = `<div class="module-error">Не удалось загрузить список модулей.<br>${err.message}</div>`;
     }
 }
 
 // ============================================================
 // ОТРИСОВКА МОДУЛЯ
 // ============================================================
-async function openModule(modId) {
-    try { history.pushState({page: modId}, '', '#' + modId); } catch(e) {}
-    await showPage(modId);
+async function openModule(modId, advanced = false) {
+    const hash = advanced ? `${modId}-adv` : modId;
+    try { history.pushState({page: hash}, '', '#' + hash); } catch(e) {}
+    await showPage(modId, advanced);
 }
 
-async function renderModule(modId) {
+async function renderModule(modId, advanced = false) {
     const container = document.getElementById('moduleContainer');
-    let page = document.getElementById(modId);
-    if (page) return page;
+    const pageId = advanced ? `${modId}-adv` : modId;
 
-    page = document.createElement('div');
+    // Удаляем старую страницу, если она была
+    const oldPage = document.getElementById(pageId);
+    if (oldPage) oldPage.remove();
+
+    const page = document.createElement('div');
     page.className = 'module-page';
-    page.id = modId;
+    page.id = pageId;
     page.innerHTML = `
         <div class="module-header">
             <div class="breadcrumb">
@@ -1917,7 +1959,6 @@ async function renderModule(modId) {
                 <span>Загрузка...</span>
             </div>
             <h1>Загрузка модуля...</h1>
-            <p></p>
         </div>
         <div class="module-layout">
             <div class="module-main">
@@ -1935,8 +1976,9 @@ async function renderModule(modId) {
         const item = manifest.find(m => m.id === modId);
         if (!item) throw new Error('Модуль не найден: ' + modId);
 
-        const md = await loadMd(item.file);
-        const mdNode = renderMarkdownToHtml(md, modId);
+        const filePath = advanced && item.advanced_file ? item.advanced_file : item.file;
+        const md = await loadMd(filePath);
+        const mdNode = renderMarkdownToHtml(md, pageId);
 
         const h1 = mdNode.querySelector('h1');
         let moduleTitle = h1 ? h1.textContent.trim() : (item.title || 'Модуль');
@@ -1974,30 +2016,58 @@ async function renderModule(modId) {
             `;
         }
 
-        const infographicHtml = buildInfographicHtml();
+        // Действия в шапке модуля
+        let headerActions = '';
+        if (item.advanced_file) {
+            if (advanced) {
+                headerActions += `
+                    <button class="header-btn" onclick="openModule('${modId}', false)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Базовая версия
+                    </button>
+                `;
+            } else {
+                headerActions += `
+                    <button class="header-btn header-btn--advanced" onclick="openModule('${modId}', true)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/>
+                        </svg>
+                        Версия для врачей
+                    </button>
+                `;
+            }
+        }
+        headerActions += `
+            <button class="header-btn" onclick="printCurrentModule()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9V2h12v7"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+                Распечатать
+            </button>
+        `;
+
+        const versionLabel = advanced ? ' · Версия для врачей' : '';
 
         page.innerHTML = `
             <div class="module-header">
                 <div class="breadcrumb">
                     <a onclick="goHome()">Главная</a>
                     <span>/</span>
-                    <span>${moduleTitle}</span>
+                    <span>${moduleTitle}${versionLabel}</span>
                 </div>
-                <h1>${moduleTitle}</h1>
+                <h1>${moduleTitle}${versionLabel}</h1>
                 ${subtitle ? `<p>${subtitle}</p>` : ''}
-                <button class="print-module-btn" onclick="printCurrentModule()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9V2h12v7"/>
-                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                        <rect x="6" y="14" width="12" height="8"/>
-                    </svg>
-                    Распечатать модуль
-                </button>
+                <div class="module-header-actions">
+                    ${headerActions}
+                </div>
             </div>
             <div class="module-layout">
                 <div class="module-main">
                     <div class="md-content">${mdNode.innerHTML}</div>
-                    ${infographicHtml}
                 </div>
                 <aside class="module-sidebar" ${sidebarHtml ? '' : 'style="display:none;"'}>
                     ${sidebarHtml}
@@ -2014,10 +2084,6 @@ async function renderModule(modId) {
             });
         });
 
-        // Активируем интерактив инфографики
-        const stage = page.querySelector('#flowStage');
-        if (stage) initInfographicInteractivity(stage);
-
         return page;
     } catch(err) {
         page.innerHTML = `
@@ -2031,7 +2097,7 @@ async function renderModule(modId) {
             </div>
             <div class="module-error">
                 ${err.message}<br><br>
-                Проверьте, что файл существует и <code>manifest.json</code> заполнен корректно.
+                Проверьте, что файл <code>${modId}</code> существует и <code>manifest.json</code> заполнен корректно.
             </div>
         `;
         throw err;
@@ -2078,7 +2144,7 @@ function openCheatSheet() {
 // ============================================================
 // НАВИГАЦИЯ
 // ============================================================
-async function showPage(pageId) {
+async function showPage(pageId, advanced = false) {
     const homePage = document.getElementById('homePage');
     const cheatPage = document.getElementById('cheatPage');
     const infographicPage = document.getElementById('infographicPage');
@@ -2103,11 +2169,11 @@ async function showPage(pageId) {
     } else {
         homePage.style.display = 'none';
         try {
-            const page = await renderModule(pageId);
+            const page = await renderModule(pageId, advanced);
             if (page) {
                 page.classList.add('active');
                 navHomeBtn.style.display = 'inline-flex';
-                initSidebarObserver(pageId);
+                initSidebarObserver(page.id);
             }
         } catch(err) {
             console.error(err);
@@ -2125,6 +2191,9 @@ window.addEventListener('popstate', async function() {
     const hash = window.location.hash.replace('#', '');
     if (hash === 'cheat' || hash === 'infographic') {
         await showPage(hash);
+    } else if (hash && hash.endsWith('-adv')) {
+        const modId = hash.replace('-adv', '');
+        await showPage(modId, true);
     } else if (hash) {
         await showPage(hash);
     } else {
@@ -2231,11 +2300,14 @@ window.addEventListener('scroll', () => {
 // INIT
 // ============================================================
 (async function init() {
-    await renderIntroCard();
+    await renderModuleCards();
 
     const hash = window.location.hash.replace('#', '');
     if (hash === 'cheat' || hash === 'infographic') {
         await showPage(hash);
+    } else if (hash && hash.endsWith('-adv')) {
+        const modId = hash.replace('-adv', '');
+        await showPage(modId, true);
     } else if (hash) {
         await showPage(hash);
     }
